@@ -1,4 +1,4 @@
-## self.iatiElements.py
+## iatiElements.py
 ## By Kasper Brandt
 ## Last updated on 08-04-2013
 
