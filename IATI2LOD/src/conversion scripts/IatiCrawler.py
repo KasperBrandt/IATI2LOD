@@ -31,142 +31,78 @@ def get_request(url, json_format):
     
     else:
         print "Something went wrong while connecting to " + url
-        sys.exit(0)
+        return None
 
-def check_triple_store(triple_store):
-    '''Check connection to triple store and retrieve the last server update.
-    Program quits when no connection could be established.
-    '0' is returned when no date is known.
-    
-    Parameters
-    @triple_store: The URL of the triple store.
-    
-    Returns
-    @last_updated: A DateTime of the last update.'''
-    
-    context = triple_store + "/context/provenance"
-    
-    query = """
-    SELECT ?date
-    FROM NAMED <""" + context + """>
-    WHERE {
-        GRAPH <""" + context + """>
-            { <""" + triple_store + """/context/iati> 
-              <""" + triple_store + """/last-updated>
-              ?date . }
-    }
-    """
-    
-    wrapper = SPARQLWrapper(triple_store)
-    wrapper.setQuery(query)
-    wrapper.setReturnFormat(JSON)
-    
-    try:
-        content = wrapper.query().convert()
-        print "Connection to triple store established..."
-        
-        last_updated = content['results']['bindings'][0]['date']['value']
-    except AttributeError:
-        last_updated = '0'
-    except:
-        print "Something went wrong while connecting to the triple store."
-        sys.exit(0)
-    
-    return last_updated
-
-def check_iati(iati_url):
-    '''Check whether the triple store and IATI API are working.
+def save_to_folder(folder, xml_url, name):
+    '''Check connection to IATI API and retrieve all document names.
     Retrieve all document names and the last time the server has checked for updates.
     
     Parameters
+    @folder: The location of the folder.
+    @xml_url: The URL of the XML containing activities.
+    @name: The document name.'''
+    
+    xml = get_request(xml_url, False)
+    
+    if not xml == None:
+        
+        with open(folder + name + '.xml', 'w') as file:
+            file.write(xml)
+    
+def check_connection(iati_url, limit):
+    '''Check connection to IATI API and retrieve all document names.
+    
+    Parameters
     @iati_url: The URL of the IATI datasets.
+    @limit: The max limit of the IATI server.
     
     Returns
     @all_documents: A list of a all document names.'''
     
-    data = get_request(iati_url, True)
-    print "Connection to IATI API established..."
-    
-    document_count = data['count']
-    document_count_url = iati_url + "&limit=" + str(document_count)
-    
-    documents = get_request(document_count_url, True)
-    print "Document list retrieved..."
-    
-    all_documents = documents['results']
-    
-    return all_documents
-
-def update_document(triple_store, xml_url, activities_in_document):
-    '''Check connection to IATI API and retrieve all document names.
-    Retrieve all document names and the last time the server has checked for updates.
-    
-    Parameters
-    @triple_store: The URL of the triple store.
-    @xml_url: The URL of the XML containing activities.
-    @activities_in_document: Total number of activities in the document.
-    
-    Returns
-    @Updated activities: An integer of updated activities.'''
-    
-    xml = get_request(xml_url, False)
-    parsed_xml = ET.fromstring(xml)
-    
-    count = 0
-    
-    for activity in parsed_xml.findall('iati-activity'):
-        
-        activity_parser = iati_activity(activity)
-        
-        last_activity_update = activity_parser.get_last_update()
-        activity_id = activity_parser.get_id()
-        
-        print str(last_activity_update) +" en ID is: "+ str(activity_id)
-        
-        #### HIER GEBLEVEN ####
-        
-        sys.exit(0)
-        
-        count += 1
-    
-    return count
-    
-def check_connections(triple_store, iati_url):
-    '''Check connection to IATI API and retrieve all document names.
-    Retrieve all document names and the last time the server has checked for updates.
-    
-    Parameters
-    @triple_store: The URL of the triple store.
-    @iati_url: The URL of the IATI datasets.
-    
-    Returns
-    @all_documents: A list of a all document names.
-    @server_update: A DateTime of the last server update.'''
-    
     iati_url = iati_url + "search/dataset?filetype=activity"
     
-    # Check connection to triple store and retrieve the last server update.
-    server_update = check_triple_store(triple_store)
+    data = get_request(iati_url, True)
     
-    # Check connection to IATI API and retrieve all document names.
-    all_documents = check_iati(iati_url)
+    if not data == None:
+        print "Connection to IATI API established..."
+        
+        document_count = data['count']
+        offset = 0
+        
+        all_documents = []
+        
+        while document_count > 0:
+        
+            document_count_url = iati_url + "&limit=" + str(document_count) + "&offset=" + str(offset)
+            
+            documents = get_request(document_count_url, True)
+            
+            for document in documents['results']:
+                all_documents.append(document)
+            
+            offset += limit
+            document_count -= limit
+            
+        print "Document list retrieved..."
+        
+        return all_documents
     
-    return all_documents, server_update
+    else:
+        sys.exit(0)
 
-def update_documents(triple_store, iati_url, all_documents, server_update):
+def update_documents(folder, iati_url, all_documents, server_update):
     '''Checking documents with the last time the server has been updated.
     Updates the triple store with new or updated activities.
     
     Parameters
-    @triple_store: The URL of the triple store.
+    @folder: Location of folder in which XML files are to be saved.
     @iati_url: The URL of the IATI API.
     @all_documents: A list of a all document names.
-    @server_update: A DateTime of the last server update.'''
+    @server_update: A DateTime of the last time the XMLs were checked.'''
     
     # Settings
     iati_url = iati_url + "rest/dataset/"
     counter = 1
-    activities_updated_count = 0
     
     # Check the last update for each document.
     for document in all_documents:
@@ -175,42 +111,35 @@ def update_documents(triple_store, iati_url, all_documents, server_update):
         
         # Check if the data is open and if updating is needed.
         if (data['isopen']) and (server_update < data['metadata_modified']):
-                print str(document) + " needs updating..."
-                
-                activity_count = data['extras']['activity_count']
-                
-                activities_updated = update_document(triple_store, data['download_url'], activity_count)
-                activities_updated_count += activities_updated
-        
-        # DEBUG: take only first document.
-        if counter == 1:
-            print "Number of activities updated: " + str(activities_updated_count)
             
-            sys.exit(0)
-            break
+                save_to_folder(folder, data['download_url'].replace(' ','%20'), document)
+                
+        else:
+            print "Skipping " + str(document) + "..."
+        
+        print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
         
         counter += 1
 
 def main():
-    '''Updates the Triple Store based on IATI data'''
+    '''Crawls the IATI registry for XMLs and stores the XMLs locally.'''
     
     # Initial settings
-    triple_store = "http://localhost:8080/openrdf-sesame/repositories/iati"
     iati_url = "http://www.iatiregistry.org/api/"
+    max_limit = 1000
+    folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/"
     
-    print "Checking connections..."
-    # Check whether the triple store and IATI API are working.
-    # Retrieve all document names and the last time the server has checked for updates.
-    all_documents, server_update = check_connections(triple_store, iati_url)
+    # Last time the script was run: "2013-10-04"
+    last_time_updated = "1990"
     
-    print "Checking which documents have been updated..."
-    # Checking documents with the last time the server has been updated.
-    # Updates the triple store with new or updated activities.
-    update_documents(triple_store, iati_url, all_documents, server_update)
+    print "Checking connection to IATI API..."
+    # Check whether the IATI API is working and retrieve all document names
+    all_documents = check_connection(iati_url, max_limit)
     
-    print "Updating the server update time..."
-    # Update the provenance named graph
-    update_provenance(triple_store)
+    print "Storing XML files to local folder..."
+    # Checking documents with the last time they have been checked.
+    # Adds XMLs to local folder.
+    update_documents(folder, iati_url, all_documents, last_time_updated)
     
     print "Done!"
     
