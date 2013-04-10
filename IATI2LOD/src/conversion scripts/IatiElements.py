@@ -262,11 +262,13 @@ class IatiElements :
         for element in xml:
             
             info = element.text
-            info = " ".join(info.split())
             
-            self.graph.add((self.iati['activity/' + self.id + '/contact-info'],
-                            self.iati[element.tag],
-                            Literal(info)))
+            if not info == None:
+                info = " ".join(info.split())
+                
+                self.graph.add((self.iati['activity/' + self.id + '/contact-info'],
+                                self.iati[element.tag],
+                                Literal(info)))
     
     def participating_org(self, xml):
         '''Converts the XML of the participating-org element to a RDFLib self.graph.
@@ -1646,3 +1648,13 @@ class IatiElements :
                                             comment_text))                        
                 
                 indicator_counter += 1
+
+    def legacy_data(self, xml):
+        '''Converts the XML of the legacy-data element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Skipped
+        
+        skip = True
