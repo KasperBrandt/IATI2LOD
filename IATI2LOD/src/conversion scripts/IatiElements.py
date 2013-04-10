@@ -4,6 +4,7 @@
 
 from rdflib import RDF, RDFS, Literal, URIRef
 from rdflib.graph import Graph
+import AttributeHelper
 
 class IatiElements :
     '''Class for converting XML elements of self.iati activities to a RDFLib self.graph.'''
@@ -28,49 +29,6 @@ class IatiElements :
         
         self.graph = Graph()
         self.graph.bind('iati', self.iati)
-    
-    def __attribute_key(self, xml, key):
-        '''Checks whether a key is in the XML.
-        Returns the value of the key or None if not present.
-        
-        Parameters
-        @xml: An ElementTree.
-        @key: A string of the key.
-        
-        Returns
-        @value: The value of the key or None if not present.'''
-        
-        try:
-            return xml.attrib[key]
-        
-        except KeyError:
-            return None
-
-    def __attribute_text(self, xml, language):
-        '''Checks whether an element has a text and picks the correct language.
-        
-        Parameters
-        @xml: An ElemenTree of the element.
-        @language: The default language of the activity.
-        
-        Returns
-        @literal: A RDFLib Literal or None.'''
-        
-        if xml.text == None:
-            return None
-        
-        node_language = self.__attribute_key(xml, "{http://www.w3.org/XML/1998/namespace}lang")
-        
-        text = xml.text
-        formatted_text = " ".join(text.split())
-        
-        if not node_language == None:
-            return Literal(formatted_text, lang=node_language)
-        
-        if not language == None:
-            return Literal(formatted_text, lang=language)
-        
-        return Literal(formatted_text)
         
     def __update_progress(self, element):
         '''Updates the progress of the number of elements.
@@ -99,11 +57,11 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        ref = self.__attribute_key(xml, 'ref')
-        type = self.__attribute_key(xml, 'type')
+        ref = AttributeHelper.attribute_key(xml, 'ref')
+        type = AttributeHelper.attribute_key(xml, 'type')
         
         # Text
-        name = self.__attribute_text(xml, self.default_language)
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -151,8 +109,8 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        owner_ref = self.__attribute_key(xml, 'owner-ref')
-        owner_name = self.__attribute_key(xml, 'owner-name')
+        owner_ref = AttributeHelper.attribute_key(xml, 'owner-ref')
+        owner_name = AttributeHelper.attribute_key(xml, 'owner-name')
         
         # Text
         name = xml.text
@@ -195,7 +153,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Text
-        title = self.__attribute_text(xml, self.default_language)
+        title = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not title == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -209,10 +167,10 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        type = self.__attribute_key(xml, 'type')
+        type = AttributeHelper.attribute_key(xml, 'type')
         
         # Text
-        description = self.__attribute_text(xml, self.default_language)
+        description = AttributeHelper.attribute_language(xml, self.default_language)
         
         # Progress
         self.__update_progress('description')
@@ -242,7 +200,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -256,8 +214,8 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        type = self.__attribute_key(xml, 'type')
-        iso_date = self.__attribute_key(xml, 'iso-date')
+        type = AttributeHelper.attribute_key(xml, 'type')
+        iso_date = AttributeHelper.attribute_key(xml, 'iso-date')
         
         # Text
         date = xml.text
@@ -313,12 +271,12 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        ref = self.__attribute_key(xml, 'ref')
-        type = self.__attribute_key(xml, 'type')
-        role = self.__attribute_key(xml, 'role')
+        ref = AttributeHelper.attribute_key(xml, 'ref')
+        type = AttributeHelper.attribute_key(xml, 'type')
+        role = AttributeHelper.attribute_key(xml, 'role')
         
         # Text
-        name = self.__attribute_text(xml, self.default_language)
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -355,11 +313,11 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
-        percentage = self.__attribute_key(xml, 'percentage')
+        code = AttributeHelper.attribute_key(xml, 'code')
+        percentage = AttributeHelper.attribute_key(xml, 'percentage')
         
         # Text
-        country_name = self.__attribute_text(xml, self.default_language)
+        country_name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -391,11 +349,11 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
-        percentage = self.__attribute_key(xml, 'percentage')
+        code = AttributeHelper.attribute_key(xml, 'code')
+        percentage = AttributeHelper.attribute_key(xml, 'percentage')
         
         # Text
-        region_name = self.__attribute_text(xml, self.default_language)
+        region_name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -427,7 +385,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        percentage = self.__attribute_key(xml, 'percentage')
+        percentage = AttributeHelper.attribute_key(xml, 'percentage')
         
         # Elements
         name = xml.find('name')
@@ -450,7 +408,7 @@ class IatiElements :
         
         if not name == None:
             # Text
-            name_text = self.__attribute_text(name, self.default_language)
+            name_text = AttributeHelper.attribute_language(name, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
                             RDFS.label,
@@ -461,10 +419,10 @@ class IatiElements :
             
             for description in descriptions:
                 # Keys
-                type = self.__attribute_key(description, 'type')
+                type = AttributeHelper.attribute_key(description, 'type')
                 
                 # Text
-                description_text = self.__attribute_text(description, self.default_language)
+                description_text = AttributeHelper.attribute_language(description, self.default_language)
                 
                 if not description_text == None:
                     self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
@@ -492,7 +450,7 @@ class IatiElements :
         
         if not location_type == None:
             # Keys
-            location_type_code = self.__attribute_key(location_type, 'code')
+            location_type_code = AttributeHelper.attribute_key(location_type, 'code')
             
             if not location_type_code == None:
                 self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
@@ -501,10 +459,10 @@ class IatiElements :
         
         if not administrative == None:
             # Keys
-            administrative_country = self.__attribute_key(administrative, 'country')
+            administrative_country = AttributeHelper.attribute_key(administrative, 'country')
             
             # Text
-            administrative_text = self.__attribute_text(administrative, self.default_language)
+            administrative_text = AttributeHelper.attribute_language(administrative, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
                             self.iati['location-administrative'],
@@ -525,9 +483,9 @@ class IatiElements :
         
         if not coordinates == None:
             # Keys
-            latitude = self.__attribute_key(coordinates, 'latitude')
-            longitude = self.__attribute_key(coordinates, 'longitude')
-            precision = self.__attribute_key(coordinates, 'precision')
+            latitude = AttributeHelper.attribute_key(coordinates, 'latitude')
+            longitude = AttributeHelper.attribute_key(coordinates, 'longitude')
+            precision = AttributeHelper.attribute_key(coordinates, 'precision')
             
             self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
                             self.iati['location-coordinates'],
@@ -553,7 +511,7 @@ class IatiElements :
         
         if not gazetteer_entry == None:
             # Keys
-            gazetteer_ref = self.__attribute_key(gazetteer_entry, 'gazetteer-ref')
+            gazetteer_ref = AttributeHelper.attribute_key(gazetteer_entry, 'gazetteer-ref')
             
             # Text
             gazetteer_entry_text = gazetteer_entry.text
@@ -573,12 +531,12 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
-        vocabulary = self.__attribute_key(xml, 'vocabulary')
-        percentage = self.__attribute_key(xml, 'percentage')
+        code = AttributeHelper.attribute_key(xml, 'code')
+        vocabulary = AttributeHelper.attribute_key(xml, 'vocabulary')
+        percentage = AttributeHelper.attribute_key(xml, 'percentage')
         
         # Text
-        name = self.__attribute_text(xml, self.default_language)
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
             if not vocabulary == None:
@@ -617,12 +575,12 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
-        vocabulary = self.__attribute_key(xml, 'vocabulary')
-        significance = self.__attribute_key(xml, 'significance')
+        code = AttributeHelper.attribute_key(xml, 'code')
+        vocabulary = AttributeHelper.attribute_key(xml, 'vocabulary')
+        significance = AttributeHelper.attribute_key(xml, 'significance')
         
         # Text
-        name = self.__attribute_text(xml, self.default_language)
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
             if not vocabulary == None:
@@ -661,7 +619,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -675,7 +633,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -691,7 +649,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -705,7 +663,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -719,7 +677,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        code = self.__attribute_key(xml, 'code')
+        code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -733,7 +691,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        type = self.__attribute_key(xml, 'type')
+        type = AttributeHelper.attribute_key(xml, 'type')
         
         # Elements
         period_start = xml.find('period-start')
@@ -758,10 +716,10 @@ class IatiElements :
         
         if not period_start == None:
             # Keys
-            date = self.__attribute_key(period_start, 'iso-date')
+            date = AttributeHelper.attribute_key(period_start, 'iso-date')
             
             # Text
-            period_start_text = self.__attribute_text(period_start, self.default_language)
+            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
                             self.iati['budget-period-start'],
@@ -782,10 +740,10 @@ class IatiElements :
         
         if not period_end == None:
             # Keys
-            date = self.__attribute_key(period_end, 'iso-date')
+            date = AttributeHelper.attribute_key(period_end, 'iso-date')
             
             # Text
-            period_end_text = self.__attribute_text(period_end, self.default_language)
+            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
                             self.iati['budget-period-end'],
@@ -806,8 +764,8 @@ class IatiElements :
         
         if not value == None:
             # Keys
-            currency = self.__attribute_key(value, 'currency')
-            value_date = self.__attribute_key(value, 'value-date')
+            currency = AttributeHelper.attribute_key(value, 'currency')
+            value_date = AttributeHelper.attribute_key(value, 'value-date')
             
             # Text
             value_text = value.text
@@ -848,7 +806,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        updated = self.__attribute_key(xml, 'updated')
+        updated = AttributeHelper.attribute_key(xml, 'updated')
         
         # Elements
         period_start = xml.find('period-start')
@@ -876,10 +834,10 @@ class IatiElements :
         
         if not period_start == None:
             # Keys
-            date = self.__attribute_key(period_start, 'iso-date')
+            date = AttributeHelper.attribute_key(period_start, 'iso-date')
             
             # Text
-            period_start_text = self.__attribute_text(period_start, defaults['language'])
+            period_start_text = AttributeHelper.attribute_language(period_start, defaults['language'])
             
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
@@ -901,10 +859,10 @@ class IatiElements :
         
         if not period_end == None:
             # Keys
-            date = self.__attribute_key(period_end, 'iso-date')
+            date = AttributeHelper.attribute_key(period_end, 'iso-date')
             
             # Text
-            period_end_text = self.__attribute_text(period_end, defaults['language'])
+            period_end_text = AttributeHelper.attribute_language(period_end, defaults['language'])
             
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
@@ -926,8 +884,8 @@ class IatiElements :
         
         if not value == None:
             # Keys
-            currency = self.__attribute_key(value, 'currency')
-            value_date = self.__attribute_key(value, 'value-date')
+            currency = AttributeHelper.attribute_key(value, 'currency')
+            value_date = AttributeHelper.attribute_key(value, 'value-date')
             
             # Text
             value_text = value.text
@@ -975,7 +933,7 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        ref = self.__attribute_key(xml, 'ref')
+        ref = AttributeHelper.attribute_key(xml, 'ref')
         
         # Elements
         aid_type = xml.find('aid-type')
@@ -1009,7 +967,7 @@ class IatiElements :
         
         if not aid_type == None:
             # Keys
-            code = self.__attribute_key(aid_type, 'code')
+            code = AttributeHelper.attribute_key(aid_type, 'code')
             
             if not code == None:
                 self.graph.add((transaction_id,
@@ -1031,10 +989,10 @@ class IatiElements :
             
             for description in descriptions:
                 # Keys
-                type = self.__attribute_key(description, 'type')
+                type = AttributeHelper.attribute_key(description, 'type')
                 
                 # Text
-                description_text = self.__attribute_text(description, self.default_language)
+                description_text = AttributeHelper.attribute_language(description, self.default_language)
                 
                 if not description_text == None:
                     self.graph.add((transaction_id,
@@ -1058,7 +1016,7 @@ class IatiElements :
         
         if not disbursement_channel == None:
             # Keys
-            code = self.__attribute_key(disbursement_channel, 'code')
+            code = AttributeHelper.attribute_key(disbursement_channel, 'code')
             
             self.graph.add((transaction_id,
                             self.iati['disbursement-channel'],
@@ -1066,7 +1024,7 @@ class IatiElements :
         
         if not finance_type == None:
             # Keys
-            code = self.__attribute_key(finance_type, 'code')
+            code = AttributeHelper.attribute_key(finance_type, 'code')
             
             if not code == None:
                 self.graph.add((transaction_id,
@@ -1085,7 +1043,7 @@ class IatiElements :
         
         if not flow_type == None:
             # Keys
-            code = self.__attribute_key(flow_type, 'code')
+            code = AttributeHelper.attribute_key(flow_type, 'code')
             
             if not code == None:
                 self.graph.add((transaction_id,
@@ -1104,8 +1062,8 @@ class IatiElements :
         
         if not provider_org == None:
             # Keys
-            ref = self.__attribute_key(provider_org, 'ref')
-            provider_activity_id = self.__attribute_key(provider_org, 'provider-activity-id')
+            ref = AttributeHelper.attribute_key(provider_org, 'ref')
+            provider_activity_id = AttributeHelper.attribute_key(provider_org, 'provider-activity-id')
             
             # Text
             provider_org_text = provider_org.text
@@ -1127,8 +1085,8 @@ class IatiElements :
                 
         if not receiver_org == None:
             # Keys
-            ref = self.__attribute_key(receiver_org, 'ref')
-            receiver_activity_id = self.__attribute_key(receiver_org, 'receiver-activity-id')
+            ref = AttributeHelper.attribute_key(receiver_org, 'ref')
+            receiver_activity_id = AttributeHelper.attribute_key(receiver_org, 'receiver-activity-id')
             
             # Text
             receiver_org_text = receiver_org.text
@@ -1150,7 +1108,7 @@ class IatiElements :
     
         if not tied_status == None:
             # Keys
-            code = self.__attribute_key(tied_status, 'code')
+            code = AttributeHelper.attribute_key(tied_status, 'code')
             
             if not code == None:
                 self.graph.add((transaction_id,
@@ -1169,7 +1127,7 @@ class IatiElements :
         
         if not transaction_date == None:
             # Keys
-            iso_date = self.__attribute_key(transaction_date, 'iso-date')
+            iso_date = AttributeHelper.attribute_key(transaction_date, 'iso-date')
             
             if not iso_date == None:
                 self.graph.add((transaction_id,
@@ -1178,7 +1136,7 @@ class IatiElements :
             
         if not transaction_type == None:
             # Keys
-            code = self.__attribute_key(transaction_type, 'code')
+            code = AttributeHelper.attribute_key(transaction_type, 'code')
             
             if not code == None:
                 self.graph.add((transaction_id,
@@ -1187,8 +1145,8 @@ class IatiElements :
                                          
         if not value == None:
             # Keys
-            currency = self.__attribute_key(value, 'currency')
-            value_date = self.__attribute_key(value, 'value-date')
+            currency = AttributeHelper.attribute_key(value, 'currency')
+            value_date = AttributeHelper.attribute_key(value, 'value-date')
             
             # Text
             value_text = value.text
@@ -1229,8 +1187,8 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        url = self.__attribute_key(xml, 'url')
-        format = self.__attribute_key(xml, 'format')
+        url = AttributeHelper.attribute_key(xml, 'url')
+        format = AttributeHelper.attribute_key(xml, 'format')
         
         # Elements
         titles = xml.findall('title')
@@ -1261,7 +1219,7 @@ class IatiElements :
         if not titles == []:
             for title in titles:
                 # Text
-                name = self.__attribute_text(title, self.default_language)
+                name = AttributeHelper.attribute_language(title, self.default_language)
                 
                 self.graph.add((self.iati['document-link' + str(self.progress['document_link'])],
                                 RDFS.label,
@@ -1269,7 +1227,7 @@ class IatiElements :
                 
         if not category == None:
             # Keys
-            code = self.__attribute_key(category, 'code')
+            code = AttributeHelper.attribute_key(category, 'code')
             
             self.graph.add((self.iati['document-link' + str(self.progress['document_link'])],
                             self.iati['document-category'],
@@ -1278,10 +1236,10 @@ class IatiElements :
         if not languages == []:
             for language in languages:
                 # Keys
-                code = self.__attribute_key(language, 'code')
+                code = AttributeHelper.attribute_key(language, 'code')
                 
                 # Text
-                name = self.__attribute_text(language, self.default_language)
+                name = AttributeHelper.attribute_language(language, self.default_language)
                 
                 if not code == None:
                     self.graph.add((self.iati['document-link' + str(self.progress['document_link'])],
@@ -1304,11 +1262,11 @@ class IatiElements :
         self.iati = defaults['namespace']
         
         # Keys
-        ref = self.__attribute_key(xml, 'ref')
-        type = self.__attribute_key(xml, 'type')
+        ref = AttributeHelper.attribute_key(xml, 'ref')
+        type = AttributeHelper.attribute_key(xml, 'type')
         
         # Text
-        name = self.__attribute_text(xml, defaults['language'])
+        name = AttributeHelper.attribute_language(xml, defaults['language'])
         
         if not ref == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -1343,10 +1301,10 @@ class IatiElements :
             
             for condition in conditions:
                 # Keys
-                type = self.__attribute_key(condition, 'type')
+                type = AttributeHelper.attribute_key(condition, 'type')
                 
                 # Text
-                condition_text = self.__attribute_text(condition, defaults['language'])
+                condition_text = AttributeHelper.attribute_language(condition, defaults['language'])
                 
                 if not condition_text == None:
                        self.graph.add((self.iati['activity/' + self.id],
@@ -1371,8 +1329,8 @@ class IatiElements :
         @xml: The XML of this element.'''
         
         # Keys
-        type = self.__attribute_key(xml, 'type')
-        aggregation_status = self.__attribute_key(xml, 'aggregation-status')
+        type = AttributeHelper.attribute_key(xml, 'type')
+        aggregation_status = AttributeHelper.attribute_key(xml, 'aggregation-status')
         
         # Elements
         titles = xml.findall('title')
@@ -1393,7 +1351,7 @@ class IatiElements :
         if not titles == []:
             for title in titles:
                 # Text
-                title_text = self.__attribute_text(title, defaults['language'])
+                title_text = AttributeHelper.attribute_language(title, defaults['language'])
                 
                 if not title_text == None:
                     self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result'])],
@@ -1405,10 +1363,10 @@ class IatiElements :
             
             for description in descriptions:
                 # Keys
-                type = self.__attribute_key(description, 'type')
+                type = AttributeHelper.attribute_key(description, 'type')
                 
                 # Text
-                description_text = self.__attribute_text(description, defaults['language'])
+                description_text = AttributeHelper.attribute_language(description, defaults['language'])
                 
                 if not description_text == None:
                     self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result'])],
@@ -1439,8 +1397,8 @@ class IatiElements :
             
             for indicator in indicators:
                 # Keys
-                measure = self.__attribute_key(description, 'measure')
-                ascending = self.__attribute_key(description, 'ascending')
+                measure = AttributeHelper.attribute_key(description, 'measure')
+                ascending = AttributeHelper.attribute_key(description, 'ascending')
                 
                 # Elements
                 titles = indicator.findall('title')
@@ -1473,7 +1431,7 @@ class IatiElements :
                 if not titles == []:
                     for title in titles:
                         # Text
-                        title_text = self.__attribute_text(title, defaults['language'])
+                        title_text = AttributeHelper.attribute_language(title, defaults['language'])
                         
                         if not title_text == None:
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1486,10 +1444,10 @@ class IatiElements :
                     
                     for description in descriptions:
                         # Keys
-                        type = self.__attribute_key(description, 'type')
+                        type = AttributeHelper.attribute_key(description, 'type')
                         
                         # Text
-                        description_text = self.__attribute_text(description, defaults['language'])
+                        description_text = AttributeHelper.attribute_language(description, defaults['language'])
                         
                         if not description_text == None:
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1532,10 +1490,10 @@ class IatiElements :
                         
                         if not period_start == None:
                             # Keys
-                            date = self.__attribute_key(period_start, 'iso-date')
+                            date = AttributeHelper.attribute_key(period_start, 'iso-date')
                             
                             # Text
-                            period_start_text = self.__attribute_text(period_start, defaults['language'])
+                            period_start_text = AttributeHelper.attribute_language(period_start, defaults['language'])
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter)],
@@ -1557,10 +1515,10 @@ class IatiElements :
                             
                         if not period_end == None:
                             # Keys
-                            date = self.__attribute_key(period_end, 'iso-date')
+                            date = AttributeHelper.attribute_key(period_end, 'iso-date')
                             
                             # Text
-                            period_end_text = self.__attribute_text(period_end, defaults['language'])
+                            period_end_text = AttributeHelper.attribute_language(period_end, defaults['language'])
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter)],
@@ -1582,7 +1540,7 @@ class IatiElements :
                         
                         if not target == None:
                             # Keys
-                            value = self.__attribute_key(target, 'value')
+                            value = AttributeHelper.attribute_key(target, 'value')
                             
                             if not value == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1592,7 +1550,7 @@ class IatiElements :
                             
                         if not actual == None:
                             # Keys
-                            value = self.__attribute_key(actual, 'value')
+                            value = AttributeHelper.attribute_key(actual, 'value')
                             
                             if not value == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1604,8 +1562,8 @@ class IatiElements :
                         
                     if not baseline == None:
                         # Keys
-                        year = self.__attribute_key(baseline, 'year')
-                        value = self.__attribute_key(baseline, 'value')
+                        year = AttributeHelper.attribute_key(baseline, 'year')
+                        value = AttributeHelper.attribute_key(baseline, 'value')
                         
                         # Elements
                         comment = baseline.find('comment')
@@ -1630,7 +1588,7 @@ class IatiElements :
                         
                         if not comment == None:
                             # Text
-                            comment_text = self.__attribute_text(comment, defaults['language'])
+                            comment_text = AttributeHelper.attribute_language(comment, defaults['language'])
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter) + '/baseline'],

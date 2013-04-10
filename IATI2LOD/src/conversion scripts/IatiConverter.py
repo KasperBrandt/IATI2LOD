@@ -5,6 +5,7 @@
 from rdflib import Namespace, Literal, XSD, URIRef, Graph
 import xml.etree.ElementTree as ET
 from IatiElements import IatiElements
+import AttributeHelper
 
 
 class iati_activity :
@@ -27,56 +28,7 @@ class iati_activity :
                                                       'linked-data-uri',
                                                       '{http://www.w3.org/XML/1998/namespace}lang']),
                                    ('title', ['{http://www.w3.org/XML/1998/namespace}lang'])])
-    
-        
-    def __attribute_key(self, xml, key):
-        '''Checks whether a key is in the XML.
-        Returns the value of the key or None if not present.
-        
-        Parameters
-        @xml: An ElementTree.
-        @key: A string of the key.
-        
-        Returns
-        @value: The value of the key or None if not present.'''
-        
-        try:
-            return xml.attrib[key]
-        
-        except KeyError:
-            return None
 
-    def __attribute_text(self, xml, attribute):
-        '''Checks whether an attribute is in the XML.
-        Returns the value of the text or None if not present.
-        
-        Parameters
-        @xml: An ElementTree.
-        @attribute: A string of the attribute.
-        
-        Returns
-        @value_list: A list of possible text values of the attribute 
-                     or None if not present.'''
-        
-        value_list = []
-        
-        try:
-            for element in xml.findall(attribute):
-                value_list.append(element.text)
-            
-            if value_list == []:
-                return None
-            else:
-                return value_list
-        
-        except AttributeError:
-            return None
-    
-    def __convert_activity(self):
-        '''Converts the activity metadata.'''
-        
-        self.__check_attributes(self.xml.attrib)
-        
 
     def get_last_update(self):
         '''Gets the last update DateTime of the activity.
@@ -84,7 +36,7 @@ class iati_activity :
         Returns
         @last_update: A DateTime of the last update.'''
         
-        return self.__attribute_key(self.xml, 'last-updated-datetime')
+        return AttributeHelper.attribute_key(self.xml, 'last-updated-datetime')
 
     
     def get_id(self):
@@ -93,7 +45,7 @@ class iati_activity :
         Returns
         @activity_id: The ID of the activity.'''
         
-        id = self.__attribute_text(self.xml, 'iati-identifier')
+        id = AttributeHelper.attribute_text(self.xml, 'iati-identifier')
         
         if not id == None:
             return str(id[0].split()[0])
@@ -106,7 +58,7 @@ class iati_activity :
         Returns
         @default_currency: The default currency of the activity.'''
         
-        default_currency = self.__attribute_text(self.xml, 'default-currency')
+        default_currency = AttributeHelper.attribute_text(self.xml, 'default-currency')
         
         if not default_currency == None:
             return default_currency[0]
@@ -119,7 +71,7 @@ class iati_activity :
         Returns
         @default_language: The default language of the activity.'''
         
-        default_language = self.__attribute_key(self.xml, '{http://www.w3.org/XML/1998/namespace}lang')
+        default_language = AttributeHelper.attribute_key(self.xml, '{http://www.w3.org/XML/1998/namespace}lang')
         
         return default_language
     
@@ -137,7 +89,7 @@ class iati_activity :
         if default_type == None:
             return None
         
-        return self.__attribute_key(default_type, 'code') 
+        return AttributeHelper.attribute_key(default_type, 'code') 
     
     def get_defaults(self):
         '''Returns the defaults of the activity.
