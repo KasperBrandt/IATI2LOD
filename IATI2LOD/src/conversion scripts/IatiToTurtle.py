@@ -41,7 +41,7 @@ def main():
                 turtle_file.write(graph_turtle)
             
             # Add provenance
-            provenance.add((URIRef(Iati + 'graph/' + id + '.ttl'),
+            provenance.add((URIRef(Iati + 'graph/' + id),
                             URIRef(Iati + 'last-updated'),
                             Literal(last_updated)))
             
