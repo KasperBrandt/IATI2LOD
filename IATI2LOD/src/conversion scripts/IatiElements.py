@@ -94,9 +94,10 @@ class IatiElements :
         
         # Text
         id = xml.text
-        id = " ".join(id.split())
         
         if not id == None:
+            id = " ".join(id.split())
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-id'],
                             Literal(id)))
@@ -113,9 +114,10 @@ class IatiElements :
         
         # Text
         name = xml.text
-        name = " ".join(name.split())
         
         if not name == None:
+            name = " ".join(name.split())
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-other-identifier'],
                             self.iati['activity/' + self.id + '/other-identifier' + str(name)]))
@@ -138,9 +140,10 @@ class IatiElements :
         
         # Text
         website = xml.text
-        website = " ".join(website.split())
         
         if not website == None:
+            website = " ".join(website.split())
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-website'],
                             Literal(website)))
@@ -218,12 +221,14 @@ class IatiElements :
         
         # Text
         date = xml.text
-        date = " ".join(date.split())
         
         if not iso_date == None:
             date = iso_date
+            date = " ".join(date.split())
         
         if not date == None:
+            date = " ".join(date.split())
+            
             if type == "start-actual":
                 self.graph.add((self.iati['activity/' + self.id],
                                 self.iati['activity-actual-start-date'],
@@ -547,10 +552,10 @@ class IatiElements :
             
             # Text
             gazetteer_entry_text = gazetteer_entry.text
-            gazetteer_entry_text = " ".join(gazetteer_entry_text.split())
             
             if not gazetteer_ref == None:
                 if not gazetteer_entry_text == None:
+                    gazetteer_entry_text = " ".join(gazetteer_entry_text.split())
                 
                     self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
                                     self.iati['location-gazetteer-entry'],
@@ -801,9 +806,10 @@ class IatiElements :
             
             # Text
             value_text = value.text
-            value_text = " ".join(value_text.split())
             
             if not value_text == None:
+                value_text = " ".join(value_text.split())
+                
                 self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
                                 self.iati['budget-value'],
                                 self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + '/value']))
@@ -921,9 +927,10 @@ class IatiElements :
             
             # Text
             value_text = value.text
-            value_text = " ".join(value_text.split())
             
             if not value_text == None:
+                value_text = " ".join(value_text.split())
+                
                 self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                           str(self.progress['planned_disbursement'])],
                                 self.iati['planned-disbursement-value'],
@@ -1099,11 +1106,17 @@ class IatiElements :
             
             # Text
             provider_org_text = provider_org.text
-            provider_org_text = " ".join(provider_org_text.split())
             
             self.graph.add((transaction_id,
                             self.iati['provider-org'],
                             URIRef(transaction_id + '/provider-org')))        
+            
+            if not provider_org_text == None:
+                provider_org_text = " ".join(provider_org_text.split())
+                
+                self.graph.add((URIRef(transaction_id + '/provider-org'),
+                                RDFS.label,
+                                Literal(provider_org_text)))
             
             if not ref == None:
                 self.graph.add((URIRef(transaction_id + '/provider-org'),
@@ -1122,11 +1135,17 @@ class IatiElements :
             
             # Text
             receiver_org_text = receiver_org.text
-            receiver_org_text = " ".join(receiver_org_text.split())
             
             self.graph.add((transaction_id,
                             self.iati['receiver-org'],
                             URIRef(transaction_id + '/receiver-org')))        
+            
+            if not receiver_org_text == None:
+                receiver_org_text = " ".join(receiver_org_text.split())
+                
+                self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                                RDFS.label,
+                                Literal(receiver_org_text)))                
             
             if not ref == None:
                 self.graph.add((URIRef(transaction_id + '/receiver-org'),
@@ -1182,9 +1201,10 @@ class IatiElements :
             
             # Text
             value_text = value.text
-            value_text = " ".join(value_text.split())
             
             if not value_text == None:
+                value_text = " ".join(value_text.split())
+                
                 self.graph.add((transaction_id,
                                 self.iati['transaction-value'],
                                 URIRef(transaction_id + '/value')))
