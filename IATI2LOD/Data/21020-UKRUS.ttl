@@ -1,0 +1,88 @@
+@prefix iati: <http://localhost:3020/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS> rdfs:label "Scaling Up National Response to HIV/AIDS through Information and Services (SUNRISE) in Ukraine"@en ;
+    iati:activity-actual-end-date "2011-12-18" ;
+    iati:activity-actual-start-date "2004-08-18" ;
+    iati:activity-budget <http://localhost:3020/iati/activity/21020-UKRUS/budget1> ;
+    iati:activity-collaboration-type <http://localhost:3020/iati/codelist/CollaborationType/6> ;
+    iati:activity-contact-info <http://localhost:3020/iati/activity/21020-UKRUS/contact-info> ;
+    iati:activity-default-aid-type <http://localhost:3020/iati/codelist/AidType/C01> ;
+    iati:activity-default-flow-type <http://localhost:3020/iati/codelist/FlowType/30> ;
+    iati:activity-description <http://localhost:3020/iati/activity/21020-UKRUS/description1> ;
+    iati:activity-id "21020-UKRUS" ;
+    iati:activity-participating-org <http://localhost:3020/iati/activity/21020-UKRUS/participating-org/>,
+        <http://localhost:3020/iati/activity/21020-UKRUS/participating-org/21020> ;
+    iati:activity-planned-end-date "2011-12-18" ;
+    iati:activity-planned-start-date "2004-08-18" ;
+    iati:activity-recipient-country <http://localhost:3020/iati/activity/21020-UKRUS/recipient-country/UA> ;
+    iati:activity-reporting-org <http://localhost:3020/iati/activity/21020-UKRUS/activity-reporting-org/21020> ;
+    iati:activity-status <http://localhost:3020/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://localhost:3020/iati/activity/21020-UKRUS/transaction1> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/activity-reporting-org/21020> a iati:organisation ;
+    rdfs:label "International HIV/AIDS Alliance"@en ;
+    iati:organisation-code <http://localhost:3020/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-type <http://localhost:3020/iati/codelist/OrganisationType/21> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/budget1> a iati:budget ;
+    iati:budget-period-end <http://localhost:3020/iati/activity/21020-UKRUS/budget1/period-end> ;
+    iati:budget-period-start <http://localhost:3020/iati/activity/21020-UKRUS/budget1/period-start> ;
+    iati:budget-type <http://localhost:3020/iati/codelist/BudgetType/original> ;
+    iati:budget-value <http://localhost:3020/iati/activity/21020-UKRUS/budget1/value> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/budget1/period-end> iati:date "2011-12-18" .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/budget1/period-start> iati:date "2010-12-19" .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/budget1/value> a iati:value ;
+    iati:value "1944394" ;
+    iati:value-date "2011-09-11Z" .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/contact-info> iati:email "mail@aidsalliance.org" ;
+    iati:mailing-address "International HIV/AIDS Alliance (Secretariat),1st and 2nd Floor,Preece House, 91-101 Davigdor Road Hove, BN3 1RE, United Kingdom" ;
+    iati:organisation "International HIV/AIDS Alliance" ;
+    iati:telephone "+441273718900" .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/description1> a iati:description ;
+    iati:description "The “Scaling up the National Response to HIV/AIDS through Information and Services” (SUNRISE) Project , implemented by the International HIV/AIDS Alliance in Ukraine in partnership with the All-Ukrainian Network of People Living with HIV/AIDS and the Program for Appropriate Technology in Health (PATH), began implementation in September 2004. The goal of this five-year, $8.8 million project, which serves as the USG’s flagship activity in the delivery of HIV/AIDS prevention services, is to substantially decrease HIV transmission by significantly increasing access to and use of high quality prevention and care information and services by most at-risk populations. Working in the eight regions most affected by the HIV/AIDS epidemic, the project originally aims to: 1) reach at least 60 percent of high risk populations with effective, high quality information and services to prevent injecting drug and sexual transmission of HIV in strategically selected sites; 2) increase the accessibility of high quality care and support information and services for people living with HIV/AIDS and other populations affected by the epidemic; 3) strengthen the prevention-care continuum, with a particular focus on improving the quality and reach of voluntary counselling and testing (VCT) services; and 4) enhance the ability of local non-governmental organizations and communities to collaboratively analyze, plan, deliver, monitor and evaluate newly introduced information and services."@en ;
+    iati:description-type <http://localhost:3020/iati/codelist/DescriptionType/1> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/participating-org/> a iati:organisation ;
+    rdfs:label "All Ukrainian Network of PLHA(PLHA Network)"@en ;
+    iati:organisation-code <http://localhost:3020/iati/codelist/OrganisationIdentifier/> ;
+    iati:organisation-role <http://localhost:3020/iati/codelist/OrganisationRole/Implementing> ;
+    iati:organisation-type <http://localhost:3020/iati/codelist/OrganisationType/22> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/participating-org/21020> a iati:organisation ;
+    rdfs:label "Alliance Ukraine"@en,
+        "International HIV/AIDS Alliance"@en ;
+    iati:organisation-code <http://localhost:3020/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-role <http://localhost:3020/iati/codelist/OrganisationRole/Funding>,
+        <http://localhost:3020/iati/codelist/OrganisationRole/Implementing> ;
+    iati:organisation-type <http://localhost:3020/iati/codelist/OrganisationType/21>,
+        <http://localhost:3020/iati/codelist/OrganisationType/22> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/recipient-country/UA> a iati:country ;
+    rdfs:label "Ukraine"@en ;
+    iati:country-code <http://localhost:3020/iati/codelist/Country/UA> ;
+    iati:percentage "100" .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/transaction1> a iati:transaction ;
+    iati:aid-type <http://localhost:3020/iati/codelist/AidType/C01> ;
+    iati:flow-type <http://localhost:3020/iati/codelist/FlowType/30> ;
+    iati:provider-org <http://localhost:3020/iati/activity/21020-UKRUS/transaction1/provider-org> ;
+    iati:transaction-date "2011-09-11Z" ;
+    iati:transaction-description <http://localhost:3020/iati/activity/21020-UKRUS/transaction1/description1> ;
+    iati:transaction-type <http://localhost:3020/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://localhost:3020/iati/activity/21020-UKRUS/transaction1/value> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/transaction1/description1> a iati:description ;
+    iati:description "This is the total value of the contract over the lifetime of the project."@en .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/transaction1/provider-org> iati:organisation-ref <http://localhost:3020/iati/codelist/OrganisationIdentifier/US-1> .
+
+<http://localhost:3020/iati/activity/21020-UKRUS/transaction1/value> a iati:value ;
+    iati:value "12959312" ;
+    iati:value-date "2011-09-11Z" .
+

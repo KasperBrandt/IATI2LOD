@@ -1,0 +1,106 @@
+@prefix iati: <http://localhost:3020/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2> rdfs:label "Avahan Phase 2 - Establishing Sustainable Models for HIV Prevention in Andhra Pradesh"@en ;
+    iati:activity-actual-end-date "2014-02-01" ;
+    iati:activity-actual-start-date "2009-04-01" ;
+    iati:activity-budget <http://localhost:3020/iati/activity/21020-GATAP2/budget1> ;
+    iati:activity-collaboration-type <http://localhost:3020/iati/codelist/CollaborationType/6> ;
+    iati:activity-contact-info <http://localhost:3020/iati/activity/21020-GATAP2/contact-info> ;
+    iati:activity-default-aid-type <http://localhost:3020/iati/codelist/AidType/C01> ;
+    iati:activity-default-flow-type <http://localhost:3020/iati/codelist/FlowType/30> ;
+    iati:activity-description <http://localhost:3020/iati/activity/21020-GATAP2/description1> ;
+    iati:activity-id "21020-GATAP2" ;
+    iati:activity-location <http://localhost:3020/iati/activity/21020-GATAP2/location1>,
+        <http://localhost:3020/iati/activity/21020-GATAP2/location2> ;
+    iati:activity-participating-org <http://localhost:3020/iati/activity/21020-GATAP2/participating-org/21020> ;
+    iati:activity-planned-end-date "2014-02-01" ;
+    iati:activity-planned-start-date "2009-04-01" ;
+    iati:activity-recipient-country <http://localhost:3020/iati/activity/21020-GATAP2/recipient-country/IN> ;
+    iati:activity-reporting-org <http://localhost:3020/iati/activity/21020-GATAP2/activity-reporting-org/21020> ;
+    iati:activity-status <http://localhost:3020/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://localhost:3020/iati/activity/21020-GATAP2/transaction1> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/activity-reporting-org/21020> a iati:organisation ;
+    rdfs:label "International HIV/AIDS Alliance"@en ;
+    iati:organisation-code <http://localhost:3020/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-type <http://localhost:3020/iati/codelist/OrganisationType/21> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/budget1> a iati:budget ;
+    iati:budget-period-end <http://localhost:3020/iati/activity/21020-GATAP2/budget1/period-end> ;
+    iati:budget-period-start <http://localhost:3020/iati/activity/21020-GATAP2/budget1/period-start> ;
+    iati:budget-type <http://localhost:3020/iati/codelist/BudgetType/original> ;
+    iati:budget-value <http://localhost:3020/iati/activity/21020-GATAP2/budget1/value> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/budget1/period-end> iati:date "2012-02-01" .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/budget1/period-start> iati:date "2011-03-01" .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/budget1/value> a iati:value ;
+    iati:value "4367780" ;
+    iati:value-date "2011-09-11Z" .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/contact-info> iati:email "mail@aidsalliance.org" ;
+    iati:mailing-address "International HIV/AIDS Alliance (Secretariat),1st and 2nd Floor,Preece House, 91-101 Davigdor Road Hove, BN3 1RE, United Kingdom" ;
+    iati:organisation "International HIV/AIDS Alliance" ;
+    iati:telephone "+441273718900" .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/description1> a iati:description ;
+    iati:description "The goal of Avahan is to reduce HIV transmission and the prevalence of STIs in vulnerable high-risk populations (sex workers, MSM and transgenders) through prevention education and services. During Avahan Phase II the Alliance will implement the programme in seven districts and transition activities to the state government of Andhra Pradesh"@en ;
+    iati:description-type <http://localhost:3020/iati/codelist/DescriptionType/1> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location1> a iati:location ;
+    rdfs:label "Delhi, India"@en ;
+    iati:location-coordinates <http://localhost:3020/iati/activity/21020-GATAP2/location1/coordinates> ;
+    iati:location-description <http://localhost:3020/iati/activity/21020-GATAP2/location1/description1> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location1/coordinates> iati:latitude "23.709921" ;
+    iati:longitude "90.407143" ;
+    iati:precision <http://localhost:3020/iati/codelist/GeographicalPrecision/2> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location1/description1> a iati:description ;
+    iati:description "AVAHAN II co-ordination"@en .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location2> a iati:location ;
+    rdfs:label "Andhra Pradesh, India"@en ;
+    iati:location-coordinates <http://localhost:3020/iati/activity/21020-GATAP2/location2/coordinates> ;
+    iati:location-description <http://localhost:3020/iati/activity/21020-GATAP2/location2/description1> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location2/coordinates> iati:latitude "17.0477624" ;
+    iati:longitude "80.0981869" ;
+    iati:precision <http://localhost:3020/iati/codelist/GeographicalPrecision/2> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/location2/description1> a iati:description ;
+    iati:description "AVAHAN II Project Site"@en .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/participating-org/21020> a iati:organisation ;
+    rdfs:label "International HIV/AIDS Alliance"@en,
+        "International HIV/AIDS Alliance in India"@en ;
+    iati:organisation-code <http://localhost:3020/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-role <http://localhost:3020/iati/codelist/OrganisationRole/Funding>,
+        <http://localhost:3020/iati/codelist/OrganisationRole/Implementing> ;
+    iati:organisation-type <http://localhost:3020/iati/codelist/OrganisationType/21> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/recipient-country/IN> a iati:country ;
+    rdfs:label "India"@en ;
+    iati:country-code <http://localhost:3020/iati/codelist/Country/IN> ;
+    iati:percentage "100" .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/transaction1> a iati:transaction ;
+    iati:aid-type <http://localhost:3020/iati/codelist/AidType/C01> ;
+    iati:flow-type <http://localhost:3020/iati/codelist/FlowType/30> ;
+    iati:provider-org <http://localhost:3020/iati/activity/21020-GATAP2/transaction1/provider-org> ;
+    iati:transaction-date "2011-09-11Z" ;
+    iati:transaction-description <http://localhost:3020/iati/activity/21020-GATAP2/transaction1/description1> ;
+    iati:transaction-type <http://localhost:3020/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://localhost:3020/iati/activity/21020-GATAP2/transaction1/value> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/transaction1/description1> a iati:description ;
+    iati:description "This is the total value of the contract over the lifetime of the project."@en .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/transaction1/provider-org> iati:organisation-ref <http://localhost:3020/iati/codelist/OrganisationIdentifier/> .
+
+<http://localhost:3020/iati/activity/21020-GATAP2/transaction1/value> a iati:value ;
+    iati:value "14330000" ;
+    iati:value-date "2011-09-11Z" .
+
