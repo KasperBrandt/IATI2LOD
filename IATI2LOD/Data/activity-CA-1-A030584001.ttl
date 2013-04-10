@@ -1,0 +1,92 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001> rdfs:label "Projet d'équité sociale"@fr,
+        "Social Equity Project"@en ;
+    iati:activity-actual-end-date "2009-12-31" ;
+    iati:activity-actual-start-date "2002-06-03" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030584001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030584001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/description2> ;
+    iati:activity-id "CA-1-A030584001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030584001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030584001/recipient-country/ID> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030584001/activity-reporting-org/CA-1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11130>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11420> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030584001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/description1> a iati:description ;
+    iati:description "Les objectifs du projet sont la promotion du développement durable et la réduction de la pauvreté en Indonésie, grâce à une meilleure gouvernance et une équité plus stricte, et le renforcement de la capacité des établissements d'éducation supérieure islamique à prendre part à la création d'un nouveau modèle d'enseignement islamique qui favorise l'équité sociale."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/description2> a iati:description ;
+    iati:description "The goals of the project are to promote sustainable development and poverty reduction in Indonesia by enhancing the quality of governance and improving equity, and to strengthen the capacity of the Islamic Higher Education Institutions(IHEI) to contribute to the creation of a new model of Islamic education that promotes social equity."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org1> a iati:organisation ;
+    rdfs:label "Université McGill"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/participating-org2> a iati:organisation ;
+    rdfs:label "McGill University"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/recipient-country/ID> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/ID> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11110> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11130> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/sector/DAC/11420> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11420> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/transaction1> a iati:transaction ;
+    iati:transaction-date "2002-06-03" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030584001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "10455335" ;
+    iati:value-date "2002-06-03" .
+

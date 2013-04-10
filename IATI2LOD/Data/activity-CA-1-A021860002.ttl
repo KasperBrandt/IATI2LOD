@@ -1,0 +1,107 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002> rdfs:label "Gestion intégrée des bassins versants - coopération déléguée DANIDA"@en,
+        "Integrated watershed management - silent partnership DANIDA"@fr ;
+    iati:activity-actual-end-date "2010-12-31" ;
+    iati:activity-actual-start-date "2008-10-10" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021860002/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021860002/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/description2> ;
+    iati:activity-id "CA-1-A021860002" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/2>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A021860002/recipient-country/NI> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021860002/activity-reporting-org/CA-1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/31140>,
+        <http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/43040> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/3> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021860002/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/description1> a iati:description ;
+    iati:description "Le projet se concentre sur cinq sous-bassins au nord du Nicaragua, dans les régions du Rio Viejo et de l'Estero Real. Les sous-bassins en question se situent dans les départements de Nueva Segovia, Madriz, Esteli, Leon Norte, Matagalpa, et Jinotega. Le projet comporte trois composantes : 1) Gouvernance / renforcement institutionnel : le projet se concentre sur l'amélioration de la livraison de services par les municipalités, dans le contexte des initiatives en relation avec l'eau. Cette composante développe la capacité des unités techniques des municipalités à planifier, gérer les finances, gérer de manière efficiente et efficace les opérations et répondre aux besoins de la communauté. 2) Développement du secteur privé/ Environnement / Gestion de bassin versant: Le but de cette composante est de travailler en collaboration avec tous les intervenants des bassins versants ciblés dans une approche de gestion durable du territoire afin de protéger les ressources naturelles et d'augmenter la production agricole. Ceci est possible en améliorant les techniques de cultures (agroforesterie entre autres), en adoptant des mesures de conservation des sols et des eaux, en une meilleure gestion des déchets solides et liquides et par du renforcement des capacités techniques des municipalités qui interviennent dans les bassins versants ciblés. 3) Approvisionnement en eau et assainissement: Cette composante a pour but d'améliorer l'accès à l'eau potable et aux services d'assainissement des populations vivant dans les bassins versants ciblés par le projet."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/description2> a iati:description ;
+    iati:description "The project operates in five sub-watersheds in Northern Nicaragua, comprising the headwaters of the Rio Viejo and the Estero Real. The selected watersheds are located in the departments of Madriz, Nueva Segovia, Matagalpa, Leon, Esteli, and Jinotega. The project includes three components: 1) Governance / Institutional Strengthening: The project focuses on improving service delivery by municipalities in the context of water-related initiatives. This component develops the capacity of municipalities' technical units to plan, manage finances, efficiently and effectively manage operations, and respond to community needs. 2) Private Sector Development / Environment / Watershed Management: This component works with watershed users to improve natural resource management for environmental protection and agricultural production, in the context of sub-watershed plans and municipal water resource plans. This is achieved through improving production methods, soil and water conservation, improved waste management, agro-forestry, and capacity building. 3) Water Supply and Sanitation: Improving access to water and sanitation services through capacity building, infrastructure and sanitation promotion."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org1> a iati:organisation ;
+    rdfs:label "CARE Canada"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/participating-org2> a iati:organisation ;
+    rdfs:label "CARE Canada"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/2> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/2> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/recipient-country/NI> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/NI> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/15110> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/15150> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/31140> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/31140> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/sector/DAC/43040> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/43040> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/transaction1> a iati:transaction ;
+    iati:transaction-date "2008-10-10" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021860002/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021860002/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "2000000" ;
+    iati:value-date "2008-10-10" .
+

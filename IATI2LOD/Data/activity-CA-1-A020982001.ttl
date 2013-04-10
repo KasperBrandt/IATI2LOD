@@ -1,0 +1,105 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001> rdfs:label "Microfinance Services for Women"@en,
+        "Services de microfinance adaptés aux femmes"@fr ;
+    iati:activity-actual-end-date "2010-12-08" ;
+    iati:activity-actual-start-date "2001-05-28" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A020982001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A020982001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/description2> ;
+    iati:activity-id "CA-1-A020982001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A020982001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A020982001/recipient-country/CD> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A020982001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A020982001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A020982001/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/sector/DAC/24040> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/3> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A020982001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/description1> a iati:description ;
+    iati:description "Ce projet a pour but de renforcer les capacités des institutions de microcrédit de la République démocratique du Congo (RDC) de façon à développer leur faculté à fournir des services efficaces qui répondent aux besoins des Congolaises, et ce, tout au long de l'année. Par ceci, il vise également à étendre le pouvoir économique des femmes et à mieux faire entendre leur voix dans le processus décisionnel. La Société de coopération pour le développement international (SOCODEVI) travaille avec des organismes non gouvernementaux locaux pour renforcer les capacités techniques des institutions de microcrédit et enrichir leurs compétences en matière de gestion."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/description2> a iati:description ;
+    iati:description "This project aims to increase the capacities of microfinance institutions in the Democratic Republic of Congo (DRC) to improve their ability to provide effective, year-round services that are able to meet the needs of the DRC's female population. By doing so, it also aims to increase the economic and decision-making power exercised by women. The Société de coopération pour le développement international (SOCODEVI) works with local non-governmental organizations to help develop the technical capabilities and management skills of institutions involved in microfinance."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org1> a iati:organisation ;
+    rdfs:label "SOCODEVI - Société de coopération pour le développement international"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/participating-org2> a iati:organisation ;
+    rdfs:label "SOCODEVI - Canadian Cooperation Society for International Development"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/recipient-country/CD> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/CD> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A020982001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020982001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus à la fin du projet (juin 2010) : renforcer les capacités de gestion financière de deux mutuelles d'épargne-crédit; de la formation technique spécialisée a aussi été offerte au personnel des mutuelles. Malgré les perturbations économiques de la dernière année, le nombre de membres des mutuelles a accru, passant de 12 515 membres en juillet 2009 à 16 023 membres en mars 2010."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/result1/description2> a iati:description ;
+    iati:description "Results achieved as of the end of the project (June 2010) include: strengthened financial management capacities of two micro-credit institutions; staff of the micro-credit institutions also received specialized training in financial management. Despite the economic crisis of the past year, the membership of the micro-finance institutions increased from 12,515 members in July 2009 to 16,023 members in March 2010."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "60" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/sector/DAC/24040> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/24040> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/transaction1> a iati:transaction ;
+    iati:transaction-date "2001-05-28" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A020982001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020982001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "4899012" ;
+    iati:value-date "2001-05-28" .
+

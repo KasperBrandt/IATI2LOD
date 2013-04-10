@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001> rdfs:label "Fonds pour le développement de l'égalité entre les sexes"@fr,
+        "Gender Equality Development Fund"@en ;
+    iati:activity-actual-end-date "2009-03-31" ;
+    iati:activity-actual-start-date "2000-04-03" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A020931001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A020931001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/description2> ;
+    iati:activity-id "CA-1-A020931001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A020931001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A020931001/recipient-country/ML> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A020931001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A020931001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A020931001/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/sector/DAC/15150> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A020931001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/description1> a iati:description ;
+    iati:description "Ce projet appuie des actions au plan de l'environnement institutionnel afin de promouvoir une stratégie de promotion de la femme. Le projet comporte trois volets : conseils stratégiques au Ministère de la Promotion de la femme, de l'enfant et de la famille (MPFEF) et d'un renforcement des capacités du ministère; appui aux organisations féminines dynamiques et porteuses de changements pour mieux défendre et promouvoir les droits des femmes; renforcement de la dimension d'égalité entre les sexes dans les projets du programme bilatéral sous forme d'un appui technique et financier à des interventions ciblées."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/description2> a iati:description ;
+    iati:description "This project supports activities related to the institutional environment to promote a strategy of opportunities for women. The project has three components: strategic advice to the Ministry for the Promotion of Women, Children and the Family (MPFEF) and capacity building of the Ministry; support for dynamic women's organizations leading to better advocacy for the rights of women; and strengthening the gender equality component of bilateral program projects in the form of technical and financial support for targeted activities."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org1> a iati:organisation ;
+    rdfs:label "Gouvernement du Mali - Ministère de la Promotion de la Femme, de l'Enfant et de la Famille"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/participating-org2> a iati:organisation ;
+    rdfs:label "Government of Mali - Ministry for the Promotion of Woman, Child and Family"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/recipient-country/ML> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/ML> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A020931001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020931001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats atteints jusqu’à la fin du projet (en juin 2008), on note les suivants : Le Ministère de la promotion de la femme et de la famille est mieux outillé pour défendre l'égalité entre les femmes et les hommes (EFH) au Mali, le Cadre stratégique de croissance et de réduction de la pauvreté du Mali intègre des objectifs reliés à l'EFH dans sa planification, la charte des partis politiques lie leur financement au nombre de femmes élues au sein de leur parti politique, le Conseil des ministres a adopté le projet de Code des personnes pour sa transmission à l'Assemblée nationale, 552 mariages ont été régularisés, 11 868 femmes se sont présentées en tant que candidates aux élections communales de 2009 (soit 2788 de plus qu'en 2004) et 814 femmes ont été élues (soit 6,8% de tous les élus de 2009), 121 villages prennent maintenant en charge les femmes malades de fistules, l'excision n'est plus une pratique taboue et 200 villages ont adopté une convention reliée à l'abandon de cette pratique."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/result1/description2> a iati:description ;
+    iati:description "Results achieved at the end of the project in June 2008 include the following. The Ministry for the Promotion of Women and the Family is better equipped to advocate equality between women and men in Mali. Mali’s growth and poverty reduction strategy paper includes gender equality objectives in its planning. The charter for political parties ties their funding to the number of women elected under their banner. The Council of Ministers has adopted the draft Code of the Person and sent it to the National Assembly. 552 marriages have been regularized. 11,868 women ran as candidates in the 2009 communal elections (2788 more than in 2004). 814 women were elected (6.8 percent of all those elected in 2009), 121 villages now care for women with fistulae. Excision is no longer a taboo subject. 200 villages have adopted an agreement to abandon this practice."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/transaction1> a iati:transaction ;
+    iati:transaction-date "2000-04-03" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A020931001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020931001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "3250000" ;
+    iati:value-date "2000-04-03" .
+

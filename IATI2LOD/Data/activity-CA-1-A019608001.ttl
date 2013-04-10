@@ -1,0 +1,122 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001> rdfs:label "Environmental Initiatives Fund"@en,
+        "Fonds des initiatives pour l'environnement"@fr ;
+    iati:activity-actual-end-date "2010-03-31" ;
+    iati:activity-actual-start-date "1997-06-11" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A019608001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A019608001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/description2> ;
+    iati:activity-id "CA-1-A019608001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A019608001/policy-marker/DAC/2>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A019608001/recipient-country/EG> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A019608001/activity-reporting-org/CA-1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/24030>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/25010>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32110>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32130>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32182>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/41010>,
+        <http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/41020> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A019608001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/description1> a iati:description ;
+    iati:description "Le Fonds vise à encourager l'adoption de pratiques environnementales judicieuses et durables par les organisations privées, non gouvernementales et communautaires d'Égypte de façon à gérer et à conserver les ressources naturelles du pays, plus particulièrement le sol et l'eau. Le fonds permet d'aider de nouveaux entrepreneurs et des entrepreneurs établis qui dirigent de petites et moyennes entreprises à adopter des pratiques manufacturières écologiques."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/description2> a iati:description ;
+    iati:description "This project serves to promote sustainable and sound environmental practices by Egyptian private, non-governmental, and community organizations in order to manage and conserve the country's natural resources, especially soil and water. New and established entrepreneurs in small- and medium-sized businesses are assisted in developing environmentally friendly manufacturing practices."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org1> a iati:organisation ;
+    rdfs:label "Cowater International Inc."@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/participating-org2> a iati:organisation ;
+    rdfs:label "Cowater International Inc."@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/policy-marker/DAC/2> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/2> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/recipient-country/EG> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/EG> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/24030> a iati:sector ;
+    iati:percentage "5" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/24030> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/25010> a iati:sector ;
+    iati:percentage "5" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/25010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32110> a iati:sector ;
+    iati:percentage "5" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/32110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32130> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/32130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/32182> a iati:sector ;
+    iati:percentage "15" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/32182> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/41010> a iati:sector ;
+    iati:percentage "5" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/41010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/sector/DAC/41020> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/41020> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/transaction1> a iati:transaction ;
+    iati:transaction-date "1997-06-11" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A019608001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A019608001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "16700509" ;
+    iati:value-date "1997-06-11" .
+

@@ -1,0 +1,110 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001> rdfs:label "HIV-AIDS Surveillance"@en,
+        "Surveillance du VIH-sida"@fr ;
+    iati:activity-actual-end-date "2012-04-05" ;
+    iati:activity-actual-start-date "2004-01-05" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030849001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030849001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/description2> ;
+    iati:activity-id "CA-1-A030849001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030849001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030849001/recipient-country/PK> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030849001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030849001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/12110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/12191>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/13040> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030849001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/description1> a iati:description ;
+    iati:description "Le projet contribue à renforcer la capacité du gouvernement du Pakistan à mettre en oeuvre un système efficace de surveillance de la séropositivité au VIH/sida de deuxième génération. Ce système fait appel à l'échantillonnage transversal multiple de sous-populations vulnérables et à risque élevé pour la maladie, afin d'obtenir des renseignements pertinents sur les comportements à risque ainsi qu'un prélèvement biologique servant aux essais de dépistage du VIH et d'autres agents infectieux. Le projet contribue à l'établissement de systèmes et de protocoles souples, évolutifs et viables, adaptés au contexte du Pakistan."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/description2> a iati:description ;
+    iati:description "The project contributes to enhancing the capacity of the Government of Pakistan to implement an effective second-generation surveillance (SGS) system for HIV/AIDS. This system involves repeated cross-sectional sampling of vulnerable, high-risk populations to obtain information on risk behaviours in addition to a biological sample for testing for HIV and other disease agents. The project is contributing to building systems and protocols that are flexible, scalable, and sustainable, and that work in the context of Pakistan."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org1> a iati:organisation ;
+    rdfs:label "Agriteam Canada"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/participating-org2> a iati:organisation ;
+    rdfs:label "Agriteam Canada"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/recipient-country/PK> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/PK> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030849001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030849001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/result1/description1> a iati:description ;
+    iati:description "Résultats obtenus à la fin du projet (mars 2012) : L’élaboration d’une méthodologie de surveillance de seconde génération (SSG), qui se veut novatrice et est respectée à l’échelle internationale, a été la principale réalisation du Projet de surveillance du VIH/sida Canada-Pakistan (HASP). Selon le document « HIV Surveillance in the Middle East and North Africa: a handbook for surveillance planners », publié en 2010 par l’Organisation mondiale de la santé (OMS)/ONUSIDA, l’utilisation du système de SSG du Pakistan est considérée comme étant une pratique exemplaire pour la région du Moyen-Orient. Pour ce qui est de la gestion des données et la capacité de stockage : une unité centrale et quatre unités de coordination des données provinciales ont été mises sur pied au sein d’un programme national et de quatre programmes provinciaux de lutte contre le sida. Des procédures d’utilisation normalisées ont été élaborées et mises à la disposition des unités de coordination des données. Le laboratoire de référence national et trois laboratoires privés ont les compétences nécessaires pour tester avec précision de grandes quantités d’échantillons afin de détecter la présence du VIH. Une base de données servant au suivi des échantillons et un manuel de laboratoire détaillé servent à guider les activités de surveillance à venir. Dans le cadre du projet, 634 hommes et 334 femmes (chercheurs, coordonnateurs et surveillants) ont participé à une formation avancée sur la SSG. Les données du HASP ont servi à calculer la prévalence du VIH parmi les principales populations et dans l’ensemble du Pakistan. L’ONUSIDA et l’OMS ont utilisé les données du HASP dans leur site pour mettre à jour les données épidémiologiques de 2008, de 2009 et de 2010. Les données de surveillance ont été largement utilisées par le Programme national de lutte contre le sida et les programmes provinciaux de lutte contre le sida dans le cadre de l’élaboration de politiques et de plans."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/result1/description2> a iati:description ;
+    iati:description "Results as of the end of the project (March 2012): HASP's key achievement was the development of an innovative and internationally-respected methodology of second generation surveillance (SGS). Pakistan's SGS system is cited as best practice for the Middle East region in the 2010 World Health Organization (WHO)/UNAIDS publication, HIV Surveillance in the Middle East and North Africa: a handbook for surveillance planners. For data management and storage capacity; Central and 4 Provincial Data Coordinating Units (CIPDCUs) were established within the National and 4 Provincial Aids Control Programmes. Standard Operating Procedures was developed and made available to the Data Coordinating Units (DCUs). The National Referral Laboratory (NRL) as well as 3 private laboratories have the skills to test high volumes of specimens for HIV accurately. A database system for tracking specimens and a detailed Laboratory Manual are available to guide future surveillance. Over the life of the project 634 males and 334 female (researchers, coordinators and monitors) participated in advanced training in SGS. HASP data was used to project HIV prevalence among key populations and for Pakistan as a whole. UNAIDS and the WHO used HASP data on their sites for epidemiological updates for 2008, 2009 and 2010. Surveillance data was widely used by the National Aids Control Program (NACP) and Provincial Aids Control Programmes (PACP) in developing policies and plans."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/12110> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/12191> a iati:sector ;
+    iati:percentage "10" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12191> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/sector/DAC/13040> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/13040> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/transaction1> a iati:transaction ;
+    iati:transaction-date "2004-01-05" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030849001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030849001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "12489529" ;
+    iati:value-date "2004-01-05" .
+

@@ -1,0 +1,110 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001> rdfs:label "Communal Infrastructure Development Fund"@en,
+        "Fonds de développement des infrastructures communales"@fr ;
+    iati:activity-actual-end-date "2011-03-31" ;
+    iati:activity-actual-start-date "1995-02-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A018893001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A018893001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/description2> ;
+    iati:activity-id "CA-1-A018893001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A018893001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A018893001/recipient-country/ML> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A018893001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A018893001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/16020>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/32310>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/43030> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A018893001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/description1> a iati:description ;
+    iati:description "Le projet a pour but la réalisation, par des entreprises privées locales, de petites et moyennes infrastructures urbaines, comme des écoles, des stationnements et des marchés, et que celles-ci soient rentables d’un point de vue socio-économique et selon une technologie dite « de haute intensité en main d’œuvre. » Pour ce faire, le projet stimule le développement des petites et moyennes entreprises et la création d’emplois. Il améliore également la gestion des fonds publics en rendant les mécanismes d’octroi de marchés plus transparents par des règles bien définies et par un recours systématique à la compétition entre les entreprises."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/description2> a iati:description ;
+    iati:description "The project aims to develop, through local private business, small and medium-sized urban infrastructures – such as schools, parking lots, and markets – that are socially and economically cost-effective and that use labour-intensive technology. To do so, the project encourages the development of small and medium-sized businesses and the creation of jobs. It also improves the management of public funds, by making contracting mechanisms more transparent through well-defined ground rules and the systematic use of competition between businesses."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org1> a iati:organisation ;
+    rdfs:label "AGETIPE-Mali - Agence d'exécution des travaux d'intérêt public pour l'emploi"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/participating-org2> a iati:organisation ;
+    rdfs:label "AGETIPE-Mali - Agence d'exécution des travaux d'intérêt public pour l'emploi"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/recipient-country/ML> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/ML> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A018893001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A018893001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats atteints jusqu’à la fin du projet (en 2008), on note les suivants : La réalisation de 27 projets en infrastructures dans quatre villes du Nord du Mali (Mopti, Gao, Kidal et Tombouctou), en plus de 45 enceintes d’écoles dans la ville de Bamako. Les projets au Nord ont permis la création de 6541 emplois ou environ 727 000 emplois-jours, soit 121% de l'objectif du projet initial avec 82% du budget total investi. Les projets de clôtures d’école ont pour leur part permis la création de 80 000 emplois-jours, soit l’équivalent de 320 emplois. La réalisation d’infrastructures à Tombouctou a contribué à rehausser le rang de cette ville sur la liste du patrimoine mondial de l’UNESCO ? sur laquelle Tombouctou est passée de la liste des sites en péril en 1989 à la liste des 7 merveilles du monde en 2008."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/result1/description2> a iati:description ;
+    iati:description "Results achieved at the end of the project in 2008 include the following. 27 infrastructure projects were executed in four cities of northern Mali (Mopti, Gao, Kidal, in Timbuktu). 45 school boundary walls were built in the city of Bamako. Projects in northern Mali allowed the creation of 6541 jobs or about 727,000 workdays. 121 percent of the project’s initial objective has been achieved, and 82 percent of the total budget has been invested. School boundary wall projects allowed the creation of 80,000 workdays, the equivalent of 320 jobs. Infrastructure development helped Timbuktu to rank higher on UNESCO’s World Heritage List. Timbuktu went from being on the List of World Heritage in Danger in 1989 to being among the new Seven Wonders of the World in 2009."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/16020> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/16020> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/32310> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/32310> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/sector/DAC/43030> a iati:sector ;
+    iati:percentage "10" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/43030> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/transaction1> a iati:transaction ;
+    iati:transaction-date "1995-02-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A018893001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A018893001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "14410076" ;
+    iati:value-date "1995-02-01" .
+

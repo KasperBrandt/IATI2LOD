@@ -1,0 +1,115 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001> rdfs:label "Project for Economic Governance"@en,
+        "Projet pour la gouvernance économique"@fr ;
+    iati:activity-actual-end-date "2010-03-31" ;
+    iati:activity-actual-start-date "2001-06-22" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030571001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030571001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/description2> ;
+    iati:activity-id "CA-1-A030571001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030571001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030571001/recipient-country/MW> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030571001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030571001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15111>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15153> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030571001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/description1> a iati:description ;
+    iati:description "Ce projet collaboratif vise à promouvoir une gouvernance démocratique fondée sur un parlement efficace, des médias professionnels et la participation des citoyens. Ce projet vise à renforcer les institutions et les processus qui contribuent à la libre diffusion de l’information et permettent des échanges entre les citoyens, les élus et les responsables gouvernementaux en ce qui a trait aux questions des budgets du gouvernement. Le projet apporte un appui technique et de la formation aux organisations non gouvernementales, les représentants des médias, les parlementaires et les membres des comités parlementaires et des assemblées de district. Les activités connexes visent à permettre aux citoyens, aux membres des médias et aux élus de mieux comprendre et de participer au processus budgétaire; à accroître la capacité et à renforcer la volonté du gouvernement du Malawi de recevoir des commentaires du grand public et de les prendre en compte; à améliorer la divulgation de l’information sur les dépenses publiques et l’examen de celles-ci. DFID, le Department for International Development du Royaume-Uni apporte un appui supplémentaire au projet de $3.5 millions dollars."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/description2> a iati:description ;
+    iati:description "This is a collaborative project, designed to promote democratic governance based on an effective Parliament, professional media, and citizen participation. The purpose is to strengthen institutions and processes that contribute to the free flow of information and allow interaction between citizens, elected representatives, and government officials with regard to government budgets. The project provides technical assistance, training and materials to non-governmental organizations, media representatives, members of parliament, parliamentary committees and district assemblies. Activities aim to build the capacity of citizens, the media and elected representatives to understand and contribute to the public budgeting process; increase the ability and openness of the Government of Malawi to receive and incorporate public input; and improve the availability of information and analysis on public expenditures. The UK Department for International Development (DfID) is contributing an additional $3.5 million to this project."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org1> a iati:organisation ;
+    rdfs:label "Non codé"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/participating-org2> a iati:organisation ;
+    rdfs:label "Uncoded"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/recipient-country/MW> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/MW> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030571001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/result1/description1> a iati:description ;
+    iati:description "Les résultats obtenus à la fin des activités du projet comprenaient: (1) la création d'une commission d'études de la société civile/parlementaire afin d'améliorer l'engagement de la société civile dans le processus parlementaire du budget; (2) la formation sur l'analyse politique et le plaidoyer des causes pour 25 leaders de la société civile; (3) la formation de plus de 120 journalistes et éditeurs en finances publiques et en reddition de comptes en matière de gouvernance économique; (4) l'élaboration d'un manuel de journalisme économique pour les médias du Malawi (1000 exemplaires distribués); (5) une participation publique accrue dans les processus de prise de décision en ce qui a trait aux dépenses publiques; et (6) l'amélioration de la capacité des médias à travailler avec la societé civile pour la défense effective du budget. Ces activités ont contribué à améliorer la participation de la société civile dans les processus de prise de décision pour les dépenses publiques et à améliorer l'usage des médias par les groupes de la société civile pour une discussion effective du budget et l'implication accrue de la société civile auprès des comités parlementaires sur les questions budgétaires."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/result1/description2> a iati:description ;
+    iati:description "Results achieved as of the end of project activities included: (1) the creation of a Civil Society/Parliamentary Task Force to enhance civil society engagement in the parliamentary budget process; (2) policy analysis and advocacy training for 25 civil society leaders; (3) over 120 reporters and editors trained in public finance and reporting on economic governance; (4) development of an economic journalism handbook for the Malawi media (1,000 distributed); (5) increased public participation in public expenditure decision-making processes; and (6) enhanced capacity of the media to work with civil society for effective budget advocacy. These activities have contributed to improved civil society participation in public expenditure decision-making processes, enhanced media usage by civil society groups for effective budget advocacy, and increased input from civil society on budget issues to Parliamentary Committees."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15111> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15111> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/sector/DAC/15153> a iati:sector ;
+    iati:percentage "15" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15153> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/transaction1> a iati:transaction ;
+    iati:transaction-date "2001-06-22" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030571001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "3584296" ;
+    iati:value-date "2001-06-22" .
+

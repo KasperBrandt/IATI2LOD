@@ -1,0 +1,115 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001> rdfs:label "Knowledge Exchange for Equity Promotion Program (KEEP)"@en,
+        "Programme d'échange de connaissances pour la promotion de l'équité (PECPE)"@fr ;
+    iati:activity-actual-end-date "2011-03-31" ;
+    iati:activity-actual-start-date "2004-11-15" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021807001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021807001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/description2> ;
+    iati:activity-id "CA-1-A021807001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021807001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A021807001/recipient-country/BR> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021807001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021807001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/12110>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/16020> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021807001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/description1> a iati:description ;
+    iati:description "L'ACDI a exécuté son programme bilatéral au Brésil à l'aide d'un processus compétitif : Programme d'échange de connaissances pour la promotion de l'équité (PECPE), ($20 millions, 2005-2011). Le PECPE s'est concentré dans la région la plus pauvre du Nord-Est du Brésil et les zones périphériques des grands centres urbains, dans les secteurs de la santé, gouvernance et le monde du travail, plus principalement au niveau du développement des compétences et la formation technique professionnelle pour les populations vulnérables. Le Programme a contribué à un total de 57 initiatives. Étant donné le succès du Programme, certains projets ont pris de l'ampleur et ont gradué au niveau national. Une évaluation externe a conclu que le PECPE a été un succès et très apprécié des partenaires brésiliens qui ont participé à l'évaluation. D'après ces partenaires, 70% des projets évalués ont atteint la plupart des résultats attendus (entre 75% et 100%). Les partenaires ont aussi exprimé que la majorité des technologies et politiques publiques développées à l'intérieur des projets sont hautement durables et continueront probablement avec l'appui de nouvelles organisations ou sources de revenus."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/description2> a iati:description ;
+    iati:description "CIDA implemented its bilateral program for Brazil through the competitive Knowledge Exchange for Equity Promotion Program (KEEP), ($20 million, 2005-2011). KEEP focused on Brazil’s poorer Northeast region and the peripheries of urban metropolises, and on health, governance and labour market issues, in particular skills development and technical vocational training for vulnerable populations. The program supported 57 initiatives in total. Due to their success, some of the projects are now being scaled up to a national level. An external evaluation concluded that the KEEP was a success, having been highly praised by the Brazilian partners that participated in the evaluation. According to these partners, 70% of all projects evaluated achieved most of the intended results (between 75% and 100%). The partners also felt that most of the technologies and public policies developed are highly sustainable and likely to continue through the support of new organizations or funding sources."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org1> a iati:organisation ;
+    rdfs:label "Non codé"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/participating-org2> a iati:organisation ;
+    rdfs:label "Uncoded"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/recipient-country/BR> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/BR> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021807001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021807001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats atteints à la fin du projet, soit le 31 mars 2011, mentionnons : Le Gouvernement du Brésil a adapté et mis en place le modèle du projet 'Mulheres Mil' (1 000 femmes), exécuté par l'Association canadiennes des collèges communautaires (ACCC), comme programme national qui donne accès à de la formation technique et professionnelle aux femmes vulnérables. Les techniciens en radiologie brésiliens continuent à être formés conformément aux compétences développées par le projet en santé exécuté par le Consortium international de développement en éducation (CIDE) et le 'Secretaria Estadual de Saude do Ceara'. Un programme de formation obligatoire a été développé pour les fonctionnaires brésiliens afin de les sensibiliser aux droits humains, et ce suite à un projet qui a uni l'École de la Fonction publique du Canada (EFPC) et la 'Escola Nacional de Administraçao Publica'. L'engagement du gouvernement au niveau des mesures de contrôle du tabac a augmenté d'une façon significative, spécialement aux niveaux de l'État et municipal. Le projet exécuté par HealthBridge et la 'Aliança de Controle do Tabagismo' a réussi à mettre en place un bon plan de base afin de réduire d'une façon significative la mortalité et maladies reliées à l'usage du tabac au Brésil."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/result1/description2> a iati:description ;
+    iati:description "Results achieved at the end of the project, March 31, 2011, include: The Government of Brazil adapted and put in place the model of the Mulheres Mil (1000 Women) project, implemented by the Association of Canadian Community Colleges, as a national program, supplying access to technical and vocational training to vulnerable women. Brazilian radiology technicians are trained according to the competencies model developed through the health project implemented by the \"Consortium international de développement en éducation\" and the \"Secretaria Estadual de Saude do Ceara\". A mandatory training program is developed for Brazilian civil servants, comprehensively addressing human rights, as a result of a project that paired the Canada School of Public Service and the Escola Nacional de Administraçao Publica. Government support for tobacco control measures increased significantly, especially at the state and municipal levels, and hundreds of Brazilian organizations have become engaged in tobacco control. The project implemented by HealthBridge and the Brazilian Alliance for the Control of Tobacco Use has successfully laid the groundwork to effectively reduce mortality and ill health due to tobacco use in Brazil."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/12110> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/sector/DAC/16020> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/16020> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/transaction1> a iati:transaction ;
+    iati:transaction-date "2004-11-15" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021807001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021807001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "3524740" ;
+    iati:value-date "2004-11-15" .
+

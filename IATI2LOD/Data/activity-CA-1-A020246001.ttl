@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001> rdfs:label "Popular Economy Building"@en,
+        "Renforcement de l'économie populaire"@fr ;
+    iati:activity-actual-start-date "2000-03-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A020246001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A020246001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/description2> ;
+    iati:activity-id "CA-1-A020246001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org2> ;
+    iati:activity-planned-end-date "2012-12-31" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A020246001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A020246001/recipient-country/SN> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A020246001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A020246001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A020246001/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/sector/DAC/24040> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A020246001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/description1> a iati:description ;
+    iati:description "Suite à l’approbation de la Lettre de politique sectorielle (LPS) en microfinance par le gouvernement du Sénégal en 2005, ce projet d'amélioration du taux d'activité économique s’est concentré sur la microfinance. Il vise à modifier la structure de l'offre de crédit en faveur des promoteurs des projets économiques et à renforcer les capacités des organisations d'appui et d'encadrement dans la région de Kolda et dans la zone des Niayes."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/description2> a iati:description ;
+    iati:description "After the Government of Senegal approved the Microfinance Sector Policy Letter (LPS) in 2005, this project focused on microfinance to improve the rate of economic activity in the country. The project aims to reorganize credit supply to benefit promoters of economic projects and to strengthen the capacities of assistance and support organizations in the Kolda and Niayes regions."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org1> a iati:organisation ;
+    rdfs:label "PAMECAS - Partenariat pour la mobilisation de l'épargne et le crédit au Sénégal"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/participating-org2> a iati:organisation ;
+    rdfs:label "PAMECAS - Partenariat pour la mobilisation de l'épargne et le crédit au Sénégal"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/recipient-country/SN> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/SN> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A020246001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020246001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu'en octobre 2011: Le projet a augmenté l’offre de services financiers dans les régions de Kolda et des Niayes pour plus de 20 000 sénégalais, notamment pour les femmes. Dans les Niayes, les mutuelles de crédit mises en place ont presque atteint le seuil de rentabilité deux années après leur création. Le projet a également soutenu la recherche et le développement de nouveaux produits et services adaptés notamment pour les petits agriculteurs. Finalement, le projet a renforcé la capacité du Comité national de coordination et de l’association professionnelle des institutions de microfinance d’épargne et de crédit du Sénégal, deux acteurs essentiels dans le dispositif de mise en œuvre de la Lettre de politique sectorielle en microfinance du Sénégal. L’ensemble de ses résultats contribuent à améliorer l’accès et la diversification des services financiers dans les régions de Kolda et des Niayes."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/result1/description2> a iati:description ;
+    iati:description "Results achieved as of October 2011 include: The project made financial services more available in the Kolda and Niayes regions, especially for women. Credit unions established in Niayes have almost achieved the break-even point two years after they were created. The project has also supported the research and development of new products and services, especially for small farmers. Finally, the project has strengthened the capacity of Senegal’s National Coordinating Committee and the professional association of savings and credit microfinance institutions, two vital stakeholders in implementing Senegal’s Microfinance Sector Policy Letter. As a whole, these results are helping improve access to and diversification of financial services in the Kolda and Niayes regions."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "34" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/sector/DAC/24040> a iati:sector ;
+    iati:percentage "66" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/24040> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/transaction1> a iati:transaction ;
+    iati:transaction-date "2000-03-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A020246001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020246001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "4825000" ;
+    iati:value-date "2000-03-01" .
+

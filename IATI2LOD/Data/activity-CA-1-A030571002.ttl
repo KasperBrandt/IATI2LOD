@@ -1,0 +1,115 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002> rdfs:label "Project for Economic Governance"@en,
+        "Projet pour la gouvernance économique"@fr ;
+    iati:activity-actual-end-date "2010-06-30" ;
+    iati:activity-actual-start-date "2003-02-14" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030571002/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030571002/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/description2> ;
+    iati:activity-id "CA-1-A030571002" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030571002/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030571002/recipient-country/MW> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030571002/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030571002/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15111>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15150>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15153> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030571002/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/description1> a iati:description ;
+    iati:description "Le projet améliore le processus démocratique en travaillant avec le parlement et les organisations non gouvernementales pour augmenter la participation de la société civile dans les décisions sur les dépenses publiques. Ce projet est aussi appuyé par DFID"@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/description2> a iati:description ;
+    iati:description "The project is strengthening the democratic process by working with parliament and non-governmental organisations to increase civil society participation in public expenditure. This project is also supported by DFID."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org1> a iati:organisation ;
+    rdfs:label "Non codé"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/participating-org2> a iati:organisation ;
+    rdfs:label "Uncoded"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/recipient-country/MW> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/MW> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030571002/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030571002/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/result1/description1> a iati:description ;
+    iati:description "Pour les résultats obtenus, consulter du projet A030571-001."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/result1/description2> a iati:description ;
+    iati:description "For results achieved refer to project A030571-001."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15110> a iati:sector ;
+    iati:percentage "25" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15111> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15111> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15150> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/sector/DAC/15153> a iati:sector ;
+    iati:percentage "15" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15153> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/transaction1> a iati:transaction ;
+    iati:transaction-date "2003-02-14" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030571002/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030571002/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "704892" ;
+    iati:value-date "2003-02-14" .
+

@@ -1,0 +1,91 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001> rdfs:label "Networking for Peace"@en,
+        "Établissement d'un réseau pour la paix"@fr ;
+    iati:activity-actual-start-date "1999-06-30" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021360001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021360001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021360001/description2> ;
+    iati:activity-id "CA-1-A021360001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org2> ;
+    iati:activity-planned-end-date "2013-03-28" ;
+    iati:activity-recipient-region <http://purl.org/collections/iati/activity/CA-1-A021360001/recipient-region/589> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021360001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021360001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021360001/sector/DAC/15150> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021360001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/description1> a iati:description ;
+    iati:description "Dans le cadre de cette initiative, l’ACDI a appuyé une série de sous-projets qui encouragent le dialogue et la coopération régionale entre les Palestiniens et les organismes de la société civile des pays voisins. Les sous-projets visent à renforcer la capacité des ONG palestiniennes, pour faciliter leur participation au dialogue sur la paix et aux processus de gestion des conflits avec leurs homologues régionaux. Une attention toute particulière était donnée aux sous-projets qui encouragent la participation des femmes, des jeunes et des réfugiés."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/description2> a iati:description ;
+    iati:description "Through this initiative, CIDA has supported a series of sub-projects that encourage dialogue and regional co-operation between Palestinian and civil society organizations from neighboring countries. The sub-projects aim to build the capacity of Palestinian non-governmental organizations in order to support their participation in peace dialogue and conflict management processes with their regional counterparts. A special emphasis was placed on sub-projects that promote the active participation of women, youth, and refugees."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org1> a iati:organisation ;
+    rdfs:label "Bureau de représentation du Canada auprès de l'Autorité palestinienne"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/participating-org2> a iati:organisation ;
+    rdfs:label "Representative Office of Canada to the Palestinian Authority"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/recipient-region/589> a iati:region ;
+    rdfs:label "Middle East, regional" ;
+    iati:percentage "100" ;
+    iati:region-code <http://purl.org/collections/iati/codelist/Region/589> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021360001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021360001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu'en avril 2011 (fin du projet) : Par l'entremise de l'organisme palestinien local Ta'awon, 120 médiateurs pour la jeunesse ont été formés et six clubs de médiation jeunesse ont été crées dans des universités de la Cisjordanie afin de promouvoir le dialogue et la médiation. En collaboration avec l'Université de Windsor, un plan complet de gouvernance de la Vieille ville de Jérusalem à été soumis suite à la commission de près de 20 articles de recherche et plusieurs rencontres avec les Israéliens, les Palestiniens et d'autres partis intéressés. En tout, depuis 2003, l'initiative a conduit à de nouvelles formes de coopération sur les questions de paix et elle a favorisé une augmentation de la participation des femmes, des jeunes et des réfugiés dans la société civile. Elle a également soutenu la société civile dans l'utilisation de nouvelles connaissances et compétences en gestion des conflits afin d'améliorer la coopération pour la paix."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/result1/description2> a iati:description ;
+    iati:description "Results as of April 2011 (end of project) include: Through the local Palestinian organization Ta'awon, 120 youth mediators were trained and six youth mediation clubs were established in universities throughout the West Bank to promote dialogue and mediation. Through the University of Windsor, a proposed comprehensive plan to govern the Old City of Jerusalem was released following the commission of almost 20 articles of original research and several meetings with Israelis, Palestinians, and other interested parties. Overall, since 2003, the initiative has resulted in new forms of co-operation on peace issues; it has acted to increase the participation of women, youth, and refugees in civil society; and it has supported civil society actors in applying new skills and knowledge in conflict management to improve co-operation towards peace."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/sector/DAC/15150> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15150> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/transaction1> a iati:transaction ;
+    iati:transaction-date "1999-06-30" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021360001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021360001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "2694419" ;
+    iati:value-date "1999-06-30" .
+

@@ -1,0 +1,90 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001> rdfs:label "Amélioration de l'environnement des affaires"@fr,
+        "Improving the Business Environment"@en ;
+    iati:activity-actual-end-date "2007-03-31" ;
+    iati:activity-actual-start-date "2001-01-15" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030490001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030490001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030490001/description2> ;
+    iati:activity-id "CA-1-A030490001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org2> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030490001/recipient-country/GY> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030490001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030490001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030490001/sector/DAC/25010> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/3> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030490001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/description1> a iati:description ;
+    iati:description "Le but de ce projet est de promouvoir la croissance économique en contribuant à créer un environnement favorable à l'entreprise privée. Il aide la Commission du secteur privé (PSC) de la Guyana à analyser les goulots d'étranglement touchant la réglementation et les politiques, entre autres, qui nuisent au développement du secteur privé. Il permet ainsi à la PSC de discuter avec le gouvernement de ces obstacles et de la façon de les surmonter afin de stimuler l'économie. La PSC représente les intérêts des entreprises guyaniennes, grandes et petites. Le projet vise à améliorer la capacité de son personnel d'effectuer de solides analyses économiques et à contribuer à la compétitivité du secteur privé, en partie en faisant mieux comprendre aux membres de la PSC les questions liées au commerce et à l'investissement. Il s'agit d'une initiative dirigée par l'ACDI à laquelle participent plusieurs donateurs, dont le ministère du Développement international (DFID) du Royaume-Uni."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/description2> a iati:description ;
+    iati:description "The purpose of this project is to promote economic growth by helping to create an enabling environment for private business. The project helps the Private Sector Commission of Guyana (PSC) analyze regulatory, policy and other bottlenecks that impede private sector development. It helps the PSC then make representations to the government about the bottlenecks and how to overcome them, in order to stimulate the economy. The PSC represents the interests of Guyanese businesses, both large and small. The project aims to improve the ability of its personnel to undertake sound economic analysis and to contribute to the competitiveness of the private sector, in part by fostering PSC members' understanding of trade and investment issues. This project is a multi-donor initiative led by CIDA that also involves the United Kingdom's Department for International Development (DFID)."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org1> a iati:organisation ;
+    rdfs:label "Private Sector Commission of Guyana Limited"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/participating-org2> a iati:organisation ;
+    rdfs:label "Private Sector Commission of Guyana Limited"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/recipient-country/GY> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/GY> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030490001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030490001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu’en septembre 2011 (fin du projet) : À la suite de pressions exercées par la Commission du secteur privé (CSP) du Guyana, le budget de 2011 du gouvernement du Guyana a prévu des réductions de l’impôt des sociétés de 14,2 % pour les entreprises non commerciales et de 11,1 % pour les entreprises commerciales. Ces mesures ont contribué à améliorer le climat favorable à l’investissement du secteur privé et aux activités entrepreneuriales au Guyana, et à renforcer les partenariats avec des organisations régionales du secteur privé, dont l’Association de l’industrie et du commerce des Caraïbes."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/result1/description2> a iati:description ;
+    iati:description "Results as of September 2011 (end of project) include: Subsequent to lobbying efforts by the Private Sector Commission of Guyana, the Government of Guyana's 2011 budget revealed reductions of corporation tax rates by 14.2% for non-commercial companies, and 11.1% for commercial companies. This has contributed to an improved climate for private sector investment and entrepreneurial initiatives in Guyana, as well as increased partnerships with regional private sector organizations including the Caribbean Association of Industry and Commerce."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/sector/DAC/25010> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/25010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/transaction1> a iati:transaction ;
+    iati:transaction-date "2001-01-15" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030490001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030490001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "794395" ;
+    iati:value-date "2001-01-15" .
+

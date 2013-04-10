@@ -1,0 +1,95 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1> rdfs:label "AIDSTAR2 Task Order"@en ;
+    iati:activity-actual-end-date "2011-09-30" ;
+    iati:activity-actual-start-date "2008-10-01" ;
+    iati:activity-budget <http://purl.org/collections/iati/activity/21020-MSH1/budget1> ;
+    iati:activity-collaboration-type <http://purl.org/collections/iati/codelist/CollaborationType/6> ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/21020-MSH1/contact-info> ;
+    iati:activity-default-aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:activity-default-flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:activity-id "21020-MSH1" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/21020-MSH1/participating-org/21020> ;
+    iati:activity-planned-end-date "2011-09-30" ;
+    iati:activity-planned-start-date "2008-10-01" ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/GB>,
+        <http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/KH>,
+        <http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/MX> ;
+    iati:activity-recipient-region <http://purl.org/collections/iati/activity/21020-MSH1/recipient-region/380>,
+        <http://purl.org/collections/iati/activity/21020-MSH1/recipient-region/619> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/21020-MSH1/activity-reporting-org/21020> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/21020-MSH1/transaction1> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/activity-reporting-org/21020> a iati:organisation ;
+    rdfs:label "International HIV/AIDS Alliance"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/21> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/budget1> a iati:budget ;
+    iati:budget-period-end <http://purl.org/collections/iati/activity/21020-MSH1/budget1/period-end> ;
+    iati:budget-period-start <http://purl.org/collections/iati/activity/21020-MSH1/budget1/period-start> ;
+    iati:budget-type <http://purl.org/collections/iati/codelist/BudgetType/original> ;
+    iati:budget-value <http://purl.org/collections/iati/activity/21020-MSH1/budget1/value> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/budget1/period-end> iati:date "2011-09-30" .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/budget1/period-start> iati:date "2010-10-01" .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/budget1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/USD> ;
+    iati:value "741253" ;
+    iati:value-date "2011-09-11Z" .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/contact-info> iati:email "mail@aidsalliance.org" ;
+    iati:mailing-address "International HIV/AIDS Alliance (secretariat),1st and 2nd Floor,Preece House, 91-101 Davigdor Road Hove, BN3 1RE, United Kingdom" ;
+    iati:organisation "International HIV/AIDS Alliance" ;
+    iati:telephone "+441273718900" .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/participating-org/21020> a iati:organisation ;
+    rdfs:label "International HIV/AIDS Alliance"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/21020> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/21> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/GB> a iati:country ;
+    rdfs:label "AIDSTAR Global Project"@en ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/GB> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/KH> a iati:country ;
+    rdfs:label "Cambodia"@en ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/KH> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/recipient-country/MX> a iati:country ;
+    rdfs:label "Mexico"@en ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/MX> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/recipient-region/380> a iati:region ;
+    rdfs:label "Caribbean"@en ;
+    iati:region-code <http://purl.org/collections/iati/codelist/Region/380> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/recipient-region/619> a iati:region ;
+    rdfs:label "Eastern Europe and Central Asia"@en ;
+    iati:region-code <http://purl.org/collections/iati/codelist/Region/619> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/transaction1> a iati:transaction ;
+    iati:aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:provider-org <http://purl.org/collections/iati/activity/21020-MSH1/transaction1/provider-org> ;
+    iati:transaction-date "2011-09-11Z" ;
+    iati:transaction-description <http://purl.org/collections/iati/activity/21020-MSH1/transaction1/description1> ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/21020-MSH1/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/transaction1/description1> a iati:description ;
+    iati:description "This is the total value of the contract over the lifetime of the project."@en .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/transaction1/provider-org> rdfs:label "Management Sciences for Health (MSH)" ;
+    iati:organisation-ref <http://purl.org/collections/iati/codelist/OrganisationIdentifier/> .
+
+<http://purl.org/collections/iati/activity/21020-MSH1/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/USD> ;
+    iati:value "1871344" ;
+    iati:value-date "2011-09-11Z" .
+

@@ -1,0 +1,101 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002> rdfs:label "Caribbean Disaster Responsive Fund"@en,
+        "Fonds réactif en cas de catastrophes - Caraïbes"@fr ;
+    iati:activity-actual-start-date "2003-07-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021378002/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021378002/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/description2> ;
+    iati:activity-id "CA-1-A021378002" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org2> ;
+    iati:activity-planned-end-date "2017-06-30" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021378002/policy-marker/DAC/2> ;
+    iati:activity-recipient-region <http://purl.org/collections/iati/activity/CA-1-A021378002/recipient-region/380> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021378002/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021378002/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021378002/sector/DAC/41010>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/sector/DAC/72010> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021378002/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/description1> a iati:description ;
+    iati:description "Le projet a pour objectif d'aider la région à relever les défis en matière de développement posés par des catastrophes naturelles récurrentes. Ce fonds réactif offre une aide à court terme après une catastrophe majeure, notamment pour répondre aux besoins humanitaires fondamentaux et effectuer une évaluation rapide des dommages, afin de faciliter le rétablissement des services essentiels. Le Fonds permet de financer les services offerts par deux experts techniques, l'un se spécialisant dans le domaine de l'eau et de l'assainissement et l'autre, dans le domaine de l'évaluation des dommages dans les aéroports. Ces deux experts feront partie d'une plus grande équipe, coordonnée par les donateurs, chargée de l'évaluation rapide des catastrophes dans les Caraïbes."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/description2> a iati:description ;
+    iati:description "The goal of the project is to assist the region in meeting the development challenges posed by recurrent natural disasters. This responsive fund is designed to provide short-term assistance after major disasters in areas such as critical humanitarian needs and timely damage assessment in order to facilitate the restoration of critical services. The fund provides for the services of two technical experts, one in water and sanitation and a second in airport damage assessment, as part of a larger donor-coordinated rapid response disaster assessment team for the Caribbean."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org1> a iati:organisation ;
+    rdfs:label "Non codé"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/participating-org2> a iati:organisation ;
+    rdfs:label "Uncoded"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/policy-marker/DAC/2> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/2> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/recipient-region/380> a iati:region ;
+    rdfs:label "West Indies, regional" ;
+    iati:percentage "100" ;
+    iati:region-code <http://purl.org/collections/iati/codelist/Region/380> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021378002/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021378002/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu'en septembre 2011 : Des spécialistes canadiens de l'eau, de l'assainissement et des aéroports ont offert des services consultatifs professionnels en Grenade après le passage de l'ouragan Ivan. Un expert de l'eau et de l'assainissement a aussi été déployé à Sainte-Lucie en 2010 dans le cadre de la réaction initiale à la suite de l'ouragan Tomas. Les évaluations rapides des besoins et les conseils techniques des experts ont été utiles aux organismes donateurs, aux ministères et aux intervenants pour répondre de la manière la plus coordonnée possible aux besoins prioritaires des pays touchés."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/result1/description2> a iati:description ;
+    iati:description "Results as of September 2011 include: Canadian water and sanitation and airport specialists provided professional advisory services in Grenada after the passage of hurricane Ivan. A water and sanitation specialist was also deployed in St.Lucia in 2010 as an initial response in the aftermath of hurricane Tomas. The specialists’ rapid needs assessments and technical advice were used by donor agencies, ministries and stakeholders to respond in the most coordinated fashion to priority needs in affected countries."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/sector/DAC/41010> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/41010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/sector/DAC/72010> a iati:sector ;
+    iati:percentage "70" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/72010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/transaction1> a iati:transaction ;
+    iati:transaction-date "2003-07-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021378002/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021378002/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "1000000" ;
+    iati:value-date "2003-07-01" .
+

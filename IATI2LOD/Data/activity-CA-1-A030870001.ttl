@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001> rdfs:label "Administrative Reform Support - Phase II"@en,
+        "Appui à la réforme administrative - phase II"@fr ;
+    iati:activity-actual-end-date "2010-03-31" ;
+    iati:activity-actual-start-date "2003-04-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030870001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030870001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/description2> ;
+    iati:activity-id "CA-1-A030870001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030870001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030870001/recipient-country/BJ> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030870001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030870001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030870001/sector/DAC/15110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/sector/DAC/15111> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030870001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/description1> a iati:description ;
+    iati:description "Cette deuxième phase d'appui au programme béninois de réforme administrative vise à renforcer la crédibilité de l'État et à contribuer à la professionnalisation de l'administration publique par la transformation progressive de celle-ci en une administration plus efficace et apte à jouer son rôle de catalyseur des réformes gouvernementales. Une administration publique plus efficace permet d’accroître la transparence des actions de l’État et offre de meilleurs services à la population. Partenaire : Ministère de la Réforme Administrative et Institutionnelle du Bénin (MRAI)"@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/description2> a iati:description ;
+    iati:description "The objective of this second phase of support for Benin's administrative reform program is to enhance the government's credibility, and to contribute to the professionalization of the public service, by phasing in more effective administration likely to serve as a catalyst for government reforms. A more effective public service makes it possible to increase the transparency of government activities and to serve the people of Benin more effectively. Partner: Ministry of Administrative and Institutional Reform of Benin (MRAI)"@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org1> a iati:organisation ;
+    rdfs:label "École de la fonction publique du Canada"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/participating-org2> a iati:organisation ;
+    rdfs:label "Canada School of Public Service"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/recipient-country/BJ> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/BJ> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030870001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030870001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats réalisés par ce projet, qui s’est terminé en 2010 : la formation de cadres au Ministère de la réforme administrative et institutionnelle (MRAI) en matière de gestion et l'élaboration d'outils qui les aident dans leurs tâches. Un répertoire de plus de 500 fiches d'emploi a été créé comme base de données des postes de gestion de la fonction publique afin de rendre objectif et transparent le processus de recrutement dans la fonction publique. Durant la dernière année du projet, le dialogue avec les autorités béninoises a été intensifié en vue d’inciter la mise en œuvre effective des outils développés pour optimiser la mise en œuvre de la réforme. Le projet a également contribué à une amélioration des services offerts aux citoyens à travers la création de deux équipes de projets dédiées aux questions d'amélioration de la qualité du service aux usagers et l'apport informatique au Service de relations avec les usagers du Ministère du travail et de la fonction publique). Ceci a notamment simplifié et accéléré les procédures et délais de délivrance de documents administratifs. Une formation sur le Leadership au féminin et le Développement personnel à 300 femmes de l’administration publique a suscité chez celles-ci une plus grande mobilisation et implication dans le processus de réforme."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/result1/description2> a iati:description ;
+    iati:description "Results achieved by this project (completed in 2010) include: Officials in the Ministry of Administrative and Institutional Reform (MRAI) received management training and tools were developed to assist them in their duties. An inventory of over 500 employment records was created as a database of public service management positions, to make the public service recruitment process objective and transparent. During the last year of the project, dialogue with Beninese authorities was intensified to promote effective application of the tools developed to optimize the implementation of reform. The project also helped to improve the services available to citizens by creating two project teams to address issues relating to improving the quality of service to users and to the introduction of computers in the User Relations Service within the Ministry of Labour and the Public Service. Among other things, this simplified and expedited procedures and turnaround in providing administrative documents. 300 women in the public service received training in leadership and personal development, which resulted in greater mobilization and involvement in the reform process."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "70" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/sector/DAC/15111> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15111> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/transaction1> a iati:transaction ;
+    iati:transaction-date "2003-04-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030870001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030870001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "4123518" ;
+    iati:value-date "2003-04-01" .
+

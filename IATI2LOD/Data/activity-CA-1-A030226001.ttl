@@ -1,0 +1,110 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001> rdfs:label "Renforcement des systèmes de santé traditionnels"@fr,
+        "Strengthening Traditional Health Systems"@en ;
+    iati:activity-actual-start-date "2002-03-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030226001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030226001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/description2> ;
+    iati:activity-id "CA-1-A030226001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org2> ;
+    iati:activity-planned-end-date "2013-03-27" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030226001/policy-marker/DAC/3> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030226001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030226001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12110>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12220>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12250>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12262>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12281> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030226001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/description1> a iati:description ;
+    iati:description "Le projet de Renforcement des systèmes de santé traditionnels permet au Bureau régional pour l'Afrique (AFRO) de l'Organisation mondiale de la santé (OMS) de faciliter la mise en oeuvre de sa stratégie régionale pour la promotion du rôle de la médecine traditionnelle dans les systèmes de santé africains. Des activités sont menées dans tous les pays subsahariens, à l'exception du Soudan et de Djibouti qui ne sont pas membres d'AFRO. Le projet appui le travail d'AFRO à intégrer la médecine traditionnelle dans les systèmes de santé africains. Il promouvoit l'adoption des cadres politiques et réglementaires voulus au niveau national, ainsi que le réseautage et le partage des expériences entre pays. Il permet également d'appuyer certains travaux de recherche sur la sûreté et l'efficacité de médecines traditionnelles qui pourraient s'avérer utiles au contrôle du paludisme et autres maladies."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/description2> a iati:description ;
+    iati:description "The Strengthening Traditional Health Systems project allows the World Health Organization's (WHO) Regional Office for Africa (AFRO) to implement its regional strategy for promoting the integration of traditional medicine in African health systems. Activities take place in all sub-Saharan countries, except Sudan and Djibouti, which are not members of AFRO. The project supports AFRO's work in promoting the use of traditional medicine, and its incorporation within African health systems. It advocates for the adoption of supportive national policy and regulatory frameworks, and supports networking and the sharing of experiences from country to country. It also supports research on the safety and effectiveness of traditional medicine that could prove useful in controlling malaria and other diseases."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org1> a iati:organisation ;
+    rdfs:label "OMS - Organisation mondiale de la Santé - Bureau régional pour l'Afrique"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/participating-org2> a iati:organisation ;
+    rdfs:label "WHO - World Health Organization - Regional Office for Africa"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030226001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030226001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats en date du dernier rapport (décembre 2011) : 1) L’appui technique du programme de la médecine traditionnelle (PMT) à la rencontre d’experts des Ministres de la santé africains de l’Union Africaine en avril 2011 a abouti à une déclaration que 2011 jusqu’à 2020 représentera la nouvelle décennie en appui à la médecine traditionnelle ; 2) L’appui au Gabon, Guinea Bissau et au Togo a assuré la mise en œuvre de politiques nationales en médecine traditionnelle (MT) et un appui au Mozambique a assuré la rédaction d’une ébauche du plan stratégique national en MT ; 3) Des outils de MT ont été intégrés dans le programme de maîtrise en médecine conventionnelle en Tanzanie ; 4) 30 responsables de l'élaboration des politiques dans le secteur de la santé en Éthiopie ont reçu une formation en l’évaluation des MTs."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/result1/description2> a iati:description ;
+    iati:description "Results as of latest report (December 2011) include: 1) The Traditional Medicine Program (TMP)’s technical support to the African Union Experts Meeting and Conference of African Ministers of Health in April 2011 resulted in the declaration of 2011 to 2020 being the renewed decade for African Traditional Medicine; 2) Support to Gabon, Guinea Bissau and Togo resulted in their adoption of national traditional medicine (TM) policies and support to Mozambique resulted in a draft national TM strategic plan; 3) TM tools were integrated as part of a Masters Degree program in conventional medicine in Tanzania; 4) 30 health policy-makers in Ethiopia were trained in the evaluation of traditional medicines."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12110> a iati:sector ;
+    iati:percentage "60" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12220> a iati:sector ;
+    iati:percentage "10" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12220> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12250> a iati:sector ;
+    iati:percentage "5" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12250> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12262> a iati:sector ;
+    iati:percentage "10" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12262> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/sector/DAC/12281> a iati:sector ;
+    iati:percentage "15" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/12281> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/transaction1> a iati:transaction ;
+    iati:transaction-date "2002-03-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030226001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030226001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "10500000" ;
+    iati:value-date "2002-03-01" .
+

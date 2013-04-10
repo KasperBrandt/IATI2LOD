@@ -1,0 +1,90 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001> rdfs:label "Guyana Basic Education Teacher Training (GBET)"@en,
+        "Programme de formation en enseignement de base au Guyana"@fr ;
+    iati:activity-actual-end-date "2011-01-28" ;
+    iati:activity-actual-start-date "1998-10-01" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A020252001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A020252001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020252001/description2> ;
+    iati:activity-id "CA-1-A020252001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org2> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A020252001/recipient-country/GY> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A020252001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A020252001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A020252001/sector/DAC/11130> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/3> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A020252001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/description1> a iati:description ;
+    iati:description "L'objectif de ce projet est d'améliorer la qualité de l'éducation de base au Guyana en renforçant les systèmes de formation des enseignants. Le projet vise les enseignants autochtones, particulièrement les femmes, des régions éloignées du pays, où le niveau d'instruction des enseignants est faible. Il donne à ces enseignants la possibilité d'obtenir un certificat d'équivalence d'études secondaires dans quatre matières de base et de suivre une formation en sciences de l'éducation au moyen de l'apprentissage à distance. Il permet également de renforcer la capacité des établissements d'enseignement à offrir des services de formation à distance. Par une meilleure formation des enseignants, le projet vise à améliorer le faible rendement scolaire au primaire et à accroître le pourcentage d'élèves qui terminent leurs études primaires."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/description2> a iati:description ;
+    iati:description "The goal of this project is to improve the quality of basic education in Guyana by strengthening teacher training systems. The project targets aboriginal teachers, especially women, in remote regions of Guyana where teachers' literacy levels are low. The project provides these teachers with the opportunity to obtain secondary school equivalency in four core subjects and teacher training through distance learning. It also strengthens the capacity of educational institutions to deliver distance learning. By improving teacher training, the project aims to improve low student achievement at primary school levels and to increase the percentage of students who complete primary school."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org1> a iati:organisation ;
+    rdfs:label "CRC Sogema Inc."@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/participating-org2> a iati:organisation ;
+    rdfs:label "CRC Sogema Inc."@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/recipient-country/GY> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/GY> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A020252001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020252001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu’en octobre 2010 : Au total, 349 enseignants­stagiaires ont perfectionné leurs compétences pour satisfaire aux conditions d’admission de la faculté des sciences de l’éducation; 1 380 enseignants en éducation préscolaire et primaire ont suivi de la formation à distance dans des programmes de certificats en éducation; 1 219 enseignants en chef, assistants enseignants en chef et superviseurs ont réussi le programme de certificat en administration scolaire. Un programme d’études secondaires de 71 modules donné au moyen de la formation à distance a été élaboré et est en cours de mise en œuvre par le gouvernement du Guyana. Une unité sur l’enseignement à distance a également été créée au Collège des sciences de l’éducation Cyril Potter afin de donner de la formation aux enseignants."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/result1/description2> a iati:description ;
+    iati:description "Results achieved as of October 2010 include: 349 teacher trainees were upgraded to teacher training college entry qualification requirements. 1,380 Early Childhood and Primary teachers were trained through distance education teacher training certificate programs. 1,219 head/deputy head teachers and supervisors graduated from the Education Management Certificate Program. A Distance Education Secondary program with 71 modules was developed and the Government of Guyana is implementing it. A Distance Education Unit was also established at the Cyril Potter College of Education to deliver teacher training."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/sector/DAC/11130> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/transaction1> a iati:transaction ;
+    iati:transaction-date "1998-10-01" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A020252001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020252001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "8100000" ;
+    iati:value-date "1998-10-01" .
+

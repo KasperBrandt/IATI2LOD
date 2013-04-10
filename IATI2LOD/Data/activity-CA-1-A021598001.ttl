@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001> rdfs:label "Amélioration de l'éducation de base"@fr,
+        "Improvement of Basic Education"@en ;
+    iati:activity-actual-start-date "1999-11-17" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021598001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021598001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/description2> ;
+    iati:activity-id "CA-1-A021598001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org2> ;
+    iati:activity-planned-end-date "2012-03-31" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021598001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A021598001/recipient-country/PE> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021598001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021598001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021598001/sector/DAC/11110>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/sector/DAC/11130> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021598001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/description1> a iati:description ;
+    iati:description "Le projet vise à aider les élèves des zones rurales dans le nord du Pérou à obtenir leur diplôme d'études primaires dans les délais prévus et à acquérir les compétences de base requises. Il utilise un modèle d'alphabétisation basé sur la participation de la collectivité et le renforcement des capacités des enseignants, des directeurs d'école et des autorités municipales et régionales responsables de l'éducation. Le projet met l'accent sur le développement des jeunes enfants, le perfectionnement des enseignants et le renforcement des capacités du secteur de l'éducation en matière de gestion institutionnelle. Il encourage l'adoption du nouveau modèle d'alphabétisation dans l'ensemble des régions du nord du Pérou et sa diffusion à l'échelle du pays."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/description2> a iati:description ;
+    iati:description "The goal of the project is to assist students in rural areas of northern Peru to complete primary education on time with the required basic competencies. The project is developing a literacy model based on community participation and the capacity building of teachers, principals and education authorities at the municipal and regional levels. The project focuses on early childhood development, on strengthening teacher training, and on reinforcing institutional management capacities in the education sector. The project promotes the adoption of the new literacy model across northern Peru and dissemination of the model at the national level."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org1> a iati:organisation ;
+    rdfs:label "Agriteam Canada"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/participating-org2> a iati:organisation ;
+    rdfs:label "Agriteam Canada"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/recipient-country/PE> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/PE> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021598001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021598001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/result1/description1> a iati:description ;
+    iati:description "Résultats du Fin de Projet Selon le Ministère de l’Éducation, le Ministère de l’Économie et des Finances et de nombreux entrepreneurs péruviens, le projet PROMEB est l'un des quatre projets les plus fructueux au pays dans le domaine de l'éducation en milieu rural. Les modèles de renforcement des capacités et d’accompagnement pédagogique de PROMEB sont adaptés et mis en œuvre par divers gouvernements régionaux. Le programme stratégique axé sur les résultats du ministère de l’Économie et des Finances et du ministère de l'Éducation (PPELA) ayant pour but d'accroître les résultats d'apprentissage intègre dorénavant le modèle d'accompagnement pédagogique de PROMEB à l'échelle nationale. La contribution du projet dans le nord du Pérou est pleinement reconnue. En tout, 50 fonctionnaires répartis dans les régions de Tumbes, de Piura, de Lambayeque et de La Libertad ont maintenant la capacité de concevoir des projets d'investissement (PIPs) de qualité dans le domaine de l'éducation, ce qui leur permet d'avoir accès à des ressources financières additionnelles. Ces ressources sont allouées à l’amélioration de l’infrastructure scolaire, la qualité de la pédagogie (par exemple l’accompagnement pédagogique des enseignants), la gestion éducative et la création d’un plus grand nombre de places au niveau pré-primaire. L'aide technique a contribué de manière directe au développement des politiques régionales en matière d'éducation et ces dernières sont alignées sur le Programme national d'éducation (PEN) et les Plans régionaux axés sur les enfants et les jeunes. Le projet a fait croître les résultats d'apprentissage des enfants de deuxième année en compréhension de l’écrit et en mathématiques dans deux régions. Par exemple, le projet pilote dans le district de Julcán dans la région de La Libertad a entraîné une augmentation des résultats d'apprentissage en compréhension de l'écrit, qui sont passés de 3,9 % en 2008 à 16 % en 2009, et en mathématiques, qui sont passés de 5,3 % en 2008 à 15,4 % en 2009. Des systèmes furent développés pour assurer le suivi des progrès dans la gestion de l’éducation régionale dans 25 régions. PROMEB a fourni de l’assistance technique au Conseil National d’Éducation pour la création d’un Système d’information et de suivi qui permet un suivi systématique des projets éducatifs régionaux (PERs) mis en œuvre par les gouvernements régionaux. Les gouvernements régionaux, la société civile, les comités consultatifs au niveau régional (COPAREs) et les réseaux de politiques sur les enfants (tel que le Plan régional d’attention aux enfants et jeunes) ont bénéficié de l’assistance technique du projet. PROMEB a également fourni de l'aide technique à l'Institut Péruvien d’Évaluation, Accréditation et Certification de l’éducation de base (IPEBA) pour le développement de normes de gestion de la qualité de l'éducation, et a collaboré lors de la validation de ces normes dans une région. L’assistance technique a contribué à accroître les taux de scolarisation au niveau pré-primaire. Des activités de renforcement des capacités ont été menées auprès de 4 700 employés, enseignants et parents en milieu régional. Un total de 36,811 garçons et filles et 1,863 enseignants ont bénéficié d’un système d’éducation renforci aux niveaux pré-primaire et primaire grâce à l’assistance technique fournie par PROMEB pour appuyer les PIPs et le PPELA. Finalement, PROMEB a renforcé l'engagement des autorités nationales et régionales (Ministère de l’Éducation, Conseil national d’éducation, Mouvement pour appuyer la petite enfance et Assemblée nationale des gouvernements régionaux) envers l’éducation de base équitable et de qualité, assurant ainsi un environnement optimal pour la durabilité des résultats."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/result1/description2> a iati:description ;
+    iati:description "End of Project Results The PROMEB project has developed some of the most successful models to improve the quality of education in rural areas in Peru, as stated by the Ministry of Education, the Ministry of Economy and Finance and Peruvian entrepreneurs. These models, which are replicated in other regional governments beyond the project, include capacity development strategies and a teacher coaching and accompaniment system that has been implemented in the nationwide Results-based Strategic Programs for Increasing Learning Outcomes (PPELA). The contribution of PROMEB to quality education in the north of Peru is fully recognized. Civil servants (50) from Tumbes, Piura, Lambayeque and La Libertad now have the capacity to design quality investment projects (PIPs) related to improving infrastructure; quality of pedagogy, such as teachers' coaching; education management; and the coverage of pre-school education. The technical assistance provided by the project has been key to the development of regional education policies aligned with the National Education Project (PEN) and Regional Plans for Attention to Children and Youth. PROMEB has positively impacted student learning outcomes. Second graders' reading comprehension and mathematics learning outcomes increased in two regions. For example, in the pilot district of Julcán in La Libertad during the period 2008-2009, reading comprehension learning outcomes increased from 3.9% to 16% and mathematics learning outcomes from 5.3% to 15.4%. Systems were developed to monitor the progress of regional education management in 25 regions. PROMEB provided technical assistance to the National Education Council for the creation of the Monitoring and Information System that allows for systematic monitoring of regional education projects or PERs implemented by regional governments. Technical assistance was provided to regional governments, civil society, consultative committees involving civil society organisations at the regional level (COPAREs), and children’s networks on policy development, such as the Regional Plan for Attention to Children and Youth. PROMEB also provided assistance to the Peruvian Institute for the Evaluation, Accreditation and Certification of the Quality of Basic Education (IPEBA) to develop quality education management standards and facilitated the validation of these standards in one region. Technical assistance contributed to increased coverage of pre-primary education. Capacity building was provided to 4,700 regional staff, teachers and parents. A total of 36,811 boys and girls and 1,863 teachers benefitted from an improved pre-primary and primary education system through the technical assistance provided by PROMEB to PIPs and PPELA. PROMEB reinforced the commitment of national and regional authorities (Ministry of Education, National Education Council, Movement to invest in childhood and the National Assembly of Regional Governments) to quality and equitable education, creating an optimal environment for sustainability."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/sector/DAC/11110> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/sector/DAC/11130> a iati:sector ;
+    iati:percentage "50" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/transaction1> a iati:transaction ;
+    iati:transaction-date "1999-11-17" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021598001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021598001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "11500000" ;
+    iati:value-date "1999-11-17" .
+

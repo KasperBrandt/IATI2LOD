@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001> rdfs:label "Fonds d'assistance technique stratégique et de transfert adapté aux besoins - I"@fr,
+        "Strategic Technical Assistance Response Fund (START) - I"@en ;
+    iati:activity-actual-start-date "1996-10-22" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A020279001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A020279001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/description2> ;
+    iati:activity-id "CA-1-A020279001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org2> ;
+    iati:activity-planned-end-date "2013-07-31" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A020279001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A020279001/recipient-country/PK> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A020279001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A020279001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A020279001/sector/DAC/15110> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A020279001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/description1> a iati:description ;
+    iati:description "Ce fonds géré localement apporte une aide à court et moyen terme aux initiatives modestes qui sont lancées sous l'impulsion du gouvernement du Pakistan et qui contribuent stratégiquement aux priorités définies dans le cadre de la programmation de l'ACDI pour le Pakistan. Ces priorités sont la gouvernance, l'égalité entre les sexes, la santé et l'éducation. Parmi les activités qui reçoivent un financement, on peut citer entre autres la prestation de conseils techniques (consultants canadiens ou pakistanais), les séminaires, les ateliers, les publications, les rapports, le dialogue à haut niveau en matière de politiques, la communication avec le grand public, la recherche, les enquêtes, les exercices d'élaboration de politiques, les consultations et les efforts de coordination des donateurs. Ce fonds est géré par un coordonnateur embauché localement. Les deux millions de dollars du fonds permettent d'appuyer les initiatives gérées par les organisations internationales grâce au volet START II du fonds, et toutes les autres initiatives grâce à START I."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/description2> a iati:description ;
+    iati:description "This locally-administered fund provides short-to-medium term support for small initiatives requested by the Government of Pakistan that make strategic contributions to the priorities identified in CIDA's programming framework for Pakistan. These priorities are governance, gender equality, health, and education. Examples of the activities funded include, but are not limited to: technical assistance consultancies (Canadian or Pakistani), seminars, workshops, publications, reports, high-level policy dialogue, public communication, research, surveys, policy development exercises, consultations. The fund is coordinated by a locally-engaged coordinator. The total value of the fund is $2 million, implemented through two components: START II supports initiatives managed by international organizations and START I supports all other initiatives."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org1> a iati:organisation ;
+    rdfs:label "Non codé"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/participating-org2> a iati:organisation ;
+    rdfs:label "Uncoded"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/recipient-country/PK> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/PK> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A020279001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A020279001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu’en juin 2011 : Le Fonds a permis de soutenir des projets qui tiennent compte des questions d’une importance cruciale pour le gouvernement du Pakistan dans l’avancement de ses réformes et de son développement démocratique. Cinq membres du personnel de la Commission électorale du Pakistan (CEP) ont reçu une formation sur l’utilisation de la technologie dans le cadre de la gestion des élections; les connaissances acquises se reflètent dans la stratégie de réforme électorale échelonnée sur cinq ans de la CEP. Le ministère des Affaires juridiques a maintenant son site Web, dans lequel on peut consulter sans frais des lois et des règlements. Ainsi, le site Web permet aux avocats d’effectuer des recherches et de préparer leurs causes rapidement et facilement et, par conséquent, contribue à la transparence du gouvernement. L’arrivée d’un conseiller en égalité entre les sexes et en protection de l’enfance auprès du Comité national de gestion des catastrophes du gouvernement a fait en sorte que les programmes puissent répondre de façon appropriée aux besoins particuliers des femmes et des enfants touchés par les inondations dévastatrices survenues au Pakistan en 2010."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/result1/description2> a iati:description ;
+    iati:description "Results as of June 2011 include: The project has supported initiatives addressing issues critical to the Government of Pakistan in moving forward on their reforms and democratic development. Five staff members of the Election Commission of Pakistan (ECP) were trained on the use of technology in managing elections; the knowledge is reflected in ECP’s five-year Election Reform Strategy. The Ministry of Law website was established, enabling posting and free access to laws and regulations, allowing lawyers to undertake research and case work quickly and easily, and contributing to government transparency. The provision of a gender and child protection advisor to the government’s National Disaster Management Authority has ensured that their programs respond appropriately to the particular needs of women and children affected by Pakistan’s devastating floods in 2010."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/sector/DAC/15110> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/15110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/transaction1> a iati:transaction ;
+    iati:transaction-date "1996-10-22" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A020279001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A020279001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "2786358" ;
+    iati:value-date "1996-10-22" .
+

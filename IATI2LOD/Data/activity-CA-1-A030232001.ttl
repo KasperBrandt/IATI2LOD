@@ -1,0 +1,95 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001> rdfs:label "Fonds de bourses d'études pour les réfugiées palestiniennes"@fr,
+        "Scholarship Fund for Palestinian Refugee Women"@en ;
+    iati:activity-actual-end-date "2012-03-30" ;
+    iati:activity-actual-start-date "2000-02-03" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030232001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030232001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030232001/description2> ;
+    iati:activity-id "CA-1-A030232001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030232001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030232001/recipient-country/LB> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030232001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030232001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030232001/sector/DAC/11420> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/3> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030232001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/description1> a iati:description ;
+    iati:description "Le fonds de bourses d'études pour les réfugiées palestiniennes permet à des femmes issues des communautés palestiniennes au Liban d’accéder à des études de premier cycle universitaire dans ce pays. Ces bourses leur permettent de développer leurs compétences professionnelles et leurs connaissances en gestion, particulièrement dans des secteurs clés comme les affaires, le génie, la biologie et les sciences. À la suite de leurs études au Liban, on prévoit qu’elles atteignent une plus grande indépendance financière grâce à leur revenu, leur permettant ainsi de jouer un rôle plus actif dans leurs collectivités. Garantes de ce rôle, on prévoit qu'elles contribuent au renforcement des capacités administratives de leurs collectivités et qu'elles l’aident à acquérir plus d’autonomie. À ce jour, ces bourses ont été accordées à plus de 200 étudiantes."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/description2> a iati:description ;
+    iati:description "The Scholarship Fund for Palestinian Women assists women from Palestinian refugee communities in Lebanon pursue undergraduate university degrees and develop their professional and management skills in such fields as business, engineering, biology and science. After completing their studies in Lebanon, it is expected that these women become income-earners and play an increased leadership role in the Palestinian community. It is expected that they can then contribute to the development of the community's capacity to manage and sustain itself. More than 200 students have been awarded scholarships since 2000."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org1> a iati:organisation ;
+    rdfs:label "CRDI - Centre de recherches pour le développement international"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/participating-org2> a iati:organisation ;
+    rdfs:label "IDRC - International Development Research Centre"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/recipient-country/LB> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/LB> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030232001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030232001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu’au 31 mars 2012 : 229 réfugiées palestiniennes ont été acceptées dans le programme. En tout, 228 d’entre elles ont déjà obtenu leur diplôme et 1 l’obtiendront en janvier 2013. À la fin de 2009, une étude de suivi révélait que 32 % des diplômées travaillaient à temps plein, dont environ le tiers travaillaient directement dans leur domaine d’études et les deux tiers dans un domaine connexe. L’étude révélait aussi que 18 % travaillaient à temps partiel dans leur domaine d’études, alors que 36 % étaient à la recherche d’un emploi. Les 14 % qui restent travaillent soit à temps plein ou partiel dans un domaine non connexe, ne cherchent pas d’emploi ou n’ont pas répondu à l’étude de suivi.re en application des approches plus participatives au sein de leur district."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/result1/description2> a iati:description ;
+    iati:description "Results as of March 31, 2012: 229 Palestinian refugee women have been accepted to the program with 228 having already graduated and 1 to graduate by January 2013. As of the end of 2009, a tracer study reveals that 32% of graduates are working full time, with about 1/3 directly employed in their area of study and 2/3 working in related areas. 18% are working part-time in their area of study, while 36% are seeking employment. The remaining 14% are either working full or part-time in an unrelated field, not seeking employment or did not respond to the tracer study."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/sector/DAC/11420> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11420> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/transaction1> a iati:transaction ;
+    iati:transaction-date "2000-02-03" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030232001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030232001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "2173969" ;
+    iati:value-date "2000-02-03" .
+

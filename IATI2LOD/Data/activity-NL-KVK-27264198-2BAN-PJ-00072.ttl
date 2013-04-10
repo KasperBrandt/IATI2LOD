@@ -1,0 +1,114 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072> rdfs:label "Empowering Women RMG Workers Project Bangladesh"@en ;
+    iati:activity-budget <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1> ;
+    iati:activity-default-aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:activity-default-flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/description1> ;
+    iati:activity-id "NL-KVK-27264198-2BAN-PJ-00072" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/participating-org/GB-1>,
+        <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/participating-org1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/recipient-country/BD> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/activity-reporting-org/NL-KVK-27264198> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction1>,
+        <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction2>,
+        <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction3>,
+        <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction4> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/activity-reporting-org/NL-KVK-27264198> a iati:organisation ;
+    rdfs:label "ActionAid International"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/NL-KVK-27264198> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/21> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1> a iati:budget ;
+    iati:budget-period-end <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/period-end> ;
+    iati:budget-period-start <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/period-start> ;
+    iati:budget-value <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/value> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/period-end> iati:date "2013-04-30" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/period-start> iati:date "2011-05-01" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/budget1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/GBP> ;
+    iati:value "313887" ;
+    iati:value-date "2013-03-26" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/description1> a iati:description ;
+    iati:description "To stimulate and catalyse sustainable improvements in working conditions for poor and vulnerable workers in RMG industry."@en .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/participating-org/GB-1> a iati:organisation ;
+    rdfs:label "DFID"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/GB-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/participating-org1> a iati:organisation ;
+    rdfs:label "Maxwell Stamp PLC"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Accountable> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/recipient-country/BD> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/BD> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction1> a iati:transaction ;
+    iati:aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:disbursement-channel <http://purl.org/collections/iati/codelist/disbursementChannel/2> ;
+    iati:finance-type <http://purl.org/collections/iati/codelist/FinanceType/110> ;
+    iati:flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:tied-status <http://purl.org/collections/iati/codelist/TiedStatus/4> ;
+    iati:transaction-date "2012-12-31" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/GBP> ;
+    iati:value "181750" ;
+    iati:value-date "2012-12-31" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction2> a iati:transaction ;
+    iati:aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:disbursement-channel <http://purl.org/collections/iati/codelist/disbursementChannel/2> ;
+    iati:finance-type <http://purl.org/collections/iati/codelist/FinanceType/110> ;
+    iati:flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:tied-status <http://purl.org/collections/iati/codelist/TiedStatus/4> ;
+    iati:transaction-date "2012-12-31" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/D> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction2/value> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction2/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/GBP> ;
+    iati:value "70853" ;
+    iati:value-date "2012-12-31" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction3> a iati:transaction ;
+    iati:aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:disbursement-channel <http://purl.org/collections/iati/codelist/disbursementChannel/2> ;
+    iati:finance-type <http://purl.org/collections/iati/codelist/FinanceType/110> ;
+    iati:flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:tied-status <http://purl.org/collections/iati/codelist/TiedStatus/4> ;
+    iati:transaction-date "2012-12-31" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/E> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction3/value> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction3/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/GBP> ;
+    iati:value "3691" ;
+    iati:value-date "2012-12-31" .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction4> a iati:transaction ;
+    iati:aid-type <http://purl.org/collections/iati/codelist/AidType/C01> ;
+    iati:disbursement-channel <http://purl.org/collections/iati/codelist/disbursementChannel/2> ;
+    iati:finance-type <http://purl.org/collections/iati/codelist/FinanceType/110> ;
+    iati:flow-type <http://purl.org/collections/iati/codelist/FlowType/30> ;
+    iati:tied-status <http://purl.org/collections/iati/codelist/TiedStatus/4> ;
+    iati:transaction-date "2012-12-31" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/IF> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction4/value> .
+
+<http://purl.org/collections/iati/activity/NL-KVK-27264198-2BAN-PJ-00072/transaction4/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/GBP> ;
+    iati:value "109361" ;
+    iati:value-date "2012-12-31" .
+

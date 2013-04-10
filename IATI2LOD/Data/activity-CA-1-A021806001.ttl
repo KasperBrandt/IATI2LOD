@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001> rdfs:label "Agri-Food Operators Support Project"@en,
+        "Projet d'appui aux opérateurs/trices de l'agro-alimentaire"@fr ;
+    iati:activity-actual-end-date "2008-03-31" ;
+    iati:activity-actual-start-date "2002-03-26" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021806001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021806001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/description2> ;
+    iati:activity-id "CA-1-A021806001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021806001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A021806001/recipient-country/SN> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021806001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021806001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021806001/sector/DAC/32161>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/sector/DAC/43082> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021806001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/description1> a iati:description ;
+    iati:description "Le projet vise à favoriser le développement du secteur agro-alimentaire en appuyant les petites entreprises des filières pêche, céréales, fruits et légumes et lait, ainsi que l’Institut de technologie alimentaire (ITA) pour lui permettre de mieux répondre aux besoins des opérateurs de l’agro-alimentaire. Il est à noter que les activités de ce projet se sont terminées en mars 2008."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/description2> a iati:description ;
+    iati:description "This project contributes to the development of the agri-food sector by supporting small businesses involved in fishing, grains, fruit and vegetables, and milk. It also provides assistance to the Institut de technologie alimentaire (ITA) to better respond to the needs of agri-food operators. Note that this project closed its activities in March 2008."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org1> a iati:organisation ;
+    rdfs:label "Groupe SNC-Lavalin inc."@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/participating-org2> a iati:organisation ;
+    rdfs:label "SNC-Lavalin Group Inc."@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/recipient-country/SN> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/SN> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021806001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021806001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus en à la fin du projet (mars 2008) : Le projet a permis d’améliorer la compétitivité et la production de 148 opérateurs, se traduisant dans l’ensemble par une augmentation des revenus de 100 % par rapport à la situation de départ. Le revenu des femmes s'est accru de 31 %. La quantité de produits transformés mise en marché a plus que doublé et les pertes ont été diminuées de 50 %. La quantité et la toxicité des rejets polluants et volume d'eau usée ont diminué et 100 % des entreprises recyclent désormais leurs déchets. Les associations ont amélioré leur fonctionnement ainsi que les services qu'elles offrent à leurs membres. 80 opérateurs (représentant plus de 1 100 personnes) ont été formés par l’Institut technologique alimentaire. Les résultats obtenus par le projet ont contribué au développement du secteur agro-alimentaire du Sénégal en réorientant son action sur les opérateurs et opératrices qui y interviennent."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/result1/description2> a iati:description ;
+    iati:description "Results achieved by the end of the project (March 2008) include: The project improved the competitiveness and production of 148 operators. As a result, they generally earned 100 percent more than they initially did. Women increased their income by 31 percent. The quantity of processed products marketed more than doubled, and losses decreased by 50 percent. There was a decrease in the quantity and toxicity of pollutant release, and in the volume of wastewater. All businesses now recycle their waste. Associations operate more effectively and offer their members better services. The Institut technologique alimentaire trained 80 operators, representing more than 1,100 people. The results achieved by the project helped develop Senegal’s agri-food sector while shifting its focus to the operators."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/sector/DAC/32161> a iati:sector ;
+    iati:percentage "70" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/32161> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/sector/DAC/43082> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/43082> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/transaction1> a iati:transaction ;
+    iati:transaction-date "2002-03-26" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021806001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021806001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "8375617" ;
+    iati:value-date "2002-03-26" .
+

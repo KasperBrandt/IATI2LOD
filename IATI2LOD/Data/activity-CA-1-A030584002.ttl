@@ -1,0 +1,100 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002> rdfs:label "Islamic Studies and Social Equity Project -Tsunami"@en,
+        "Projet d'études islamiques et équité sociale - tsunami"@fr ;
+    iati:activity-actual-end-date "2012-11-01" ;
+    iati:activity-actual-start-date "2005-07-29" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030584002/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030584002/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/description2> ;
+    iati:activity-id "CA-1-A030584002" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org2> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030584002/recipient-country/ID> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030584002/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030584002/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/11120>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/11130>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/73010> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030584002/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/description1> a iati:description ;
+    iati:description "Faisant fond sur une relation d’une cinquantaine d’années avec son partenaire, l’Université McGill élargit la portée d’un projet actuel pour aider l’Institut national des études islamiques de l’Indonésie (IAIN) Ar-Raniry à rétablir la capacité réduite par le tsunami. L’aide est axée sur la remise en état de la bibliothèque, l’amélioration des ressources servant à la formation des enseignants, le remplacement et le perfectionnement du personnel enseignant et le renforcement de la capacité d’enseignement."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/description2> a iati:description ;
+    iati:description "Building on a 50-year relationship with its partner, McGill expands the existing Islamic Studies and Social Equity Project (IISEP) to help the Indonesia State Institute for Islamic Studies (IAIN) Ar-Raniry restore capacity damaged by the tsunami. Support focuses on rehabilitating the library, developing teacher-training resources, replacing and upgrading academic staff, and strengthening teaching capacity."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org1> a iati:organisation ;
+    rdfs:label "Université McGill"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/participating-org2> a iati:organisation ;
+    rdfs:label "McGill University"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/recipient-country/ID> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/ID> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030584002/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030584002/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/result1/description1> a iati:description ;
+    iati:description "Résultats en date de juin 2008 : Quatre conférenciers ont pu compléter de courtes formations à l’Université McGill alors que dix conférenciers ont complété des visites d’étude comparative à trois institutions indonésiennes. Des membres du Centre d’études de femmes (PSW) de IAIN Ar-Raniry ont assisté à un colloque sur le genre, les droits de la personne et la shari’a. Le PSW a commencé à identifier les enjeux qu’il adressera, dont le développement économique, les soins de santé offerts aux femmes enceintes et aux mères et la promotion de la tolérance religieuse. Des membres du PSW ont aussi amélioré leurs connaissances sur la relation entre l’Islam et le genre à travers des discussions mensuelles. De plus, le PSW a réalisé de la recherche sur les difficultés qu’ont connues les femmes d’Aceh pendant 30 ans de conflit civil, les résultats duquel seront publiés dans un livre."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/result1/description2> a iati:description ;
+    iati:description "Results as of June 2008: Four lecturers were able to complete short-term training at McGill University while ten lecturers have completed comparative study visits to three Indonesian institutions. Members of the Women’s Studies Centre (PSW) at IAIN Ar-Raniry attended a seminar on Gender, Human Rights, and Syari’ah. The PSW has started identifying the issues that it will address, including economic development, health services for pregnant women and mothers, and promotion of religious tolerance. PSW members have also improved their knowledge of gender and Islam through monthly discussions. In addition, the PSW carried out research on Acehnese women’s struggles during 30 years of civil conflict, the results of which will be published in a book."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/11120> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11120> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/11130> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/sector/DAC/73010> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/73010> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/transaction1> a iati:transaction ;
+    iati:transaction-date "2005-07-29" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030584002/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030584002/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "2331698" ;
+    iati:value-date "2005-07-29" .
+

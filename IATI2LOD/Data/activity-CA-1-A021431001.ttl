@@ -1,0 +1,120 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001> rdfs:label "Améliorer l'éducation de base aux enfants autochtones et ruraux - Sud des Andes et Amazonie, Pérou"@fr,
+        "Improving Basic Education for Indigenous and Rural Children in Southern Andean and Amazonian Peru"@en ;
+    iati:activity-actual-start-date "2010-03-15" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A021431001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A021431001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/description2> ;
+    iati:activity-id "CA-1-A021431001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org2> ;
+    iati:activity-planned-end-date "2016-03-31" ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/2>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/3> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A021431001/recipient-country/PE> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A021431001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A021431001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11110>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11130>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11220>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11240> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/2> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A021431001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/description1> a iati:description ;
+    iati:description "Le projet a pour but d'améliorer la qualité de l'éducation prodiguée aux enfants autochtones et à ceux habitant les régions rurales, particulièrement les filles, au sud des Andes péruviennes ainsi que dans l'Amazonie péruvienne, par le biais du programme Éducation bilingue interculturelle. L'appui de l'ACDI permet à l'UNICEF d'élargir le programme dans les régions suivantes : Ayacucho, Amazonas, Apurímac, Cusco et Ucayali. Ces dernières sont caractérisées par des taux extrêmement élevés de pauvreté, la présence de populations autochtones, une prévalence élevée de malnutrition chronique chez les enfants, et le manque généralisé de services essentiels de qualité, y compris les soins de santé, l'éducation, l'eau et l'assainissement. Ce projet est axé sur la production de manuels scolaires de qualité; la formation d'enseignants, de directeurs d'école et d'administrateurs dans le domaine de l'éducation; et le renforcement de la participation des parents et des membres de la collectivité dans le système de l'éducation. Le projet vise à améliorer les stratégies d'apprentissage et à développer des modèles pouvant être reproduits ailleurs dans les régions et les collectivités afin de renforcer les capacités du gouvernement au niveau des régions, d'une part, à soutenir un système régional de formation des enseignants et, d'autre part, à accroître l'accessibilité aux ressources financières et techniques."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/description2> a iati:description ;
+    iati:description "The project aims to improve quality education for indigenous and rural children, especially girls, in Southern Andean and Amazonian Peru through Intercultural Bilingual Education. CIDA's support enables UNICEF to expand its education program in Ayacucho, Amazonas, Apurímac, Cusco and Ucayali, regions characterized by extremely high poverty levels, indigenous populations, high prevalence of chronic malnutrition among children and overall lack of quality basic services, including health, education, water and sanitation. The project supports quality learning materials, training of teachers, school directors and education administrators, and strengthening the participation of parents and community members in the education system. The project aims to improve learning strategies, to develop models for replication in other regions and municipalities, and to contribute to the consolidation of regional government capacity to support a regional system of teacher training and to access national financial and technical resources."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org1> a iati:organisation ;
+    rdfs:label "UNICEF - Fonds des Nations Unies pour l'enfance"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/participating-org2> a iati:organisation ;
+    rdfs:label "UNICEF - United Nations Children's Fund"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/2> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/2> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/policy-marker/DAC/3> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/3> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/recipient-country/PE> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/PE> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A021431001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A021431001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus jusqu'en avril 2011 : Grâce à l'aide technique fournir par l'UNICEF et d'autres intervenants, le Conseil national de l'éducation a conçu un système de surveillance de l'information qui vise à recueillir les résultats des projets régionaux axés sur l'éducation. Plus de 1 000 enseignants autochtones (originaires des Andes et de l'Amazonie péruviennes) et plus de 80 assistants d'enseignants aux niveaux préscolaire et primaire ont amélioré leurs capacités à enseigner la lecture et l'écriture dans les langues autochtones et en langue seconde, en l'occurrence l'espagnol, et à concevoir des programmes d'enseignement diversifiés, à adopter des approches interculturelles, à préserver le savoir traditionnel et à produire du matériel éducatif. Des équipes régionales ont augmenté leurs compétences en production de textes, ce qui a permis la création de 31 textes en quechua à l'intention de plus de 54 000 élèves des niveaux préscolaire et primaire, ainsi que de 10 textes en langues amazoniennes pour plus de 26 500 élèves du primaire. Des réseaux nationaux ont été renforcés, tels que les groupes de travail entre établissements, les groupes de travail sur le rendement des enseignants mis sur pied par le Conseil national d'éducation, le groupe responsable de la décentralisation, et le réseau Florecer. En région, des services de soutien ont été prodigués pour la création et/ou le renforcement des réseaux locaux et régionaux, des conseils participatifs locaux en éducation, et d'autres groupes de participation citoyenne."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/result1/description2> a iati:description ;
+    iati:description "Results as of April 2011 include: With technical assistance from UNICEF and other stakeholders, the National Council of Education designed Information Monitoring System to follow-up the Regional Education Projects, More than 1,000 indigenous teachers (Andean and Amazonian) and more than 80 preschool and primary school teacher aides are better able to teach reading and writing in indigenous languages and Spanish as a second language, and to design diversified curriculum, adopt intercultural approaches, recover traditional knowledge and produce educational materials. Regional teams were strengthened in text production leading to the production of 31 texts in Quechua for more than 54,000 primary and pre-school children; and 10 texts in Amazonian languages for than 26,500 primary school children. National networks such as the Inter-institutional and Teacher Performance Work Groups of the National Council of Education, the Decentralization Group, and the Florecer Network were strengthened. In the regions, support was provided for the creation and/or strengthening of regional and local networks, the Regional Participatory Councils on Education, Local Participatory Councils on Education and other citizen participation groups."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11110> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11110> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11130> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11130> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11220> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11220> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/sector/DAC/11240> a iati:sector ;
+    iati:percentage "30" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11240> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/transaction1> a iati:transaction ;
+    iati:transaction-date "2010-03-15" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A021431001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A021431001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "19000000" ;
+    iati:value-date "2010-03-15" .
+

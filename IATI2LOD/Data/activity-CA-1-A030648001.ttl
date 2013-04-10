@@ -1,0 +1,92 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001> rdfs:label "Farmer-Responsive Mechanisms in Extension and Research"@en,
+        "Mécanismes de recherche adaptés aux agriculteurs"@fr ;
+    iati:activity-actual-end-date "2010-07-30" ;
+    iati:activity-actual-start-date "2002-06-26" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030648001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030648001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/description2> ;
+    iati:activity-id "CA-1-A030648001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030648001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030648001/recipient-country/GH> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030648001/activity-reporting-org/CA-1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31161>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31166>,
+        <http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31182> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030648001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/description1> a iati:description ;
+    iati:description "Les activités du projet se sont terminées en février 2008 et une étude d’impact est planifiée pour 2010 afin de mesurer la durabilité à long terme de ce projet. Le projet visait à améliorer l'offre et l'utilisation de denrées alimentaires dans le Nord du Ghana, de même que l'accès à ces denrées. Les ménages à faible revenu, les transformateurs de produits agricoles, les agents de mise en marché et les collectivités ont profité d'un meilleur accès à l'information et à la technologie agricole, en faisant appel à une gestion et à une mise en oeuvre locales. Le projet a mis l'accent sur le renforcement des capacités des institutions et organisations existantes du Ghana d'offrir des services de vulgarisation et de recherche en agriculture. Cela a favorisé des liens plus solides entre les organisations officielles et officieuses qui travaillent en recherche et vulgarisation agricoles et a stimulé des approches innovatrices pour renforcer tous les aspects de l'agriculture. En tout, 632 communautés, 8,420 maisonnées, 18,781 femmes et 48,781 hommes fermiers ont été directement touchés par les interventions du projet."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/description2> a iati:description ;
+    iati:description "The project activities ended in February 2008 and an impact assessment to look at the long term sustainability of the project is planned for late 2010. The project aimed at improving the availability of, access to, and utilization of food in northern Ghana. Low-income households, agro-processors, marketers, and communities benefited from improved access to, and use of, agricultural information and technology, using local management and implementation. The project focused on strengthening the capacities of existing Ghanaian institutions and organizations that provide services in agricultural extension and research. This encouraged stronger linkages between the formal and informal organizations that work in agricultural extension and research, and pushed for innovative approaches to strengthen all aspects of agriculture. Overall, 632 communities, 8,420 households, 18,781 female and 48,781 male farmers were directly reached with project interventions."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org1> a iati:organisation ;
+    rdfs:label "CHF"@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/participating-org2> a iati:organisation ;
+    rdfs:label "CHF"@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/recipient-country/GH> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/GH> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31161> a iati:sector ;
+    iati:percentage "20" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/31161> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31166> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/31166> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/sector/DAC/31182> a iati:sector ;
+    iati:percentage "40" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/31182> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/transaction1> a iati:transaction ;
+    iati:transaction-date "2002-06-26" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030648001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030648001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "7185679" ;
+    iati:value-date "2002-06-26" .
+

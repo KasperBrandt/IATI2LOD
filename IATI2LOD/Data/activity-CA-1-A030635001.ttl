@@ -1,0 +1,95 @@
+@prefix iati: <http://purl.org/collections/iati/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001> rdfs:label "Appui au plan d'action en alphabétisation - phase II"@fr,
+        "Support for the Action Plan for Literacy - Phase II"@en ;
+    iati:activity-actual-end-date "2008-03-24" ;
+    iati:activity-actual-start-date "2002-10-31" ;
+    iati:activity-contact-info <http://purl.org/collections/iati/activity/CA-1-A030635001/contact-info> ;
+    iati:activity-description <http://purl.org/collections/iati/activity/CA-1-A030635001/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030635001/description2> ;
+    iati:activity-id "CA-1-A030635001" ;
+    iati:activity-participating-org <http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org/CA>,
+        <http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org/CA-1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org2> ;
+    iati:activity-policy-marker <http://purl.org/collections/iati/activity/CA-1-A030635001/policy-marker/DAC/1> ;
+    iati:activity-recipient-country <http://purl.org/collections/iati/activity/CA-1-A030635001/recipient-country/SN> ;
+    iati:activity-reporting-org <http://purl.org/collections/iati/activity/CA-1-A030635001/activity-reporting-org/CA-1> ;
+    iati:activity-result <http://purl.org/collections/iati/activity/CA-1-A030635001/result1> ;
+    iati:activity-sector <http://purl.org/collections/iati/activity/CA-1-A030635001/sector/DAC/11230> ;
+    iati:activity-status <http://purl.org/collections/iati/codelist/ActivityStatus/4> ;
+    iati:activity-transaction <http://purl.org/collections/iati/activity/CA-1-A030635001/transaction1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/activity-reporting-org/CA-1> a iati:organisation ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/contact-info> iati:email "info@acdi-cida.gc.ca" ;
+    iati:mailing-address "200 Promenade du Portage Gatineau, Quebec Canada K1A 0G4" ;
+    iati:organisation "ACDI-CIDA" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/description1> a iati:description ;
+    iati:description "L'objectif du projet est de contribuer à la réduction de l'analphabétisme des adultes et des jeunes exclus du système formel d'éducation par la consolidation des actions du Ministère chargé de l’alphabétisation au Sénégal. Les activités du projet comprennent : (i) des cours d’alphabétisation offerts notamment en milieu rural, où le taux d’analphabétisme est plus élevé, avec la responsabilisation de la société civile dans la définition et la livraison de programmes prenant en compte les besoins des bénéficiaires; (ii) établir et organiser un centre de ressources comme agence d’exécution technique et financière; (iii) renforcer les capacités des agents du Ministère en matière de planification, suivi et évaluation et des membres de la société civile impliqués dans la gestion des programmes d’alphabétisation. Agences d'exécution: Outre le consortium Oxfam-Québec / Groupe Conseil C.A.C. International Inc., une direction du projet, appelée agence sénégalaise d'exécution, participe également à la gestion du projet."@fr ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/description2> a iati:description ;
+    iati:description "The aim of this project is to help reduce illiteracy among adults and youth excluded from the formal education system, by strengthening the activities of the Senegalese ministry responsible for literacy. The project’s activities include (i) providing literacy training, especially in rural areas, where the illiteracy rate is higher, and empowering civil society to define and deliver programs that reflect the needs of recipients; (ii) establishing and organizing a resource centre as a technical and financial executing agency; (iii) building the planning, monitoring, and evaluation capacities of Ministry officials, as well as members of civil society involved in managing literacy programs. Executing agencies: Apart from the Oxfam Quebec/Groupe Conseil C.A.C. International Inc. consortium, a division of the project, referred to as the Senegalese executing agency, also helps to manage the project."@en ;
+    iati:description-type <http://purl.org/collections/iati/codelist/DescriptionType/1> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org/CA> a iati:organisation ;
+    rdfs:label "Canada"@en,
+        "Canada"@fr ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Funding> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org/CA-1> a iati:organisation ;
+    rdfs:label "Agence canadienne de développement international"@fr,
+        "Canadian International Development Agency"@en ;
+    iati:organisation-code <http://purl.org/collections/iati/codelist/OrganisationIdentifier/CA-1> ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Extending> ;
+    iati:organisation-type <http://purl.org/collections/iati/codelist/OrganisationType/10> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org1> a iati:organisation ;
+    rdfs:label "Consortium Oxfam-Québec / Groupe Conseil CAC International Inc."@fr ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/participating-org2> a iati:organisation ;
+    rdfs:label "Consortium Oxfam-Québec / Groupe Conseil CAC International Inc."@en ;
+    iati:organisation-role <http://purl.org/collections/iati/codelist/OrganisationRole/Implementing> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/policy-marker/DAC/1> a iati:policy-marker ;
+    iati:policy-marker-code <http://purl.org/collections/iati/codelist/PolicyMarker/DAC/1> ;
+    iati:significance-code <http://purl.org/collections/iati/codelist/PolicySignificance/2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/recipient-country/SN> a iati:country ;
+    iati:country-code <http://purl.org/collections/iati/codelist/Country/SN> ;
+    iati:percentage "100" .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/result1> a iati:result ;
+    rdfs:label "Results Achieved"@en,
+        "Résultats atteints"@fr ;
+    iati:result-description <http://purl.org/collections/iati/activity/CA-1-A030635001/result1/description1>,
+        <http://purl.org/collections/iati/activity/CA-1-A030635001/result1/description2> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/result1/description1> a iati:description ;
+    iati:description "Parmi les résultats obtenus à la fin du projet (mai 2009) : 241 167 adultes et jeunes ont appris à lire et écrire (91.34 % sont des femmes). Également, le projet a permis à la Coordination nationale des opérateurs en alphabétisation (CNOAS) et des agents du Ministère de l’Éducation Nationale d’améliorer leurs compétences dans l'analyse des besoins, l'identification des compétences et la livraison des activités en matière d'éducation de base des adultes et des jeunes. Ainsi, le projet a contribué à réduire le taux d’analphabétisme au Sénégal et au renforcement des capacités du Ministère de l’Éducation National de livrer de nombreux programmes de qualité."@fr .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/result1/description2> a iati:description ;
+    iati:description "Results achieved by the end of the project (May 2009) include: A total of 241 167 adults and youth learned to read and write (91.34% of them women). The project also helped the Coordination nationale des opérateurs en alphabétisation (CNOAS) and officials in the Ministry of National Education to become more proficient in analysing needs, identifying competencies and delivering activities in the area of basic education for adults and youth. Thus, the project helped reduce Senegal’s illiteracy rate and build the Ministry of Education’s capacities to deliver numerous quality programs."@en .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/sector/DAC/11230> a iati:sector ;
+    iati:percentage "100" ;
+    iati:sector-code <http://purl.org/collections/iati/codelist/Sector/DAC/11230> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/transaction1> a iati:transaction ;
+    iati:transaction-date "2002-10-31" ;
+    iati:transaction-type <http://purl.org/collections/iati/codelist/TransactionType/C> ;
+    iati:transaction-value <http://purl.org/collections/iati/activity/CA-1-A030635001/transaction1/value> .
+
+<http://purl.org/collections/iati/activity/CA-1-A030635001/transaction1/value> a iati:value ;
+    iati:currency <http://purl.org/collections/iati/codelist/Currency/CAD> ;
+    iati:value "18526418" ;
+    iati:value-date "2002-10-31" .
+
