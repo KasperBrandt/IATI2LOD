@@ -1,6 +1,6 @@
-## iatiElements.py
+## IatiElements.py
 ## By Kasper Brandt
-## Last updated on 08-04-2013
+## Last updated on 10-04-2013
 
 from rdflib import RDF, RDFS, Literal, URIRef
 from rdflib.graph import Graph
@@ -15,7 +15,6 @@ class IatiElements :
         Parameters
         @defaults: A dictionary of defaults.'''
         
-        self.defaults = defaults
         self.progress = dict()
         
         self.id = defaults['id']
@@ -305,6 +304,39 @@ class IatiElements :
                 self.graph.add((self.iati['activity/' + self.id + '/participating-org/' + str(ref)],
                                 self.iati['organisation-role'],
                                 self.iati['codelist/OrganisationRole/' + str(role)]))
+        
+        else:
+            # Progress
+            self.__update_progress('participating_org')
+            
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-participating-org'],
+                            self.iati['activity/' + self.id + '/participating-org' + 
+                                      str(self.progress['participating_org'])]))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/participating-org' + 
+                                      str(self.progress['participating_org'])],
+                            RDF.type,
+                            self.iati['organisation']))
+
+            if not name == None:
+                self.graph.add((self.iati['activity/' + self.id + '/participating-org' + 
+                                      str(self.progress['participating_org'])],
+                                RDFS.label,
+                                name))
+                
+            if not type == None:
+                self.graph.add((self.iati['activity/' + self.id + '/participating-org' + 
+                                      str(self.progress['participating_org'])],
+                                self.iati['organisation-type'],
+                                self.iati['codelist/OrganisationType/' + str(type)]))
+                
+            if not role == None:
+                self.graph.add((self.iati['activity/' + self.id + '/participating-org' + 
+                                      str(self.progress['participating_org'])],
+                                self.iati['organisation-role'],
+                                self.iati['codelist/OrganisationRole/' + str(role)]))            
+                        
     
     def recipient_country(self, xml):
         '''Converts the XML of the recipient-country element to a RDFLib self.graph.
@@ -837,7 +869,7 @@ class IatiElements :
             date = AttributeHelper.attribute_key(period_start, 'iso-date')
             
             # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, defaults['language'])
+            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
@@ -862,7 +894,7 @@ class IatiElements :
             date = AttributeHelper.attribute_key(period_end, 'iso-date')
             
             # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, defaults['language'])
+            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
             
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
@@ -914,11 +946,11 @@ class IatiElements :
                                     self.iati['currency'],
                                     self.iati['codelist/Currency/' + str(currency)]))
                 
-                elif not defaults['currency'] == None:
+                elif not self.default_currency == None:
                     self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                               str(self.progress['planned_disbursement']) + '/value'],
                                     self.iati['currency'],
-                                    self.iati['codelist/Currency/' + str(defaults['currency'])]))
+                                    self.iati['codelist/Currency/' + str(self.default_currency)]))
                 
                 if not value_date == None:
                     self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
@@ -1123,7 +1155,7 @@ class IatiElements :
         elif not self.default_tied_status == None:
             self.graph.add((transaction_id,
                             self.iati['tied-status'],
-                            self.iati['codelist/TiedStatus/' + str(self.defaults_tied_status)]))
+                            self.iati['codelist/TiedStatus/' + str(self.default_tied_status)]))
         
         if not transaction_date == None:
             # Keys
@@ -1259,14 +1291,12 @@ class IatiElements :
         Parameters
         @xml: The XML of this element.'''
         
-        self.iati = defaults['namespace']
-        
         # Keys
         ref = AttributeHelper.attribute_key(xml, 'ref')
         type = AttributeHelper.attribute_key(xml, 'type')
         
         # Text
-        name = AttributeHelper.attribute_language(xml, defaults['language'])
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
             self.graph.add((self.iati['activity/' + self.id],
@@ -1304,7 +1334,7 @@ class IatiElements :
                 type = AttributeHelper.attribute_key(condition, 'type')
                 
                 # Text
-                condition_text = AttributeHelper.attribute_language(condition, defaults['language'])
+                condition_text = AttributeHelper.attribute_language(condition, self.default_language)
                 
                 if not condition_text == None:
                        self.graph.add((self.iati['activity/' + self.id],
@@ -1351,7 +1381,7 @@ class IatiElements :
         if not titles == []:
             for title in titles:
                 # Text
-                title_text = AttributeHelper.attribute_language(title, defaults['language'])
+                title_text = AttributeHelper.attribute_language(title, self.default_language)
                 
                 if not title_text == None:
                     self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result'])],
@@ -1366,7 +1396,7 @@ class IatiElements :
                 type = AttributeHelper.attribute_key(description, 'type')
                 
                 # Text
-                description_text = AttributeHelper.attribute_language(description, defaults['language'])
+                description_text = AttributeHelper.attribute_language(description, self.default_language)
                 
                 if not description_text == None:
                     self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result'])],
@@ -1431,7 +1461,7 @@ class IatiElements :
                 if not titles == []:
                     for title in titles:
                         # Text
-                        title_text = AttributeHelper.attribute_language(title, defaults['language'])
+                        title_text = AttributeHelper.attribute_language(title, self.default_language)
                         
                         if not title_text == None:
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1447,7 +1477,7 @@ class IatiElements :
                         type = AttributeHelper.attribute_key(description, 'type')
                         
                         # Text
-                        description_text = AttributeHelper.attribute_language(description, defaults['language'])
+                        description_text = AttributeHelper.attribute_language(description, self.default_language)
                         
                         if not description_text == None:
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
@@ -1493,7 +1523,7 @@ class IatiElements :
                             date = AttributeHelper.attribute_key(period_start, 'iso-date')
                             
                             # Text
-                            period_start_text = AttributeHelper.attribute_language(period_start, defaults['language'])
+                            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter)],
@@ -1518,7 +1548,7 @@ class IatiElements :
                             date = AttributeHelper.attribute_key(period_end, 'iso-date')
                             
                             # Text
-                            period_end_text = AttributeHelper.attribute_language(period_end, defaults['language'])
+                            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter)],
@@ -1588,7 +1618,7 @@ class IatiElements :
                         
                         if not comment == None:
                             # Text
-                            comment_text = AttributeHelper.attribute_language(comment, defaults['language'])
+                            comment_text = AttributeHelper.attribute_language(comment, self.default_language)
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter) + '/baseline'],

@@ -1,6 +1,6 @@
 ## IatiConvert.py
 ## By Kasper Brandt
-## Last updated on 08-04-2013
+## Last updated on 10-04-2013
 
 from rdflib import Namespace, Literal, XSD, URIRef, Graph
 import xml.etree.ElementTree as ET
@@ -8,7 +8,7 @@ from IatiElements import IatiElements
 import AttributeHelper
 
 
-class iati_activity :
+class ConvertActivity :
     '''Class for converting a IATI activity XML to a RDFLib Graph.'''
     
     def __init__(self, xml):
@@ -20,6 +20,7 @@ class iati_activity :
         self.xml = xml
         
         self.id = self.get_id()
+        self.last_updated = self.get_last_update()
         
         self.possible_keys = dict([('iati-activity', ['version',
                                                       'last-updated-datetime',
@@ -52,29 +53,6 @@ class iati_activity :
         
         return id
     
-    def get_default_currency(self):
-        '''Returns the default currency of the activity.
-        
-        Returns
-        @default_currency: The default currency of the activity.'''
-        
-        default_currency = AttributeHelper.attribute_text(self.xml, 'default-currency')
-        
-        if not default_currency == None:
-            return default_currency[0]
-        
-        return default_currency
-        
-    def get_default_language(self):
-        '''Returns the default language of the activity.
-        
-        Returns
-        @default_language: The default language of the activity.'''
-        
-        default_language = AttributeHelper.attribute_key(self.xml, '{http://www.w3.org/XML/1998/namespace}lang')
-        
-        return default_language
-    
     def get_default_type(self, type):
         '''Returns a default type of the activity.
         
@@ -98,8 +76,8 @@ class iati_activity :
         @defaults: A dictionary containing the defaults of the activity.'''
         
         defaults = dict([('id', self.id),
-                         ('language', self.get_default_language()),
-                         ('currency', self.get_default_currency()),
+                         ('language', AttributeHelper.attribute_key(self.xml, '{http://www.w3.org/XML/1998/namespace}lang')),
+                         ('currency', AttributeHelper.attribute_key(self.xml, 'default-currency')),
                          ('finance_type', self.get_default_type('default-finance-type')),
                          ('flow_type', self.get_default_type('default-flow-type')),
                          ('aid_type', self.get_default_type('default-aid-type')),
@@ -115,7 +93,8 @@ class iati_activity :
         
         Returns
         @graph: The RDFLib Graph of the activity.
-        @id: The ID of the activity.'''
+        @id: The ID of the activity.
+        @last_updated: The DateTime of the last update.'''
         
         if self.id == None:
             return None
@@ -136,6 +115,6 @@ class iati_activity :
             except AttributeError:
                 print "Unknown element: " + funcname + ", in activity " + self.id
         
-        return converter.get_result(), self.id
+        return converter.get_result(), self.id, self.last_updated
         
         
