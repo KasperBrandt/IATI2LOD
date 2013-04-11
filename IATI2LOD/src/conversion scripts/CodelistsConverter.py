@@ -1,18 +1,19 @@
 ## CodelistsConverter.py
 ## By Kasper Brandt
-## Last updated on 27-03-2013
+## Last updated on 08-04-2013
 
 from rdflib import RDFS, Namespace, URIRef, Literal, XSD
 
 class codelist :
     '''Class for converting a codelist dictionary to a RDFLib.'''
     
-    def __init__(self, dictionary, graph, triple_store):
+    def __init__(self, namespace):
         '''Initializes the codelist class.
         
         Parameters
         @dictionary: A dictionary of all codelists to be updated.
-        @graph: A graph of all triples in the codelist context.'''
+        @graph: A graph of all triples in the codelist context.
+        @namespace: A RDFLib Namespace.'''
         
         self.dictionary = dictionary
         self.graph = graph
@@ -21,11 +22,11 @@ class codelist :
         self.codelist = Namespace(triple_store + "/codelist/")
         
         self.mapping = dict([('name', RDFS.label),
-                            ('description', RDFS.comment),
-                            ('category', self.codelist['category']),
-                            ('category-name', RDFS.label),
-                            ('category-description', RDFS.comment),
-                            ('abbreviation', self.codelist['abbreviation'])])
+                             ('description', RDFS.comment),
+                             ('category', self.codelist['category']),
+                             ('category-name', RDFS.label),
+                             ('category-description', RDFS.comment),
+                             ('abbreviation', self.codelist['abbreviation'])])
 
     def __element_in_codelist_category(self, codelist_key, element):
         '''Looks whether an element has a category element.
