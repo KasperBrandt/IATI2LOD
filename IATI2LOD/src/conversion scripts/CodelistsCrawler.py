@@ -265,7 +265,7 @@ def main():
     Updates are pushed to a triple store.'''
     
     # Settings
-    triple_store = "http://localhost:8080/openrdf-sesame/repositories/iati"
+    triple_store = "http://localhost:3020/"
     xml_base_url = "http://datadev.aidinfolabs.org/data/"
     
     print "Retrieving last server update..."

@@ -11,7 +11,7 @@ def main():
     '''Converts XML to Turtle files and stores these to local folder.'''
     
     # Settings
-    xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/"
+    xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/activities/"
     turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/"
     Iati = Namespace("http://purl.org/collections/iati/")
     

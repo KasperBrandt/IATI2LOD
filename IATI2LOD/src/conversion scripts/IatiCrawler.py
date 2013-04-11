@@ -1,6 +1,10 @@
+## IatiCrawler.py
+## By Kasper Brandt
+## Last updated on 11-04-2013
+
 import xml.etree.ElementTree as ET
 from SPARQLWrapper import SPARQLWrapper, JSON
-from IatiConverter import iati_activity
+from datetime import date
 import sys, httplib2, json
 
 def get_request(url, json_format):
@@ -46,34 +50,44 @@ def save_to_folder(folder, xml_url, name):
     
     if not xml == None:
         
-        with open(folder + name + '.xml', 'w') as file:
+        with open(folder + name, 'w') as file:
             file.write(xml)
     
-def check_connection(iati_url, limit):
+def retrieve_document_names(iati_url, limit, type):
     '''Check connection to IATI API and retrieve all document names.
     
     Parameters
     @iati_url: The URL of the IATI datasets.
     @limit: The max limit of the IATI server.
+    @type: The type of documents that should be retrieved.
     
     Returns
     @all_documents: A list of a all document names.'''
+
+    # Set IATI url
+    if type == 'activities':
+        url = iati_url + "search/dataset?filetype=activity"
+        json = True
+    elif type == 'organisations':
+        url = iati_url + "search/dataset?filetype=organisation"
+        json = True
+    elif type == 'codelists':
+        url = "http://datadev.aidinfolabs.org/data/codelist.xml"
+        json = False
     
-    iati_url = iati_url + "search/dataset?filetype=activity"
+    data = get_request(url, json)
+    all_documents = []
     
-    data = get_request(iati_url, True)
-    
-    if not data == None:
+    if (not data == None) and (json):
+        # activity and organisation documents
         print "Connection to IATI API established..."
         
         document_count = data['count']
         offset = 0
         
-        all_documents = []
-        
         while document_count > 0:
         
-            document_count_url = iati_url + "&limit=" + str(document_count) + "&offset=" + str(offset)
+            document_count_url = url + "&limit=" + str(document_count) + "&offset=" + str(offset)
             
             documents = get_request(document_count_url, True)
             
@@ -84,13 +98,25 @@ def check_connection(iati_url, limit):
             document_count -= limit
             
         print "Document list retrieved..."
+    
+    elif (not data == None) and (not json):
+        # codelist XMLs
+        print "Connection to IATI API established..."
+                
+        parsed_xml = ET.fromstring(data)
+    
+        for codelist in parsed_xml.findall('codelist'):
+            all_documents.append(str(codelist.find('name').text) + '.xml')
         
-        return all_documents
+        print "Document list retrieved..."
     
     else:
+        print "Something went wrong while connecting to the IATI API..."
         sys.exit(0)
+    
+    return all_documents
 
-def update_documents(folder, iati_url, all_documents, server_update):
+def update_documents(folder, iati_url, all_documents, server_update, type):
     '''Checking documents with the last time the server has been updated.
     Updates the triple store with new or updated activities.
     
@@ -98,48 +124,70 @@ def update_documents(folder, iati_url, all_documents, server_update):
     @folder: Location of folder in which XML files are to be saved.
     @iati_url: The URL of the IATI API.
     @all_documents: A list of a all document names.
-    @server_update: A DateTime of the last time the XMLs were checked.'''
+    @server_update: A DateTime of the last time the XMLs were checked.
+    @type: The type of documents that should be retrieved.'''
     
     # Settings
-    iati_url = iati_url + "rest/dataset/"
+    if type == 'activities' or type == 'organisations':
+        url = iati_url + "rest/dataset/"
+        json = True
+    elif type == 'codelists':
+        url = "http://datadev.aidinfolabs.org/data/codelist/"
+        json = False
+    
+    folder = str(folder) + str(type) + '/Update ' + str(date.today()) + '/'
     counter = 1
     
     # Check the last update for each document.
     for document in all_documents:
         
-        data = get_request(iati_url + str(document), True)
+        data = get_request(url + str(document), json)
         
-        # Check if the data is open and if updating is needed.
-        if (data['isopen']) and (server_update < data['metadata_modified']):
-            
-                save_to_folder(folder, data['download_url'].replace(' ','%20'), document)
+        if json:
+            # Check if the activity or organisation data is open and if updating is needed.
+            if (data['isopen']) and (server_update < data['metadata_modified']):
                 
-        else:
-            print "Skipping " + str(document) + "..."
+                    save_to_folder(folder, data['download_url'].replace(' ','%20'), document + '.xml')
+                    print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
+                    
+            else:
+                print "Skipping " + str(document) + "..."
         
-        print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
+        else:
+            parsed_codelist_xml = ET.fromstring(data)
+            
+            if server_update < parsed_codelist_xml.attrib['date-last-modified']:
+                
+                save_to_folder(folder, url + str(document), document)
+                print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
+                
+            else:
+                print "Skipping " + str(document) + "..."
         
         counter += 1
 
 def main():
-    '''Crawls the IATI registry for XMLs and stores the XMLs locally.'''
+    '''Crawls the IATI registry for activity, organisation and codelist XMLs 
+    and stores the XMLs locally.'''
     
     # Initial settings
-    iati_url = "http://www.iatiregistry.org/api/"
     max_limit = 1000
     folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/"
+    iati_url = "http://www.iatiregistry.org/api/"
+    retrieve = ['activities', 'organisations', 'codelists']
     
-    # Last time the script was run: "2013-10-04"
-    last_time_updated = "1990"
+    # Last time the script was run: "2013-11-04"
+    last_time_updated = "2013-11-04"
     
-    print "Checking connection to IATI API..."
-    # Check whether the IATI API is working and retrieve all document names
-    all_documents = check_connection(iati_url, max_limit)
+    for type in retrieve:
+        print "Start retrieving " + str(type) + "..."
+        
+        # Check whether the IATI API is working and retrieve all document names
+        all_documents = retrieve_document_names(iati_url, max_limit, type)
     
-    print "Storing XML files to local folder..."
-    # Checking documents with the last time they have been checked.
-    # Adds XMLs to local folder.
-    update_documents(folder, iati_url, all_documents, last_time_updated)
+        print "Storing XML files to local folder..."
+        # Adds XMLs to local folder.
+        update_documents(folder, iati_url, all_documents, last_time_updated, type)
     
     print "Done!"
     
