@@ -16,6 +16,7 @@ def main():
     
     provenance = Graph()
     provenance.bind('iati', Iati)
+    provenance.bind('graph', Iati['graph/'])
     
     document_count = 1
     activity_count = 1

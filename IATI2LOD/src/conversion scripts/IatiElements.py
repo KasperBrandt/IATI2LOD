@@ -1692,7 +1692,10 @@ class CodelistElements :
         '''Converts the XML of the code element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         code = xml.text
@@ -1708,7 +1711,10 @@ class CodelistElements :
         '''Converts the XML of the language element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Skipped
         
@@ -1718,7 +1724,10 @@ class CodelistElements :
         '''Converts the XML of the name element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         if not language == None:
@@ -1735,7 +1744,10 @@ class CodelistElements :
         '''Converts the XML of the description element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         if not language == None:
@@ -1752,7 +1764,10 @@ class CodelistElements :
         '''Converts the XML of the abbreviation element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         if not language == None:
@@ -1769,7 +1784,10 @@ class CodelistElements :
         '''Converts the XML of the category element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         category = xml.text
@@ -1789,7 +1807,10 @@ class CodelistElements :
         '''Converts the XML of the category-name element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         if not language == None:
@@ -1806,7 +1827,10 @@ class CodelistElements :
         '''Converts the XML of the category-description element to a RDFLib self.graph.
         
         Parameters
-        @xml: The XML of this element.'''
+        @xml: The XML of this element.
+        @code: A list of codes or None.
+        @language: A list of languages or None.
+        @category_code: A list of category codes or None.'''
         
         # Text
         if not language == None:
