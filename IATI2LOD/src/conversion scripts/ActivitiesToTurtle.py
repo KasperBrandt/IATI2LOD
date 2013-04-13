@@ -1,14 +1,13 @@
-## IatiToTurtle.py
+## ActivitiesToTurtle.py
 ## By Kasper Brandt
-## Last updated on 10-04-2013
+## Last updated on 13-04-2013
 
-import glob, sys
+import glob, sys, IatiConverter
 import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef
-from IatiConverter import ConvertActivity
 
 def main():
-    '''Converts XML to Turtle files and stores these to local folder.'''
+    '''Converts Activity XMLs to Turtle files and stores these to local folder.'''
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/activities/"
@@ -31,7 +30,7 @@ def main():
         # Convert each activity in XML file to RDFLib Graph
         for activity in xml.findall('iati-activity'):
             
-            converter = ConvertActivity(activity)
+            converter = IatiConverter.ConvertActivity(activity)
             graph, id, last_updated = converter.convert(Iati)
             
             # Write activity to Turtle and store in local folder
@@ -54,7 +53,7 @@ def main():
     # Write provenance graph to Turtle and store in local folder
     provenance_turtle = provenance.serialize(format='turtle')
     
-    with open(turtle_folder + id + '.ttl', 'w') as turtle_file:
+    with open(turtle_folder + 'activity-provenance.ttl', 'w') as turtle_file:
         turtle_file.write(provenance_turtle)
         
     print "Done!"

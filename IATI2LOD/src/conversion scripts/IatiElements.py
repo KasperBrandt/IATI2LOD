@@ -1,12 +1,12 @@
 ## IatiElements.py
 ## By Kasper Brandt
-## Last updated on 10-04-2013
+## Last updated on 13-04-2013
 
-from rdflib import RDF, RDFS, Literal, URIRef
+from rdflib import RDF, RDFS, Literal, URIRef, Namespace
 from rdflib.graph import Graph
 import AttributeHelper
 
-class IatiElements :
+class ActivityElements :
     '''Class for converting XML elements of self.iati activities to a RDFLib self.graph.'''
     
     def __init__(self, defaults): 
@@ -1658,3 +1658,164 @@ class IatiElements :
         # Skipped
         
         skip = True
+
+class CodelistElements :
+    '''Class for converting XML elements of IATI codelists to a RDFLib self.graph.'''
+    
+    def __init__(self, defaults): 
+        '''Initializes class.
+        
+        Parameters
+        @defaults: A dictionary of defaults.'''
+        
+        self.id = defaults['id']
+        self.default_language = defaults['language']
+        
+        self.iati = Namespace(defaults['namespace'])
+        self.codelist = Namespace(self.iati['codelist/'])
+        self.codelist_uri = Namespace(self.iati['codelist/' + str(self.id) + '/'])
+        
+        self.graph = Graph()
+        
+        self.graph.bind('iati', self.iati)
+        self.graph.bind('codelist', self.codelist)
+
+    def get_result(self):
+        '''Returns the resulting self.graph of the activity.
+        
+        Returns
+        @graph: The RDFLib self.graph with added statements.'''
+        
+        return self.graph
+    
+    def code(self, xml, code, language, category_code):
+        '''Converts the XML of the code element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        code = xml.text
+        
+        if not code == None:
+            code = " ".join(code.split())
+            
+            self.graph.add((self.codelist_uri[code],
+                            self.iati['code'],
+                            Literal(code)))
+    
+    def language(self, xml, code, language, category_code):
+        '''Converts the XML of the language element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Skipped
+        
+        skip = True
+        
+    def name(self, xml, code, language, category_code):
+        '''Converts the XML of the name element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        if not language == None:
+            name = AttributeHelper.attribute_language(xml, language[0])
+        else:
+            name = AttributeHelper.attribute_language(xml, self.default_language)
+        
+        if (not code == None) and (not name == None):            
+            self.graph.add((self.codelist_uri[code[0]],
+                            RDFS.label,
+                            name))
+
+    def description(self, xml, code, language, category_code):
+        '''Converts the XML of the description element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        if not language == None:
+            description = AttributeHelper.attribute_language(xml, language[0])
+        else:
+            description = AttributeHelper.attribute_language(xml, self.default_language)
+        
+        if (not code == None) and (not description == None):            
+            self.graph.add((self.codelist_uri[code[0]],
+                            RDFS.comment,
+                            description))
+
+    def abbreviation(self, xml, code, language, category_code):
+        '''Converts the XML of the abbreviation element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        if not language == None:
+            abbreviation = AttributeHelper.attribute_language(xml, language[0])
+        else:
+            abbreviation = AttributeHelper.attribute_language(xml, self.default_language)
+        
+        if (not code == None) and (not abbreviation == None):            
+            self.graph.add((self.codelist_uri[code[0]],
+                            self.iati['abbreviation'],
+                            abbreviation))
+
+    def category(self, xml, code, language, category_code):
+        '''Converts the XML of the category element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        category = xml.text
+        
+        if not category == None:
+            category = " ".join(category.split())
+            
+            self.graph.add((self.codelist_uri[code[0]],
+                            self.iati['category'],
+                            self.codelist_uri['category/' + category]))
+            
+            self.graph.add((self.codelist_uri['category/' + category],
+                            self.iati['code'],
+                            Literal(category)))
+
+    def category_name(self, xml, code, language, category_code):
+        '''Converts the XML of the category-name element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        if not language == None:
+            name = AttributeHelper.attribute_language(xml, language[0])
+        else:
+            name = AttributeHelper.attribute_language(xml, self.default_language)
+        
+        if (not category_code == None) and (not name == None):            
+            self.graph.add((self.codelist_uri['category/' + category_code[0]],
+                            RDFS.label,
+                            name))
+
+    def category_description(self, xml, code, language, category_code):
+        '''Converts the XML of the category-description element to a RDFLib self.graph.
+        
+        Parameters
+        @xml: The XML of this element.'''
+        
+        # Text
+        if not language == None:
+            description = AttributeHelper.attribute_language(xml, language[0])
+        else:
+            description = AttributeHelper.attribute_language(xml, self.default_language)
+        
+        if (not category_code == None) and (not description == None):            
+            self.graph.add((self.codelist_uri['category/' + category_code[0]],
+                            RDFS.comment,
+                            description))
+        
