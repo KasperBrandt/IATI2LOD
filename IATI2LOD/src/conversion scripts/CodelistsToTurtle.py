@@ -40,11 +40,11 @@ def main():
             # Write codelist to Turtle and store in local folder
             graph_turtle = graph.serialize(format='turtle')
             
-            with open(turtle_folder + 'codelist-' + id + '.ttl', 'w') as turtle_file:
+            with open(turtle_folder + 'codelist-' + id.replace('/','-') + '.ttl', 'w') as turtle_file:
                 turtle_file.write(graph_turtle)
             
             # Add provenance
-            provenance.add((URIRef(Iati + 'codelist-' + id),
+            provenance.add((URIRef(Iati + 'codelist-' + id.replace('/','-')),
                             URIRef(Iati + 'last-updated'),
                             Literal(last_updated)))
         

@@ -50,7 +50,7 @@ def main():
                     turtle_file.write(graph_turtle)
             
                 # Add provenance
-                provenance.add((URIRef(Iati + 'activity-' + id),
+                provenance.add((URIRef(Iati + 'activity-' + id.replace('/','-')),
                                 URIRef(Iati + 'last-updated'),
                                 Literal(last_updated)))
             

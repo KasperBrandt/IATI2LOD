@@ -47,11 +47,11 @@ def main():
                     # Write activity to Turtle and store in local folder
                     graph_turtle = graph.serialize(format='turtle')
                     
-                    with open(turtle_folder + 'organisation-' + id + '.ttl', 'w') as turtle_file:
+                    with open(turtle_folder + 'organisation-' + id.replace('/','-') + '.ttl', 'w') as turtle_file:
                         turtle_file.write(graph_turtle)
                     
                     # Add provenance
-                    provenance.add((URIRef(Iati + 'organisation-' + id),
+                    provenance.add((URIRef(Iati + 'organisation-' + id.replace('/','-')),
                                     URIRef(Iati + 'last-updated'),
                                     Literal(last_updated)))
                 
