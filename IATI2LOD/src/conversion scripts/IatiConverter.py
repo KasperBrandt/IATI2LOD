@@ -1,6 +1,5 @@
-## IatiConverter.py
 ## By Kasper Brandt
-## Last updated on 13-04-2013
+## Last updated on 15-04-2013
 
 from rdflib import Namespace, Literal, XSD, URIRef, Graph, RDF, RDFS
 import xml.etree.ElementTree as ET

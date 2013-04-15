@@ -1,4 +1,3 @@
-## OrganisationsToTurtle.py
 ## By Kasper Brandt
 ## Last updated on 15-04-2013
 

@@ -1,4 +1,3 @@
-## IatiElements.py
 ## By Kasper Brandt
 ## Last updated on 13-04-2013
 
