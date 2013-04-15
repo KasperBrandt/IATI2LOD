@@ -1,7 +1,7 @@
 ## By Kasper Brandt
 ## Last updated on 15-04-2013
 
-import glob, sys, IatiConverter
+import glob, sys, os, IatiConverter
 import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef
 
@@ -10,7 +10,7 @@ def main():
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/organisations/"
-    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/organisations/"
+    turtle_folder = "/media/Acer/School/IATI-data/organisations/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
     provenance = Graph()

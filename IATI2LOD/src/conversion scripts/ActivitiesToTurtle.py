@@ -11,7 +11,7 @@ def main():
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/activities/"
-    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/activities/"
+    turtle_folder = "/media/Acer/School/IATI-data/activities/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
     if not os.path.isdir(turtle_folder):

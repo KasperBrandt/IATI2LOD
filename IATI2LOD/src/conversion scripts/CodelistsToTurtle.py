@@ -10,7 +10,7 @@ def main():
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/"
-    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/codelists/"
+    turtle_folder = "/media/Acer/School/IATI-data/codelists/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
     provenance = Graph()
