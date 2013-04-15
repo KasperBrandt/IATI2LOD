@@ -1,6 +1,6 @@
 ## OrganisationsToTurtle.py
 ## By Kasper Brandt
-## Last updated on 13-04-2013
+## Last updated on 15-04-2013
 
 import glob, sys, IatiConverter
 import xml.etree.ElementTree as ET
@@ -11,12 +11,14 @@ def main():
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/organisations/"
-    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/"
+    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/organisations/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
     provenance = Graph()
     provenance.bind('iati', Iati)
-    provenance.bind('graph', Iati['graph/'])
+
+    if not os.path.isdir(turtle_folder):
+        os.makedirs(turtle_folder)
     
     document_count = 1
     organisation_count = 1
@@ -42,16 +44,17 @@ def main():
                 except TypeError as e:
                     print "Error in " + document + ":" + str(e)
                 
-                # Write activity to Turtle and store in local folder
-                graph_turtle = graph.serialize(format='turtle')
-                
-                with open(turtle_folder + 'organisation-' + id + '.ttl', 'w') as turtle_file:
-                    turtle_file.write(graph_turtle)
-                
-                # Add provenance
-                provenance.add((URIRef(Iati + 'graph/' + id),
-                                URIRef(Iati + 'last-updated'),
-                                Literal(last_updated)))
+                if not graph == None:
+                    # Write activity to Turtle and store in local folder
+                    graph_turtle = graph.serialize(format='turtle')
+                    
+                    with open(turtle_folder + 'organisation-' + id + '.ttl', 'w') as turtle_file:
+                        turtle_file.write(graph_turtle)
+                    
+                    # Add provenance
+                    provenance.add((URIRef(Iati + 'organisation-' + id),
+                                    URIRef(Iati + 'last-updated'),
+                                    Literal(last_updated)))
                 
                 print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
                 

@@ -1459,8 +1459,8 @@ class ActivityElements :
             
             for indicator in indicators:
                 # Keys
-                measure = AttributeHelper.attribute_key(description, 'measure')
-                ascending = AttributeHelper.attribute_key(description, 'ascending')
+                measure = AttributeHelper.attribute_key(indicator, 'measure')
+                ascending = AttributeHelper.attribute_key(indicator, 'ascending')
                 
                 # Elements
                 titles = indicator.findall('title')

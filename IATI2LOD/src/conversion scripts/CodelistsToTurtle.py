@@ -1,8 +1,8 @@
 ## CodelistsToTurtle.py
 ## By Kasper Brandt
-## Last updated on 13-04-2013
+## Last updated on 15-04-2013
 
-import glob, sys, IatiConverter
+import glob, sys, os, IatiConverter
 import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef
 
@@ -11,12 +11,14 @@ def main():
     
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/"
-    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/"
+    turtle_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/Data/codelists/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
     provenance = Graph()
     provenance.bind('iati', Iati)
-    provenance.bind('graph', Iati['graph/'])
+
+    if not os.path.isdir(turtle_folder):
+        os.makedirs(turtle_folder)
     
     document_count = 1
     
@@ -28,20 +30,24 @@ def main():
         xml = ET.parse(document)
         root = xml.getroot()
         
-        # Convert each codelist in XML file to RDFLib Graph    
-        converter = IatiConverter.ConvertCodelist(root)
-        graph, id, last_updated = converter.convert(Iati)
+        try:
+            # Convert each codelist in XML file to RDFLib Graph    
+            converter = IatiConverter.ConvertCodelist(root)
+            graph, id, last_updated = converter.convert(Iati)
+        except TypeError as e:
+            print "Error in " + document + ":" + str(e)
         
-        # Write codelist to Turtle and store in local folder
-        graph_turtle = graph.serialize(format='turtle')
-        
-        with open(turtle_folder + 'codelist-' + id + '.ttl', 'w') as turtle_file:
-            turtle_file.write(graph_turtle)
-        
-        # Add provenance
-        provenance.add((URIRef(Iati + 'graph/' + id),
-                        URIRef(Iati + 'last-updated'),
-                        Literal(last_updated)))
+        if not graph == None:
+            # Write codelist to Turtle and store in local folder
+            graph_turtle = graph.serialize(format='turtle')
+            
+            with open(turtle_folder + 'codelist-' + id + '.ttl', 'w') as turtle_file:
+                turtle_file.write(graph_turtle)
+            
+            # Add provenance
+            provenance.add((URIRef(Iati + 'codelist-' + id),
+                            URIRef(Iati + 'last-updated'),
+                            Literal(last_updated)))
         
         print "Progress: Document #" + str(document_count)
                    
