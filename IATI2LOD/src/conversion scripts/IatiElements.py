@@ -64,23 +64,23 @@ class ActivityElements :
         if not ref == None:
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-reporting-org'],
-                            self.iati['activity/' + str(self.id) + '/activity-reporting-org/' + str(ref)]))
+                            self.iati['activity/' + str(self.id) + '/reporting-org/' + str(ref)]))
             
-            self.graph.add((self.iati['activity/' + str(self.id) + '/activity-reporting-org/' + str(ref)],
+            self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org/' + str(ref)],
                             RDF.type,
                             self.iati['organisation']))
             
-            self.graph.add((self.iati['activity/' + str(self.id) + '/activity-reporting-org/' + str(ref)],
+            self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org/' + str(ref)],
                             self.iati['organisation-code'],
                             self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
         
             if not name == None:
-                self.graph.add((self.iati['activity/' + self.id + '/activity-reporting-org/' + str(ref)],
+                self.graph.add((self.iati['activity/' + self.id + '/reporting-org/' + str(ref)],
                                 RDFS.label,
                                 name))
                 
             if not type == None:
-                self.graph.add((self.iati['activity/' + self.id + '/activity-reporting-org/' + str(ref)],
+                self.graph.add((self.iati['activity/' + self.id + '/reporting-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
 
@@ -230,34 +230,27 @@ class ActivityElements :
         iso_date = AttributeHelper.attribute_key(xml, 'iso-date')
         
         # Text
-        date = xml.text
+        name = AttributeHelper.attribute_language(xml, self.default_language)
         
-        if not iso_date == None:
-            date = iso_date
-            date = " ".join(date.split())
-        
-        if not date == None:
-            date = " ".join(date.split())
-            
-            if type == "start-actual":
+        if not type == None:
+            if (not iso_date == None) or (not name == None):
                 self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-actual-start-date'],
-                                Literal(date)))
+                                self.iati['activity-' + str(type) + '-date'],
+                                self.iati['activity/' + self.id + '/' + str(type) + '-date']))            
+                       
+            if not iso_date == None:
+                iso_date = " ".join(iso_date.split())
                 
-            elif type == "end-actual":
-                self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-actual-end-date'],
-                                Literal(date)))
-            
-            elif type == "start-planned":
-                self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-planned-start-date'],
-                                Literal(date)))
+                self.graph.add((self.iati['activity/' + self.id + '/' + str(type) + '-date'],
+                                self.iati['iso-date'],
+                                Literal(iso_date)))
+                        
+            if not name == None:
+                name = " ".join(name.split())
                 
-            elif type == "end-planned":
-                self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-planned-end-date'],
-                                Literal(date)))
+                self.graph.add((self.iati['activity/' + self.id + '/' + str(type) + '-date'],
+                                RDFS.label,
+                                Literal(name)))
     
     def contact_info(self, xml):
         '''Converts the XML of the contact-info element to a RDFLib self.graph.
@@ -265,9 +258,12 @@ class ActivityElements :
         Parameters
         @xml: The XML of this element.'''
         
+        # Progress
+        self.__update_progress('contact_info')
+        
         self.graph.add((self.iati['activity/' + self.id],
                         self.iati['activity-contact-info'],
-                        self.iati['activity/' + self.id + '/contact-info']))
+                        self.iati['activity/' + self.id + '/contact-info' + str(self.progress['contact_info'])]))
         
         for element in xml:
             
@@ -276,7 +272,7 @@ class ActivityElements :
             if not info == None:
                 info = " ".join(info.split())
                 
-                self.graph.add((self.iati['activity/' + self.id + '/contact-info'],
+                self.graph.add((self.iati['activity/' + self.id + '/contact-info' + str(self.progress['contact_info'])],
                                 self.iati[element.tag],
                                 Literal(info)))
     
@@ -571,7 +567,15 @@ class ActivityElements :
                 
                     self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
                                     self.iati['location-gazetteer-entry'],
-                                    self.iati['gazetteer/' + str(gazetteer_ref) + str('/') + str(gazetteer_entry_text)]))
+                                    self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)]))
+                    
+                    self.graph.add((self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)],
+                                    self.iati['gazetteer-ref'],
+                                    self.iati['codelist/GazetteerAgency/' + str(gazetteer_ref)]))
+                    
+                    self.graph.add((self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)],
+                                    self.iati['gazetteer-entry'],
+                                    Literal(gazetteer_entry_text)))                    
      
     def sector(self, xml):
         '''Converts the XML of the sector element to a RDFLib self.graph.
@@ -652,7 +656,7 @@ class ActivityElements :
                 self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                           '/' + str(code)],
                                 RDFS.subClassOf,
-                                self.iati['codelist/PolicyMarker/' + str(vocabulary) + '/' + str(code)]))
+                                self.iati['codelist/PolicyMarker/' + str(code)]))
                 
                 self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
                                           '/' + str(code)],
@@ -1014,6 +1018,11 @@ class ActivityElements :
         
         if not ref == None:
             transaction_id = self.iati['activity/' + self.id + '/transaction/' + str(ref)]
+
+            self.graph.add((transaction_id,
+                            self.iati['transaction-ref'],
+                            Literal(ref)))            
+            
         else:
             transaction_id = self.iati['activity/' + self.id + '/transaction' + 
                                        str(self.progress['transaction'])]
@@ -1131,7 +1140,11 @@ class ActivityElements :
             
             self.graph.add((transaction_id,
                             self.iati['provider-org'],
-                            URIRef(transaction_id + '/provider-org')))        
+                            URIRef(transaction_id + '/provider-org')))
+            
+            self.graph.add((URIRef(transaction_id + '/provider-org'),
+                            RDF.type,
+                            self.iati['organisation']))        
             
             if not provider_org_text == None:
                 provider_org_text = " ".join(provider_org_text.split())
@@ -1160,7 +1173,11 @@ class ActivityElements :
             
             self.graph.add((transaction_id,
                             self.iati['receiver-org'],
-                            URIRef(transaction_id + '/receiver-org')))        
+                            URIRef(transaction_id + '/receiver-org')))
+
+            self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                            RDF.type,
+                            self.iati['organisation']))        
             
             if not receiver_org_text == None:
                 receiver_org_text = " ".join(receiver_org_text.split())
@@ -1320,6 +1337,11 @@ class ActivityElements :
                                     self.iati['language'],
                                     self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
                                               '/language/' + str(code)]))
+
+                    self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
+                                              '/language/' + str(code)],
+                                    self.iati['language-code'],
+                                    Literal(code)))
                     
                     if not name == None:
                         self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
@@ -1346,7 +1368,7 @@ class ActivityElements :
                             self.iati['activity/' + self.id + '/related-activity/' + str(ref)]))
             
             self.graph.add((self.iati['activity/' + self.id + '/related-activity/' + str(ref)],
-                            self.iati['activity-id'],
+                            self.iati['activity'],
                             self.iati['activity/' + str(ref)]))
             
             if not type == None:
@@ -1386,6 +1408,10 @@ class ActivityElements :
                        self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
                                        RDF.type,
                                        self.iati['condition']))
+                       
+                       self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                                       RDFS.label,
+                                       condition_text))
                        
                        if not type == None:
                            self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
@@ -1499,6 +1525,12 @@ class ActivityElements :
                                               '/indicator' + str(indicator_counter)],
                                     self.iati['indicator-ascending'],
                                     Literal(ascending)))
+                
+                else:
+                    self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                              '/indicator' + str(indicator_counter)],
+                                    self.iati['indicator-ascending'],
+                                    Literal('True')))                    
     
                 if not titles == []:
                     for title in titles:
@@ -1560,6 +1592,19 @@ class ActivityElements :
                         target = period.find('target')
                         actual = period.find('actual')
                         
+                        self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                  '/indicator' + str(indicator_counter)],
+                                        self.iati['indicator-period'],
+                                        self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                  '/indicator' + str(indicator_counter) + '/period' +
+                                                  str(period_counter)]))
+                        
+                        self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                  '/indicator' + str(indicator_counter) + '/period' +
+                                                  str(period_counter)],
+                                        RDF.type,
+                                        self.iati['period']))                                             
+                        
                         if not period_start == None:
                             # Keys
                             date = AttributeHelper.attribute_key(period_start, 'iso-date')
@@ -1568,20 +1613,24 @@ class ActivityElements :
                             period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter)],
-                                            self.iati['indicator-period-start'],
+                                                      '/indicator' + str(indicator_counter) + '/period' +
+                                                      str(period_counter)],
+                                            self.iati['period-start'],
                                             self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter) + '/period-start']))
+                                                      '/indicator' + str(indicator_counter) + '/period' +
+                                                      str(period_counter) + '/period-start']))
                             
                             if not date == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter) + '/period-start'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter) + '/period-start'],
                                                 self.iati['date'],
                                                 Literal(date)))
                             
                             if not period_start_text == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter) + '/period-start'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter) + '/period-start'],
                                                 RDFS.label,
                                                 period_start_text))
                             
@@ -1593,20 +1642,24 @@ class ActivityElements :
                             period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
                             
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter)],
-                                            self.iati['indicator-period-end'],
+                                                      '/indicator' + str(indicator_counter) + '/period' +
+                                                      str(period_counter)],
+                                            self.iati['period-end'],
                                             self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter) + '/period-end']))
+                                                      '/indicator' + str(indicator_counter) + '/period' +
+                                                      str(period_counter) + '/period-end']))
                             
                             if not date == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter) + '/period-end'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter) + '/period-end'],
                                                 self.iati['date'],
                                                 Literal(date)))
                             
                             if not period_end_text == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter) + '/period-end'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter) + '/period-end'],
                                                 RDFS.label,
                                                 period_end_text))
                         
@@ -1616,8 +1669,9 @@ class ActivityElements :
                             
                             if not value == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter)],
-                                                self.iati['indicator-target'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter)],
+                                                self.iati['period-target'],
                                                 Literal(value)))
                             
                         if not actual == None:
@@ -1626,46 +1680,47 @@ class ActivityElements :
                             
                             if not value == None:
                                 self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                          '/indicator' + str(indicator_counter)],
-                                                self.iati['indicator-actual'],
+                                                          '/indicator' + str(indicator_counter) + '/period' +
+                                                          str(period_counter)],
+                                                self.iati['period-actual'],
                                                 Literal(value)))                    
                             
                         period_counter += 1
                         
-                    if not baseline == None:
-                        # Keys
-                        year = AttributeHelper.attribute_key(baseline, 'year')
-                        value = AttributeHelper.attribute_key(baseline, 'value')
+                if not baseline == None:
+                    # Keys
+                    year = AttributeHelper.attribute_key(baseline, 'year')
+                    value = AttributeHelper.attribute_key(baseline, 'value')
+                    
+                    # Elements
+                    comment = baseline.find('comment')
+                    
+                    self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                              '/indicator' + str(indicator_counter)],
+                                    self.iati['indicator-baseline'],
+                                    self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                              '/indicator' + str(indicator_counter) + '/baseline']))                       
+                    
+                    if not value == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                  '/indicator' + str(indicator_counter) + '/baseline'],
+                                        self.iati['value'],
+                                        Literal(value)))
                         
-                        # Elements
-                        comment = baseline.find('comment')
+                    if not year == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                  '/indicator' + str(indicator_counter) + '/baseline'],
+                                        self.iati['year'],
+                                        Literal(year)))
+                    
+                    if not comment == None:
+                        # Text
+                        comment_text = AttributeHelper.attribute_language(comment, self.default_language)
                         
                         self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                  '/indicator' + str(indicator_counter)],
-                                        self.iati['indicator-baseline'],
-                                        self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                  '/indicator' + str(indicator_counter) + '/baseline']))                       
-                        
-                        if not value == None:
-                            self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter) + '/baseline'],
-                                            self.iati['value'],
-                                            Literal(value)))
-                            
-                        if not year == None:
-                            self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter) + '/baseline'],
-                                            self.iati['year'],
-                                            Literal(year)))
-                        
-                        if not comment == None:
-                            # Text
-                            comment_text = AttributeHelper.attribute_language(comment, self.default_language)
-                            
-                            self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                      '/indicator' + str(indicator_counter) + '/baseline'],
-                                            RDFS.comment,
-                                            comment_text))                        
+                                                  '/indicator' + str(indicator_counter) + '/baseline'],
+                                        RDFS.comment,
+                                        comment_text))                        
                 
                 indicator_counter += 1
 
