@@ -114,21 +114,32 @@ class ActivityElements :
         # Text
         name = xml.text
         
+        # Progress
+        self.__update_progress('other_identifier')
+        
         if not name == None:
             name = " ".join(name.split())
             
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-other-identifier'],
-                            self.iati['activity/' + self.id + '/other-identifier' + str(name)]))
+                            self.iati['activity/' + self.id + '/other-identifier' + 
+                                      str(self.progress['other_identifier'])]))
+
+            self.graph.add((self.iati['activity/' + self.id + '/other-identifier' + 
+                                      str(self.progress['other_identifier'])],
+                            RDFS.label,
+                            Literal(name)))            
+            
             
             if not owner_ref == None:
-                self.graph.add((self.iati['activity/' + self.id + '/other-identifier' + str(name)],
-                                self.iati['activity-other-identifier-owner-ref'],
-                                self.iati['organisation/' + str(owner_ref)]))
+                self.graph.add((self.iati['activity/' + self.id + '/other-identifier' + 
+                                          str(self.progress['other_identifier'])],
+                                self.iati['other-identifier-owner-ref'],
+                                self.iati['codelist/OrganisationIdentifier/' + str(owner_ref)]))
             
             if not owner_name == None:
                 self.graph.add((self.iati['activity/' + self.id + '/other-identifier' + str(name)],
-                                self.iati['activity-other-identifier-owner-name'],
+                                self.iati['other-identifier-owner-name'],
                                 Literal(owner_name)))
     
     def activity_website(self, xml):
