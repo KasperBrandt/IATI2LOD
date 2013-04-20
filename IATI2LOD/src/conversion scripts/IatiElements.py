@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 13-04-2013
+## Last updated on 20-04-2013
 
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace
 from rdflib.graph import Graph
@@ -1748,7 +1748,7 @@ class CodelistElements :
         
         self.iati = Namespace(defaults['namespace'])
         self.codelist = Namespace(self.iati['codelist/'])
-        self.codelist_uri = Namespace(self.iati['codelist/' + str(self.id) + '/'])
+        self.codelist_uri = Namespace(self.codelist[str(self.id) + '/'])
         
         self.graph = Graph()
         
@@ -1778,13 +1778,17 @@ class CodelistElements :
         if not code == None:
             code = " ".join(code.split())
             
+            self.graph.add((self.codelist[str(self.id)],
+                            self.iati['codelist-code'],
+                            self.codelist_uri[code]))
+            
             self.graph.add((self.codelist_uri[code],
                             self.iati['code'],
                             Literal(code)))
             
             self.graph.add((self.codelist_uri[code],
                             RDF.type,
-                            self.iati['codelist']))            
+                            self.iati['codelist-code']))            
     
     def language(self, xml, code, language, category_code):
         '''Converts the XML of the language element to a RDFLib self.graph.

@@ -169,6 +169,14 @@ class ConvertCodelist :
                 except AttributeError as e:
                     print "Error in " + funcname + ", " + self.id + ": " + str(e)
         
+        
+        # Add 'is codelist type' statement 
+        resulting_graph = converter.get_result()
+
+        resulting_graph.add((namespace['codelist/' + self.id],
+                             RDF.type,
+                             namespace['codelist']))
+        
         # Add label for codelist
         resulting_graph.add((namespace['codelist/' + self.id],
                              RDFS.label,
