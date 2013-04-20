@@ -1877,6 +1877,10 @@ class CodelistElements :
         
         if not category == None:
             category = " ".join(category.split())
+
+            self.graph.add((self.codelist_uri['category/' + category],
+                            RDF.type,
+                            self.iati['codelist-category']))
             
             self.graph.add((self.codelist_uri[code[0]],
                             self.iati['category'],
