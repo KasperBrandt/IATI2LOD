@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 15-04-2013
+## Last updated on 20-04-2013
 
 from rdflib import Namespace, Literal, XSD, URIRef, Graph, RDF, RDFS
 import xml.etree.ElementTree as ET
@@ -175,7 +175,12 @@ class ConvertCodelist :
 
         resulting_graph.add((namespace['codelist/' + self.id],
                              RDF.type,
-                             namespace['codelist']))        
+                             namespace['codelist']))
+        
+        # Add label for codelist
+        resulting_graph.add((namespace['codelist/' + self.id],
+                             RDFS.label,
+                             Literal(self.id, lang=defaults['language'])))    
         
                 
         return resulting_graph, self.id, self.last_updated
