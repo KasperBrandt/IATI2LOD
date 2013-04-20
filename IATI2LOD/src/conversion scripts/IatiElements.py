@@ -1781,6 +1781,10 @@ class CodelistElements :
             self.graph.add((self.codelist_uri[code],
                             self.iati['code'],
                             Literal(code)))
+            
+            self.graph.add((self.codelist_uri[code],
+                            RDF.type,
+                            self.iati['codelist']))            
     
     def language(self, xml, code, language, category_code):
         '''Converts the XML of the language element to a RDFLib self.graph.
