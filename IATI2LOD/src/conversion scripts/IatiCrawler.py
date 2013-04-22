@@ -130,25 +130,35 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
     # Settings
     if type == 'activities' or type == 'organisations':
         url = iati_url + "rest/dataset/"
-        json = True
+        json_bool = True
     elif type == 'codelists':
         url = "http://datadev.aidinfolabs.org/data/codelist/"
-        json = False
+        json_bool = False
     
-    folder = str(folder) + str(type) + '/Update ' + str(date.today()) + '/'
+    #folder = str(folder) + str(type) + '/Update ' + str(date.today()) + '/'
+    folder = str(folder) + str(type) + '/'
     counter = 1
+    
+    # DEBUG: last 100 documents only
+    #if type == 'activities':
+    #    all_documents = all_documents[-100:]
     
     # Check the last update for each document.
     for document in all_documents:
         
-        data = get_request(url + str(document), json)
+        data = get_request(url + str(document), json_bool)
         
-        if json:
+        if json_bool:
             # Check if the activity or organisation data is open and if updating is needed.
             if (data['isopen']) and (server_update < data['metadata_modified']):
                 
-                    save_to_folder(folder, data['download_url'].replace(' ','%20'), document + '.xml')
-                    print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
+                # Save JSON metadata to folder
+                with open(folder + document + '.json', 'w') as file:
+                    file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+                
+                # Save XML to folder
+                save_to_folder(folder, data['download_url'].replace(' ','%20'), document + '.xml')
+                print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
                     
             else:
                 print "Skipping " + str(document) + "..."
@@ -176,8 +186,8 @@ def main():
     iati_url = "http://www.iatiregistry.org/api/"
     retrieve = ['activities', 'organisations', 'codelists']
     
-    # Last time the script was run: "2013-11-04"
-    last_time_updated = "2013-11-04"
+    # Last time the script was run: "2013-22-04"
+    last_time_updated = "1990"
     
     for type in retrieve:
         print "Start retrieving " + str(type) + "..."
