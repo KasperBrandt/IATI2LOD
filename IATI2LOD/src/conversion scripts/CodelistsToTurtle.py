@@ -35,6 +35,7 @@ def main():
             graph, id, last_updated = converter.convert(Iati)
         except TypeError as e:
             print "Error in " + document + ":" + str(e)
+            graph = None
         
         if not graph == None:
             # Write codelist to Turtle and store in local folder

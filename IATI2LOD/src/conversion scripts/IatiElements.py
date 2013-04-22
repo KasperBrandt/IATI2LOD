@@ -1,7 +1,7 @@
 ## By Kasper Brandt
 ## Last updated on 20-04-2013
 
-from rdflib import RDF, RDFS, Literal, URIRef, Namespace
+from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
 import AttributeHelper
 
@@ -1946,14 +1946,19 @@ class OrganisationElements :
         self.default_currency = defaults['currency']
         
         self.iati = Namespace(defaults['namespace'])
-        self.org_uri = self.iati['codelist/OrganisationIdentifier/' + self.id] 
+        self.org_uri = Namespace(self.iati['organisation/' + self.id])
         
         self.graph = Graph()
         self.graph.bind('iati', self.iati)
+        self.graph.bind('owl', 'http://www.w3.org/2002/07/owl#')
         
         self.graph.add((self.org_uri,
                         RDF.type,
                         self.iati['organisation']))
+        
+        self.graph.add((self.org_uri,
+                        OWL.sameAs,
+                        self.iati['codelist/OrganisationIdentifier/' + self.id]))
 
     def __update_progress(self, element):
         '''Updates the progress of the number of elements.
@@ -1991,17 +1996,40 @@ class OrganisationElements :
         if not ref == None:
             self.graph.add((self.org_uri,
                             self.iati['organisation-reporting-org'],
-                            self.iati['codelist/OrganisationIdentifier/' + ref]))
+                            self.org_uri['/reporting-org/' + str(ref)]))
+            
+            self.graph.add((self.org_uri['/reporting-org/' + str(ref)],
+                            OWL.sameAs,
+                            self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
+            
+            self.graph.add((self.org_uri['/reporting-org/' + str(ref)],
+                            RDF.type,
+                            self.iati['organisation']))
         
             if not name == None:
-                self.graph.add((self.iati['codelist/OrganisationIdentifier/' + ref],
+                self.graph.add((self.org_uri['/reporting-org/' + str(ref)],
                                 RDFS.label,
                                 name))
                 
             if not type == None:
-                self.graph.add((self.iati['codelist/OrganisationIdentifier/' + ref],
+                self.graph.add((self.org_uri['/reporting-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
+                
+        else:
+            # Progress
+            self.__update_progress('reporting_org')
+            
+            if not name == None:
+                self.graph.add((self.org_uri['/reporting-org' + str(self.progress['reporting_org'])],
+                                RDFS.label,
+                                name))
+                
+            if not type == None:
+                self.graph.add((self.org_uri['/reporting-org' + str(self.progress['reporting_org'])],
+                                self.iati['organisation-type'],
+                                self.iati['codelist/OrganisationType/' + str(type)]))            
+            
 
     def iati_identifier(self, xml):
         '''Converts the XML of the iati-identifier element to a RDFLib self.graph.
@@ -2016,7 +2044,7 @@ class OrganisationElements :
             id = " ".join(id.split())
             
             self.graph.add((self.org_uri,
-                            self.iati['organisation-id'],
+                            self.iati['iati-identifier'],
                             Literal(id)))
 
     def identifier(self, xml):
@@ -2071,53 +2099,65 @@ class OrganisationElements :
                         RDF.type,
                         self.iati['budget']))
         
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+        if (not period_start == None) or (not period_end == None):
+            self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget'])],
+                            self.iati['budget-period'],
+                            self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                      '/period']))
             
             self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget'])],
-                            self.iati['budget-period-start'],
-                            self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                      '/period-start']))
+                            RDF.type,
+                            self.iati['period']))
             
-            if not date == None:
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                          '/period-start'],
-                                self.iati['date'],
-                                Literal(date)))
+                                          '/period'],
+                                self.iati['period-start'],
+                                self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                          '/period-start']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                              '/period-start'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_start_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                              '/period-start'],
+                                    RDFS.label,
+                                    period_start_text))
             
-            if not period_start_text == None:
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                          '/period-start'],
-                                RDFS.label,
-                                period_start_text))
-        
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
-            
-            self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget'])],
-                            self.iati['budget-period-end'],
-                            self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                      '/period-end']))
-            
-            if not date == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                          '/period-end'],
-                                self.iati['date'],
-                                Literal(date)))
-            
-            if not period_end_text == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
-                                          '/period-end'],
-                                RDFS.label,
-                                period_end_text))
+                                          '/period'],
+                                self.iati['period-end'],
+                                self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                          '/period-end']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                              '/period-end'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_end_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                              '/period-end'],
+                                    RDFS.label,
+                                    period_end_text))
         
         if not value == None:
             # Keys
@@ -2198,62 +2238,86 @@ class OrganisationElements :
             if not ref == None:
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
                                           + str(self.progress['recipient_org_budget'])],
-                                self.iati['recipient-org'],
-                                self.iati['codelist/OrganisationIdentifier/' + ref]))
+                                self.iati['budget-recipient-org'],
+                                self.iati['organisation/' + self.id + '/recipient-org-budget' 
+                                          + str(self.progress['recipient_org_budget']) + str(ref)]))
                 
-                self.graph.add((self.iati['codelist/OrganisationIdentifier/' + ref],
+                self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
+                                          + str(self.progress['recipient_org_budget']) + str(ref)],
                                 RDFS.label,
                                 recipient_org_text))
-            
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
-            
-            self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
-                                      + str(self.progress['recipient_org_budget'])],
-                            self.iati['budget-period-start'],
-                            self.iati['organisation/' + self.id + '/recipient-org-budget' 
-                                      + str(self.progress['recipient_org_budget']) + '/period-start']))
-            
-            if not date == None:
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
-                                          + str(self.progress['recipient_org_budget']) + '/period-start'],
-                                self.iati['date'],
-                                Literal(date)))
-            
-            if not period_start_text == None:
+                                          + str(self.progress['recipient_org_budget']) + str(ref)],
+                                RDF.type,
+                                self.iati['organisation']))
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
-                                          + str(self.progress['recipient_org_budget']) + '/period-start'],
-                                RDFS.label,
-                                period_start_text))
+                                          + str(self.progress['recipient_org_budget']) + str(ref)],
+                                OWL.sameAs,
+                                self.iati['codelist/OrganisationIdentifier/' + ref]))         
         
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+        if (not period_start == None) or (not period_end == None):
+            self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
+                                      str(self.progress['recipient_org_budget'])],
+                            self.iati['budget-period'],
+                            self.iati['organisation/' + self.id + '/recipient-org-budget' + 
+                                      str(self.progress['recipient_org_budget']) + '/period']))
             
             self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
                                       str(self.progress['recipient_org_budget'])],
-                            self.iati['budget-period-end'],
-                            self.iati['organisation/' + self.id + '/recipient-org-budget' + 
-                                      str(self.progress['recipient_org_budget']) + '/period-end']))
-            
-            if not date == None:
+                            RDF.type,
+                            self.iati['period']))                        
+              
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
-                                          str(self.progress['recipient_org_budget']) + '/period-end'],
-                                self.iati['date'],
-                                Literal(date)))
+                                          str(self.progress['recipient_org_budget']) + '/period'],
+                                self.iati['period-start'],
+                                self.iati['organisation/' + self.id + '/recipient-org-budget' 
+                                          + str(self.progress['recipient_org_budget']) + '/period-start']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
+                                              + str(self.progress['recipient_org_budget']) + '/period-start'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_start_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
+                                              + str(self.progress['recipient_org_budget']) + '/period-start'],
+                                    RDFS.label,
+                                    period_start_text))
             
-            if not period_end_text == None:
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
-                                          str(self.progress['recipient_org_budget']) + '/period-end'],
-                                RDFS.label,
-                                period_end_text))
+                                          str(self.progress['recipient_org_budget']) + '/period'],
+                                self.iati['period-end'],
+                                self.iati['organisation/' + self.id + '/recipient-org-budget' + 
+                                          str(self.progress['recipient_org_budget']) + '/period-end']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
+                                              str(self.progress['recipient_org_budget']) + '/period-end'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_end_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' + 
+                                              str(self.progress['recipient_org_budget']) + '/period-end'],
+                                    RDFS.label,
+                                    period_end_text))
         
         if not value == None:
             # Keys
@@ -2335,62 +2399,90 @@ class OrganisationElements :
             if not code == None:
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
                                           + str(self.progress['recipient_country_budget'])],
-                                self.iati['recipient-country'],
-                                self.iati['codelist/Country/' + code]))
+                                self.iati['budget-recipient-country'],
+                                self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                          + str(self.progress['recipient_country_budget']) + '/recipient-country/' + 
+                                          str(code)]))
                 
-                self.graph.add((self.iati['codelist/Country/' + code],
+                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                          + str(self.progress['recipient_country_budget']) + '/recipient-country/' + 
+                                          str(code)],
+                                RDF.type,
+                                self.iati['country']))
+                
+                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                          + str(self.progress['recipient_country_budget']) + '/recipient-country/' + 
+                                          str(code)],
                                 RDFS.label,
                                 recipient_country_text))
-            
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
-            
-            self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
-                                      + str(self.progress['recipient_country_budget'])],
-                            self.iati['budget-period-start'],
-                            self.iati['organisation/' + self.id + '/recipient-country-budget' 
-                                          + str(self.progress['recipient_country_budget']) + '/period-start']))
-            
-            if not date == None:
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
-                                          + str(self.progress['recipient_country_budget']) + '/period-start'],
-                                self.iati['date'],
-                                Literal(date)))
-            
-            if not period_start_text == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
-                                          + str(self.progress['recipient_country_budget']) + '/period-start'],
-                                RDFS.label,
-                                period_start_text))
+                                          + str(self.progress['recipient_country_budget']) + '/recipient-country/' + 
+                                          str(code)],
+                                OWL.sameAs,
+                                self.iati['codelist/Country/' + code]))
         
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
-            
+        if (not period_start == None) or (not period_end == None):
             self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
                                       + str(self.progress['recipient_country_budget'])],
-                            self.iati['budget-period-end'],
-                            self.iati['organisation/' + self.id + '/recipient-country-budget' + 
-                                      str(self.progress['recipient_country_budget']) + '/period-end']))
+                            self.iati['budget-period'],
+                            self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                      + str(self.progress['recipient_country_budget']) + '/period']))
             
-            if not date == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' + 
-                                          str(self.progress['recipient_country_budget']) + '/period-end'],
-                                self.iati['date'],
-                                Literal(date)))
+            self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                      + str(self.progress['recipient_country_budget']) + '/period'],
+                            RDF.type,
+                            self.iati['period']))                
+               
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
+                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                      + str(self.progress['recipient_country_budget']) + '/period'],
+                                self.iati['period-start'],
+                                self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                              + str(self.progress['recipient_country_budget']) + '/period-start']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                              + str(self.progress['recipient_country_budget']) + '/period-start'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_start_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                              + str(self.progress['recipient_country_budget']) + '/period-start'],
+                                    RDFS.label,
+                                    period_start_text))
             
-            if not period_end_text == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' + 
-                                          str(self.progress['recipient_country_budget']) + '/period-end'],
-                                RDFS.label,
-                                period_end_text))
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
+                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
+                                      + str(self.progress['recipient_country_budget']) + '/period'],
+                                self.iati['period-end'],
+                                self.iati['organisation/' + self.id + '/recipient-country-budget' + 
+                                          str(self.progress['recipient_country_budget']) + '/period-end']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' + 
+                                              str(self.progress['recipient_country_budget']) + '/period-end'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_end_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' + 
+                                              str(self.progress['recipient_country_budget']) + '/period-end'],
+                                    RDFS.label,
+                                    period_end_text))
         
         if not value == None:
             # Keys
@@ -2457,19 +2549,19 @@ class OrganisationElements :
         
         self.graph.add((self.org_uri,
                         self.iati['organisation-document-link'],
-                        self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])]))
+                        self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])]))
         
-        self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+        self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                         RDF.type,
                         self.iati['document-link']))    
         
         if not url == None:
-            self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+            self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                             self.iati['url'],
                             URIRef(url)))
         
         if not format == None:
-            self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+            self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                             self.iati['format'],
                             self.iati['codelist/FileFormat/' + str(format)]))
             
@@ -2478,7 +2570,7 @@ class OrganisationElements :
                 # Text
                 name = AttributeHelper.attribute_language(title, self.default_language)
                 
-                self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+                self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                                 RDFS.label,
                                 name))
                 
@@ -2486,7 +2578,7 @@ class OrganisationElements :
             # Keys
             code = AttributeHelper.attribute_key(category, 'code')
             
-            self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+            self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                             self.iati['document-category'],
                             self.iati['codelist/DocumentCategory/' + str(code)]))
         
@@ -2499,13 +2591,13 @@ class OrganisationElements :
                 name = AttributeHelper.attribute_language(language, self.default_language)
                 
                 if not code == None:
-                    self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link'])],
+                    self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link'])],
                                     self.iati['language'],
-                                    self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link']) + 
+                                    self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link']) + 
                                               '/language/' + str(code)]))
                     
                     if not name == None:
-                        self.graph.add((self.iati['organisation/' + self.id + 'document-link' + str(self.progress['document_link']) + 
+                        self.graph.add((self.iati['organisation/' + self.id + '/document-link' + str(self.progress['document_link']) + 
                                                   '/language/' + str(code)],
                                         RDFS.label,
                                         name))
