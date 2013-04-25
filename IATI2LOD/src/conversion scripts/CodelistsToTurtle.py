@@ -1,9 +1,9 @@
 ## By Kasper Brandt
-## Last updated on 15-04-2013
+## Last updated on 25-04-2013
 
-import glob, sys, os, IatiConverter
+import glob, sys, os, IatiConverter, AttributeHelper
 import xml.etree.ElementTree as ET
-from rdflib import Namespace, Graph, Literal, URIRef
+from rdflib import Namespace, Graph, Literal, URIRef, RDF
 
 def main():
     '''Converts Codelist XMLs to Turtle files and stores these to local folder.'''
@@ -11,13 +11,14 @@ def main():
     # Settings
     xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/"
     turtle_folder = "/media/Acer/School/IATI-data/codelists/"
+    provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
-    
-    provenance = Graph()
-    provenance.bind('iati', Iati)
 
     if not os.path.isdir(turtle_folder):
         os.makedirs(turtle_folder)
+        
+    if not os.path.isdir(provenance_folder):
+        os.makedirs(provenance_folder)
     
     document_count = 1
     
@@ -26,8 +27,13 @@ def main():
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
         
+        provenance = Graph()
+        provenance.bind('iati', Iati)
+        
         xml = ET.parse(document)
         root = xml.getroot()
+        
+        version = AttributeHelper.attribute_key(root, 'version')
         
         try:
             # Convert each codelist in XML file to RDFLib Graph    
@@ -41,23 +47,43 @@ def main():
             # Write codelist to Turtle and store in local folder
             graph_turtle = graph.serialize(format='turtle')
             
-            with open(turtle_folder + 'codelist-' + id.replace('/','-') + '.ttl', 'w') as turtle_file:
+            with open(turtle_folder + 'codelist-' + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                 turtle_file.write(graph_turtle)
             
-            # Add provenance
-            provenance.add((URIRef(Iati + 'codelist-' + id.replace('/','-')),
+            # Add provenance of last-updated, version and source document
+            provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
                             URIRef(Iati + 'last-updated'),
                             Literal(last_updated)))
+            
+            provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
+                            URIRef(Iati + 'version'),
+                            Literal(version)))
+            
+            provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
+                            URIRef(Iati + 'source-document'),
+                            URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id))))
+            
+            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
+                            RDF.type,
+                            URIRef(Iati + 'source-document')))
+            
+            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
+                            URIRef(Iati + 'source-document-id'),
+                            Literal(str(id))))
+            
+            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
+                            URIRef(Iati + 'source-document-download-url'),
+                            URIRef('http://datadev.aidinfolabs.org/data/codelist/' + str(id) + '.xml')))                        
         
         print "Progress: Document #" + str(document_count)
                    
         document_count += 1
     
-    # Write provenance graph to Turtle and store in local folder
-    provenance_turtle = provenance.serialize(format='turtle')
-    
-    with open(turtle_folder + 'codelist-provenance.ttl', 'w') as turtle_file:
-        turtle_file.write(provenance_turtle)
+        # Write provenance graph to Turtle and store in local folder
+        provenance_turtle = provenance.serialize(format='turtle')
+        
+        with open(provenance_folder + 'provenance-codelist-' + str(id) + '.ttl', 'w') as turtle_file:
+            turtle_file.write(provenance_turtle)
         
     print "Done!"
 

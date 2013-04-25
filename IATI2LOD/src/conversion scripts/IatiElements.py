@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 20-04-2013
+## Last updated on 24-04-2013
 
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
@@ -23,10 +23,29 @@ class ActivityElements :
         self.default_flow_type = defaults['flow_type']
         self.default_aid_type = defaults['aid_type']
         self.default_tied_status = defaults['tied_status']
+        self.hierarchy = defaults['hierarchy']
+        self.linked_data_uri = defaults['linked_data_uri']
         self.iati = defaults['namespace']
         
         self.graph = Graph()
         self.graph.bind('iati', self.iati)
+        self.graph.bind('activity', self.iati['activity/'])
+        self.graph.bind('related-activity', self.iati['related-activity/'])
+        
+        self.graph.add((self.iati['activity/' + self.id],
+                        RDF.type,
+                        self.iati['activity']))
+        
+        if not self.hierarchy == None:
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-hierarchy'],
+                            Literal(self.hierarchy)))
+            
+        if not self.linked_data_uri == None:
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-linked-data-uri'],
+                            URIRef(self.linked_data_uri)))         
+            
         
     def __update_progress(self, element):
         '''Updates the progress of the number of elements.
@@ -233,24 +252,38 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not type == None:
+            type_start = type.split('-')[0]
+            type_category = type.split('-')[1]
+            
             if (not iso_date == None) or (not name == None):
                 self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-' + str(type) + '-date'],
-                                self.iati['activity/' + self.id + '/' + str(type) + '-date']))            
-                       
-            if not iso_date == None:
-                iso_date = " ".join(iso_date.split())
+                                self.iati['activity-' + str(type_category) + '-period'],
+                                self.iati['activity/' + self.id + '/' + str(type_category) + '-period']))
                 
-                self.graph.add((self.iati['activity/' + self.id + '/' + str(type) + '-date'],
-                                self.iati['iso-date'],
-                                Literal(iso_date)))
-                        
-            if not name == None:
-                name = " ".join(name.split())
+                self.graph.add((self.iati['activity/' + self.id + '/' + str(type_category) + '-period'],
+                                RDF.type,
+                                self.iati['period']))                
                 
-                self.graph.add((self.iati['activity/' + self.id + '/' + str(type) + '-date'],
-                                RDFS.label,
-                                Literal(name)))
+                self.graph.add((self.iati['activity/' + self.id + '/' + str(type_category) + '-period'],
+                                self.iati[str(type) + '-date'],
+                                self.iati['activity/' + self.id + '/' + str(type_category) + '-period/' + 
+                                          str(type_start) + '-date']))            
+
+                if not iso_date == None:
+                    iso_date = " ".join(iso_date.split())
+                    
+                    self.graph.add((self.iati['activity/' + self.id + '/' + str(type_category) + '-period/' + 
+                                              str(type_start) + '-date'],
+                                    self.iati['iso-date'],
+                                    Literal(iso_date)))
+                            
+                if not name == None:
+                    name = " ".join(name.split())
+                    
+                    self.graph.add((self.iati['activity/' + self.id + '/' + str(type_category) + '-period/' + 
+                                              str(type_start) + '-date'],
+                                    RDFS.label,
+                                    Literal(name)))
     
     def contact_info(self, xml):
         '''Converts the XML of the contact-info element to a RDFLib self.graph.
@@ -455,9 +488,10 @@ class ActivityElements :
             # Text
             name_text = AttributeHelper.attribute_language(name, self.default_language)
             
-            self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
-                            RDFS.label,
-                            name_text))
+            if not name_text == None:
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                                RDFS.label,
+                                name_text))
         
         if not descriptions == []:
             description_counter = 1
@@ -509,22 +543,28 @@ class ActivityElements :
             # Text
             administrative_text = AttributeHelper.attribute_language(administrative, self.default_language)
             
-            self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
-                            self.iati['location-administrative'],
-                            self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
-                                      '/administrative']))
-            
-            if not administrative_country == None:
-                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
-                                          '/administrative'],
-                                self.iati['administrative-country'],
-                                self.iati['codelist/Country/' + str(administrative_country)]))
+            if (not administrative_country == None) or (not administrative_text == None): 
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                                self.iati['location-administrative'],
+                                self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
+                                          '/administrative']))
                 
-            if not administrative_text == None:
                 self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
                                           '/administrative'],
-                                RDFS.label,
-                                administrative_text))
+                                RDF.type,
+                                self.iati['administrative']))
+            
+                if not administrative_country == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
+                                              '/administrative'],
+                                    self.iati['administrative-country'],
+                                    self.iati['codelist/Country/' + str(administrative_country)]))
+                    
+                if not administrative_text == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) +
+                                              '/administrative'],
+                                    RDFS.label,
+                                    administrative_text))
         
         if not coordinates == None:
             # Keys
@@ -532,27 +572,34 @@ class ActivityElements :
             longitude = AttributeHelper.attribute_key(coordinates, 'longitude')
             precision = AttributeHelper.attribute_key(coordinates, 'precision')
             
-            self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
-                            self.iati['location-coordinates'],
-                            self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + '/coordinates']))
-            
-            if not latitude == None:
+            if (not latitude == None) or (not longitude == None):
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                                self.iati['location-coordinates'],
+                                self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                          '/coordinates']))
+
                 self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
                                           '/coordinates'],
-                                self.iati['latitude'],
-                                Literal(latitude)))
-    
-            if not longitude == None:
-                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
-                                          '/coordinates'],
-                                self.iati['longitude'],
-                                Literal(longitude)))
-            
-            if not precision == None:
-                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
-                                          '/coordinates'],
-                                self.iati['precision'],
-                                self.iati['codelist/GeographicalPrecision/' + str(precision)]))
+                                RDF.type,
+                                self.iati['coordinates']))
+                
+                if not latitude == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                              '/coordinates'],
+                                    self.iati['latitude'],
+                                    Literal(latitude)))
+        
+                if not longitude == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                              '/coordinates'],
+                                    self.iati['longitude'],
+                                    Literal(longitude)))
+                
+                if not precision == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                              '/coordinates'],
+                                    self.iati['precision'],
+                                    self.iati['codelist/GeographicalPrecision/' + str(precision)]))
         
         if not gazetteer_entry == None:
             # Keys
@@ -561,21 +608,28 @@ class ActivityElements :
             # Text
             gazetteer_entry_text = gazetteer_entry.text
             
-            if not gazetteer_ref == None:
-                if not gazetteer_entry_text == None:
-                    gazetteer_entry_text = " ".join(gazetteer_entry_text.split())
+            if (not gazetteer_ref == None) and (not gazetteer_entry_text == None):
+                gazetteer_entry_text = " ".join(gazetteer_entry_text.split())
+            
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                                self.iati['location-gazetteer-entry'],
+                                self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                          '/gazetteer-entry/' + str(gazetteer_ref)]))
                 
-                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
-                                    self.iati['location-gazetteer-entry'],
-                                    self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)]))
-                    
-                    self.graph.add((self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)],
-                                    self.iati['gazetteer-ref'],
-                                    self.iati['codelist/GazetteerAgency/' + str(gazetteer_ref)]))
-                    
-                    self.graph.add((self.iati['activity/' + self.id + 'gazetteer/' + str(gazetteer_ref)],
-                                    self.iati['gazetteer-entry'],
-                                    Literal(gazetteer_entry_text)))                    
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                          '/gazetteer-entry/' + str(gazetteer_ref)],
+                                RDF.type,
+                                self.iati['gazetteer-entry']))
+                
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                          '/gazetteer-entry/' + str(gazetteer_ref)],
+                                self.iati['gazetteer-ref'],
+                                self.iati['codelist/GazetteerAgency/' + str(gazetteer_ref)]))
+                
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
+                                          '/gazetteer-entry/' + str(gazetteer_ref)],
+                                self.iati['gazetteer-entry'],
+                                Literal(gazetteer_entry_text)))                    
      
     def sector(self, xml):
         '''Converts the XML of the sector element to a RDFLib self.graph.
@@ -591,40 +645,38 @@ class ActivityElements :
         # Text
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
-        if not code == None:
-            if not vocabulary == None:
-                
-                self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-sector'],
-                                self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
-                                          '/' + str(code)]))
-                
+        if (not code == None) and (not vocabulary == None):
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-sector'],
+                            self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+                                      '/' + str(code)]))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            RDF.type,
+                            self.iati['sector']))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            RDFS.subClassOf,
+                            self.iati['codelist/Sector/' + str(code)]))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            self.iati['sector-vocabulary'],
+                            self.iati['codelist/Vocabulary/' + str(vocabulary)]))
+            
+            if not percentage == None:
                 self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
                                           '/' + str(code)],
-                                RDF.type,
-                                self.iati['sector']))
+                                self.iati['percentage'],
+                                Literal(percentage)))
                 
+            if not name == None:
                 self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
                                           '/' + str(code)],
-                                RDFS.subClassOf,
-                                self.iati['codelist/Sector/' + str(code)]))
-                
-                self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
-                                          '/' + str(code)],
-                                self.iati['sector-vocabulary'],
-                                self.iati['codelist/Vocabulary/' + str(vocabulary)]))
-                
-                if not percentage == None:
-                    self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
-                                              '/' + str(code)],
-                                    self.iati['percentage'],
-                                    Literal(percentage)))
-                    
-                if not name == None:
-                    self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
-                                              '/' + str(code)],
-                                    RDFS.label,
-                                    name))
+                                RDFS.label,
+                                name))
     
     def policy_marker(self, xml):
         '''Converts the XML of the policy-marker element to a RDFLib self.graph.
@@ -640,40 +692,38 @@ class ActivityElements :
         # Text
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
-        if not code == None:
-            if not vocabulary == None:
-                
-                self.graph.add((self.iati['activity/' + self.id],
-                                self.iati['activity-policy-marker'],
-                                self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
-                                          '/' + str(code)]))
-                
+        if (not code == None) and (not vocabulary == None):                
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-policy-marker'],
+                            self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
+                                      '/' + str(code)]))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            RDF.type,
+                            self.iati['policy-marker']))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            RDFS.subClassOf,
+                            self.iati['codelist/PolicyMarker/' + str(code)]))
+            
+            self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+                                      '/' + str(code)],
+                            self.iati['policy-marker-vocabulary'],
+                            self.iati['codelist/Vocabulary/' + str(vocabulary)]))
+            
+            if not significance == None:
                 self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                           '/' + str(code)],
-                                RDF.type,
-                                self.iati['policy-marker']))
+                                self.iati['significance-code'],
+                                self.iati['codelist/PolicySignificance/' + str(significance)]))
                 
+            if not name == None:
                 self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                           '/' + str(code)],
-                                RDFS.subClassOf,
-                                self.iati['codelist/PolicyMarker/' + str(code)]))
-                
-                self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
-                                          '/' + str(code)],
-                                self.iati['policy-marker-vocabulary'],
-                                self.iati['codelist/Vocabulary/' + str(vocabulary)]))
-                
-                if not significance == None:
-                    self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
-                                              '/' + str(code)],
-                                    self.iati['significance-code'],
-                                    self.iati['codelist/PolicySignificance/' + str(significance)]))
-                    
-                if not name == None:
-                    self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
-                                              '/' + str(code)],
-                                    RDFS.label,
-                                    name))
+                                RDFS.label,
+                                name))
     
     def collaboration_type(self, xml):
         '''Converts the XML of the collaboration-type element to a RDFLib self.graph.
@@ -777,53 +827,69 @@ class ActivityElements :
                             self.iati['budget-type'],
                             self.iati['codelist/BudgetType/' + str(type)]))
         
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
-            
+        if (not period_start == None) or (not period_end == None):
             self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
-                            self.iati['budget-period-start'],
+                            self.iati['budget-period'],
                             self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                      '/period-start']))
+                                      '/period']))      
+                  
+            self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                      '/period'],
+                            RDF.type,
+                            self.iati['period']))
             
-            if not date == None:
-                self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                          '/period-start'],
-                                self.iati['date'],
-                                Literal(date)))
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
+                if (not date == None) or (not period_start_text == None):
+                
+                    self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                              '/period'],
+                                    self.iati['period-start'],
+                                    self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                              '/period-start']))
+                    
+                    if not date == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                                  '/period-start'],
+                                        self.iati['date'],
+                                        Literal(date)))
+                    
+                    if not period_start_text == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                                  '/period-start'],
+                                   RDFS.label,
+                                   period_start_text))
             
-            if not period_start_text == None:
-                self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                          '/period-start'],
-                           RDFS.label,
-                           period_start_text))
-        
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
-            
-            self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
-                            self.iati['budget-period-end'],
-                            self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                      '/period-end']))
-            
-            if not date == None:
-                self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                          '/period-end'],
-                           self.iati['date'],
-                           Literal(date)))
-            
-            if not period_end_text == None:
-                self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
-                                          '/period-end'],
-                           RDFS.label,
-                           period_end_text))
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
+                if (not date == None) or (not period_end_text == None):
+                    self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                              '/period'],
+                                    self.iati['period-end'],
+                                    self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                              '/period-end']))
+                    
+                    if not date == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                                  '/period-end'],
+                                   self.iati['date'],
+                                   Literal(date)))
+                    
+                    if not period_end_text == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget']) + 
+                                                  '/period-end'],
+                                   RDFS.label,
+                                   period_end_text))
         
         if not value == None:
             # Keys
@@ -896,55 +962,67 @@ class ActivityElements :
                             self.iati['updated'],
                             Literal(updated)))
         
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
-            
+        if (not period_start == None) or (not period_end == None):
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
-                            self.iati['planned-disbursement-period-start'],
+                            self.iati['planned-disbursement-period'],
                             self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                      str(self.progress['planned_disbursement']) + '/period-start']))
-            
-            if not date == None:
-                self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                          str(self.progress['planned_disbursement']) + '/period-start'],
-                                self.iati['date'],
-                                Literal(date)))
-            
-            if not period_start_text == None:
-                self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                          str(self.progress['planned_disbursement']) + '/period-start'],
-                                RDFS.label,
-                                period_start_text))
-        
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                                      str(self.progress['planned_disbursement']) + '/period']))
             
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                      str(self.progress['planned_disbursement'])],
-                            self.iati['planned-disbursement-period-end'],
-                            self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                      str(self.progress['planned_disbursement']) + '/period-end']))
+                                      str(self.progress['planned_disbursement']) + '/period'],
+                            RDF.type,
+                            self.iati['period']))        
             
-            if not date == None:
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
                 self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                str(self.progress['planned_disbursement']) + '/period-end'],
-                                self.iati['date'],
-                                Literal(date)))
+                                      str(self.progress['planned_disbursement']) + '/period'],
+                                self.iati['period-start'],
+                                self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                          str(self.progress['planned_disbursement']) + '/period-start']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                              str(self.progress['planned_disbursement']) + '/period-start'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_start_text == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                              str(self.progress['planned_disbursement']) + '/period-start'],
+                                    RDFS.label,
+                                    period_start_text))
             
-            if not period_end_text == None:
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
                 self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
-                                          str(self.progress['planned_disbursement']) + '/period-end'],
-                                RDFS.label,
-                                period_end_text))
+                                      str(self.progress['planned_disbursement']) + '/period'],
+                                self.iati['period-end'],
+                                self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                          str(self.progress['planned_disbursement']) + '/period-end']))
+                
+                if not date == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                    str(self.progress['planned_disbursement']) + '/period-end'],
+                                    self.iati['date'],
+                                    Literal(date)))
+                
+                if not period_end_text == None:
+                    self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
+                                              str(self.progress['planned_disbursement']) + '/period-end'],
+                                    RDFS.label,
+                                    period_end_text))
         
         if not value == None:
             # Keys
@@ -1171,30 +1249,32 @@ class ActivityElements :
             # Text
             receiver_org_text = receiver_org.text
             
-            self.graph.add((transaction_id,
-                            self.iati['receiver-org'],
-                            URIRef(transaction_id + '/receiver-org')))
-
-            self.graph.add((URIRef(transaction_id + '/receiver-org'),
-                            RDF.type,
-                            self.iati['organisation']))        
+            if (not receiver_org_text == None) or (not ref == None):
             
-            if not receiver_org_text == None:
-                receiver_org_text = " ".join(receiver_org_text.split())
+                self.graph.add((transaction_id,
+                                self.iati['receiver-org'],
+                                URIRef(transaction_id + '/receiver-org')))
+    
+                self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                                RDF.type,
+                                self.iati['organisation']))        
+            
+                if not receiver_org_text == None:
+                    receiver_org_text = " ".join(receiver_org_text.split())
+                    
+                    self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                                    RDFS.label,
+                                    Literal(receiver_org_text)))                
                 
-                self.graph.add((URIRef(transaction_id + '/receiver-org'),
-                                RDFS.label,
-                                Literal(receiver_org_text)))                
-            
-            if not ref == None:
-                self.graph.add((URIRef(transaction_id + '/receiver-org'),
-                                self.iati['organisation-ref'],
-                                self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
-            
-            if not receiver_activity_id == None:
-                self.graph.add((URIRef(transaction_id + '/receiver-org'),
-                                self.iati['receiver-activity-id'],
-                                self.iati['activity/' + str(receiver_activity_id)]))
+                if not ref == None:
+                    self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                                    self.iati['organisation-ref'],
+                                    self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
+                
+                if not receiver_activity_id == None:
+                    self.graph.add((URIRef(transaction_id + '/receiver-org'),
+                                    self.iati['receiver-activity-id'],
+                                    self.iati['activity/' + str(receiver_activity_id)]))
     
         if not tied_status == None:
             # Keys
@@ -2105,7 +2185,8 @@ class OrganisationElements :
                             self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
                                       '/period']))
             
-            self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget'])],
+            self.graph.add((self.iati['organisation/' + self.id + '/total-budget' + str(self.progress['total_budget']) + 
+                                      '/period'],
                             RDF.type,
                             self.iati['period']))
             
@@ -2601,3 +2682,847 @@ class OrganisationElements :
                                                   '/language/' + str(code)],
                                         RDFS.label,
                                         name))
+
+class ProvenanceElements :
+    '''Class for converting XML elements of self.iati activities to a RDFLib self.graph.'''
+    
+    def __init__(self, defaults, namespace): 
+        '''Initializes class.
+        
+        Parameters
+        @defaults: A dictionary of default provenance items.
+        @namespace: The default RDFLib Namespace.'''
+        
+        self.id = defaults['id']
+        self.type = defaults['type']
+        self.provenance = defaults['provenance']
+        self.source_name = defaults['document_name']
+        self.version = defaults['version']
+        self.last_updated = defaults['last_updated']
+        
+        self.iati = namespace
+        
+        self.source = Namespace(self.iati[str(self.type) + '/' + str(self.id) + '/source/' + str(self.source_name)])
+        
+        if not id == None:
+            self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
+                                 self.iati['source-document'],
+                                 self.source))
+            
+            self.provenance.add((self.source,
+                                 RDF.type,
+                                 self.iati['source-document']))
+            
+            if not self.version == None:
+                self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
+                                     self.iati['version'],
+                                     Literal(self.version)))
+            
+            if not self.last_updated == None:
+                self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
+                                     self.iati['last-updated'],
+                                     Literal(self.last_updated)))                            
+        
+    def get_result(self):
+        '''Returns the resulting self.graph of the activity.
+        
+        Returns
+        @graph: The RDFLib self.graph with added statements.'''
+        
+        return self.provenance
+    
+    def maintainer(self, value):
+        '''Converts the JSON of the maintainer element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-maintainer'],
+                                 Literal(value)))
+
+    def maintainer_email(self, value):
+        '''Converts the JSON of the maintainer_email element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-maintainer-email'],
+                                 Literal(value)))
+
+    def func_id(self, value):
+        '''Converts the JSON of the id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-id'],
+                                 Literal(value)))
+    
+    def metadata_created(self, value):
+        '''Converts the JSON of the metadata_created element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-metadata-created'],
+                                 Literal(value)))
+
+    def metadata_modified(self, value):
+        '''Converts the JSON of the metadata_modified element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-metadata-modified'],
+                                 Literal(value)))
+
+    def relationships(self, value):
+        '''Converts the JSON of the relationships element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        # Seems like this field is not used, unclear as to what its' specifications are.
+
+        skip = True
+
+    def license(self, value):
+        '''Converts the JSON of the license element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-license'],
+                                 Literal(value)))
+            
+    def author(self, value):
+        '''Converts the JSON of the author element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-author'],
+                                 Literal(value)))
+
+    def author_email(self, value):
+        '''Converts the JSON of the author_email element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-author-email'],
+                                 Literal(value)))
+            
+    def download_url(self, value):
+        '''Converts the JSON of the download_url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-download-url'],
+                                 URIRef(value)))
+            
+    def state(self, value):
+        '''Converts the JSON of the state element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-state'],
+                                 Literal(value)))
+            
+    def func_version(self, value):
+        '''Converts the JSON of the version element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-version'],
+                                 Literal(value)))
+
+    def license_func_id(self, value):
+        '''Converts the JSON of the license_id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-license-id'],
+                                 Literal(value)))
+
+    def resources(self, value):
+        '''Converts the JSON of the resources element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-resources'],
+                                 self.source['/resources']))
+            
+            self.provenance.add((self.source['/resources'],
+                                 RDF.type,
+                                 self.iati['source-document-resources']))
+            
+            for entry in value[0]:
+                
+                function = getattr(self, 'resources_' + str(entry))
+                function(value[0][entry])
+
+    def resources_cache_last_updated(self, value):
+        '''Converts the JSON of the mimetype element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-cache-last-updated'],
+                                 Literal(value)))
+            
+    def resources_mimetype(self, value):
+        '''Converts the JSON of the mimetype element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-mimetype'],
+                                 Literal(value)))
+            
+    def resources_resource_group_id(self, value):
+        '''Converts the JSON of the resource_group_id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-resource-group-id'],
+                                 Literal(value)))
+            
+    def resources_hash(self, value):
+        '''Converts the JSON of the hash element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-hash'],
+                                 Literal(value)))
+            
+    def resources_description(self, value):
+        '''Converts the JSON of the description element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-description'],
+                                 Literal(value)))
+            
+    def resources_format(self, value):
+        '''Converts the JSON of the format element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-format'],
+                                 Literal(value)))
+            
+    def resources_url(self, value):
+        '''Converts the JSON of the url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-url'],
+                                 URIRef(value)))
+            
+    def resources_cache_url(self, value):
+        '''Converts the JSON of the cache_url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-cache-url'],
+                                 URIRef(value)))
+            
+    def resources_webstore_url(self, value):
+        '''Converts the JSON of the webstore_url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-webstore-url'],
+                                 URIRef(value)))
+            
+    def resources_package_id(self, value):
+        '''Converts the JSON of the package_id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-package-id'],
+                                 Literal(value)))
+            
+    def resources_mimetype_inner(self, value):
+        '''Converts the JSON of the mimetype_inner element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-mimetype-inner'],
+                                 Literal(value)))
+            
+    def resources_webstore_last_updated(self, value):
+        '''Converts the JSON of the webstore_last_updated element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-webstore-last-updated'],
+                                 Literal(value)))
+            
+    def resources_last_modified(self, value):
+        '''Converts the JSON of the last_modified element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-last-modified'],
+                                 Literal(value)))
+            
+    def resources_position(self, value):
+        '''Converts the JSON of the position element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-position'],
+                                 Literal(value)))
+            
+    def resources_size(self, value):
+        '''Converts the JSON of the size element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-size'],
+                                 Literal(value)))
+            
+    def resources_id(self, value):
+        '''Converts the JSON of the id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-id'],
+                                 Literal(value)))
+            
+    def resources_resource_type(self, value):
+        '''Converts the JSON of the resource_type element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-type'],
+                                 Literal(value)))
+            
+    def resources_name(self, value):
+        '''Converts the JSON of the name element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/resources'],
+                                 self.iati['resources-name'],
+                                 Literal(value)))
+            
+    def tags(self, value):
+        '''Converts the JSON of the tags element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        # Seems like this field is not used, unclear as to what its' specifications are.
+
+        skip = True
+        
+    def groups(self, value):
+        '''Converts the JSON of the license element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                if (not entry == 'null') or (not entry == "") or (not entry == None):
+            
+                    self.provenance.add((self.source,
+                                         self.iati['source-document-group'],
+                                         Literal(entry)))
+                
+    def name(self, value):
+        '''Converts the JSON of the name element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-name'],
+                                 Literal(value)))
+            
+    def isopen(self, value):
+        '''Converts the JSON of the isopen element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-isopen'],
+                                 Literal(value)))
+            
+    def notes_rendered(self, value):
+        '''Converts the JSON of the notes_rendered element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-notes-rendered'],
+                                 Literal(value)))
+            
+    def url(self, value):
+        '''Converts the JSON of the url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-url'],
+                                 URIRef(value)))
+            
+    def ckan_url(self, value):
+        '''Converts the JSON of the ckan_url element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-ckan-url'],
+                                 URIRef(value)))
+            
+    def notes(self, value):
+        '''Converts the JSON of the notes element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-notes'],
+                                 Literal(value)))
+            
+    def title(self, value):
+        '''Converts the JSON of the title element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 RDFS.label,
+                                 Literal(value)))
+            
+    def ratings_average(self, value):
+        '''Converts the JSON of the ratings_average element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-ratings-average'],
+                                 Literal(value)))
+            
+    def extras(self, value):
+        '''Converts the JSON of the ratings_average element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                self.provenance.add((self.source,
+                                     self.iati['source-document-extras'],
+                                     self.source['/extras']))
+                
+                self.provenance.add((self.source['/extras'],
+                                     RDF.type,
+                                     self.iati['source-document-extras']))
+                
+                function = getattr(self, 'extras_' + str(entry.replace('-','_')))
+                function(value[entry])
+                    
+    def extras_publisher_iati_id(self, value):
+        '''Converts the JSON of the publisher_iati_id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-publisher-iati-id'],
+                                 self.iati['codelist/OrganisationIdentifier/' + str(value)]))
+            
+    def extras_activity_period_from(self, value):
+        '''Converts the JSON of the activity_period-from element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-activity-period'],
+                                 self.source['/extras/period']))
+            
+            self.provenance.add((self.source['/extras/period'],
+                                 RDF.type,
+                                 self.iati['period']))
+
+            self.provenance.add((self.source['/extras/period'],
+                                 self.iati['period-from'],
+                                 Literal(value)))
+            
+    def extras_activity_period_to(self, value):
+        '''Converts the JSON of the activity_period-to element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-activity-period'],
+                                 self.source['/extras/period']))
+            
+            self.provenance.add((self.source['/extras/period'],
+                                 RDF.type,
+                                 self.iati['period']))
+
+            self.provenance.add((self.source['/extras/period'],
+                                 self.iati['period-to'],
+                                 Literal(value)))
+            
+    def extras_archive_file(self, value):
+        '''Converts the JSON of the archive_file element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-archive-file'],
+                                 Literal(value)))
+            
+    def extras_verified(self, value):
+        '''Converts the JSON of the verified element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-verified'],
+                                 Literal(value)))
+            
+    def extras_publisher_organization_type(self, value):
+        '''Converts the JSON of the publisher_organization_type element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-publisher-organization-type'],
+                                 self.iati['codelist/OrganisationType/' + str(value)]))
+            
+    def extras_language(self, value):
+        '''Converts the JSON of the language element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-language'],
+                                 Literal(value)))
+            
+    def extras_country(self, value):
+        '''Converts the JSON of the country element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-country'],
+                                 self.iati['codelist/Country/' + str(value)]))
+            
+    def extras_filetype(self, value):
+        '''Converts the JSON of the filetype element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-filetype'],
+                                 Literal(value)))
+            
+    def extras_record_updated(self, value):
+        '''Converts the JSON of the record_updated element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-record-updated'],
+                                 Literal(value)))
+            
+    def extras_activity_count(self, value):
+        '''Converts the JSON of the activity_count element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-activity-count'],
+                                 Literal(value)))
+            
+    def extras_publisher_country(self, value):
+        '''Converts the JSON of the publisher_country element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-publisher-country'],
+                                 self.iati['codelist/Country/' + str(value)]))
+            
+    def extras_data_updated(self, value):
+        '''Converts the JSON of the data_updated element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-data-updated'],
+                                 Literal(value)))
+            
+    def extras_publishertype(self, value):
+        '''Converts the JSON of the publishertype element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source['/extras'],
+                                 self.iati['extras-publishertype'],
+                                 Literal(value)))
+            
+    def extras_donors(self, value):
+        '''Converts the JSON of the donors element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                self.provenance.add((self.source,
+                                     self.iati['extras-donor'],
+                                     Literal(entry)))
+                
+    def extras_donors_country(self, value):
+        '''Converts the JSON of the donors_country element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                self.provenance.add((self.source,
+                                     self.iati['extras-donor-country'],
+                                     self.iati['codelist/Country/' + str(entry)]))
+                
+    def extras_donors_type(self, value):
+        '''Converts the JSON of the donors_country element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                self.provenance.add((self.source,
+                                     self.iati['extras-donor-type'],
+                                     Literal(entry)))
+                
+    def extras_department(self, value):
+        '''Converts the JSON of the department element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['extras-department'],
+                                 Literal(value)))
+            
+    def ratings_count(self, value):
+        '''Converts the JSON of the ratings_count element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-ratings-count'],
+                                 Literal(value)))
+            
+    def revision_func_id(self, value):
+        '''Converts the JSON of the revision_id element to a RDFLib self.graph.
+        
+        Parameters
+        @value: The value of the json.'''
+        
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            self.provenance.add((self.source,
+                                 self.iati['source-document-revision-id'],
+                                 Literal(value)))

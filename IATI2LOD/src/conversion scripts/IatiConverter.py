@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 20-04-2013
+## Last updated on 24-04-2013
 
 from rdflib import Namespace, Literal, XSD, URIRef, Graph, RDF, RDFS
 import xml.etree.ElementTree as ET
@@ -9,25 +9,60 @@ import IatiElements, AttributeHelper
 class ConvertActivity :
     '''Class for converting a IATI activity XML to a RDFLib Graph.'''
     
-    def __init__(self, xml):
+    def __init__(self, xml, version, linked_data_default):
         '''Initializes the activity class.
         
         Parameters
-        @xml: An ElementTree of an activity.'''
+        @xml: An ElementTree of an activity.
+        @version: The version of the activities.'''
         
         self.xml = xml
         
         self.id = self.get_id()
         self.last_updated = AttributeHelper.attribute_key(self.xml, 'last-updated-datetime')
         
-        self.possible_keys = dict([('iati-activity', ['version',
-                                                      'last-updated-datetime',
-                                                      'default-currency',
-                                                      'hierarchy',
-                                                      'linked-data-uri',
-                                                      '{http://www.w3.org/XML/1998/namespace}lang']),
-                                   ('title', ['{http://www.w3.org/XML/1998/namespace}lang'])])
+        self.version = self.determine_version(version)
+        self.linked_data_uri = self.determine_linked_data_uri(linked_data_default, self.id)
+        
+        self.hierarchy = AttributeHelper.attribute_key(self.xml, 'hierarchy')
 
+    def determine_version(self, version):
+        '''Determines the version of this activity.
+        
+        Parameters
+        @version: The version of the iati-activities attribute.
+        
+        Returns
+        @version: The iati-activity or iati-activities attribute version.'''
+        
+        activity_version = AttributeHelper.attribute_key(self.xml, 'version')
+        
+        if not activity_version == None:
+            return activity_version
+        
+        else:
+            return version
+        
+    def determine_linked_data_uri(self, linked_data_default, id):
+        '''Determines the Linked Data URI of this activity.
+        
+        Parameters
+        @linked_data_default: The version of the iati-activities attribute.
+        @id: The ID of the activity.
+        
+        Returns
+        @linked_data_uri: The Linked Data URI or None if not specified.'''
+        
+        linked_data_uri = AttributeHelper.attribute_key(self.xml, 'linked-data-uri')
+        
+        if not linked_data_uri == None:
+            return linked_data_uri
+        
+        elif not linked_data_default == None:
+            return str(linked_data_default) + str(id)
+        
+        else:
+            return None
     
     def get_id(self):
         '''Returns the ID of the activity.
@@ -70,7 +105,9 @@ class ConvertActivity :
                          ('finance_type', self.get_default_type('default-finance-type')),
                          ('flow_type', self.get_default_type('default-flow-type')),
                          ('aid_type', self.get_default_type('default-aid-type')),
-                         ('tied_status', self.get_default_type('default-tied-status'))])
+                         ('tied_status', self.get_default_type('default-tied-status')),
+                         ('hierarchy', self.hierarchy),
+                         ('linked_data_uri', self.linked_data_uri)])
         
         return defaults
     
@@ -83,10 +120,11 @@ class ConvertActivity :
         Returns
         @graph: The RDFLib Graph of the activity.
         @id: The ID of the activity.
-        @last_updated: The DateTime of the last update.'''
+        @last_updated: The DateTime of the last update.
+        @version: The version of the activity.'''
         
-        if self.id == None:
-            return None, None, None
+        if (self.id == None) or (self.id == ""):
+            return None, None, None, None
         
         defaults = self.get_activity_defaults()
         defaults['namespace'] = namespace
@@ -104,7 +142,7 @@ class ConvertActivity :
             except AttributeError as e:
                 print "Error in " + funcname + ", " + self.id + ": " + str(e)
         
-        return converter.get_result(), self.id, self.last_updated
+        return converter.get_result(), self.id, self.last_updated, self.version
         
 class ConvertCodelist :
     '''Class for converting a codelist dictionary to a RDFLib.'''
@@ -143,7 +181,7 @@ class ConvertCodelist :
         @id: The ID of the activity.
         @last_updated: The DateTime of the last update.'''
         
-        if self.id == None:
+        if (self.id == None) or (self.id == ""):
             return None, None, None
 
         defaults = self.get_codelist_defaults()
@@ -248,7 +286,7 @@ class ConvertOrganisation :
         @id: The ID of the activity.
         @last_updated: The DateTime of the last update.'''
         
-        if self.id == None:
+        if (self.id == None) or (self.id == ""):
             return None, None, None
         
         defaults = self.get_organisation_defaults()
@@ -268,4 +306,59 @@ class ConvertOrganisation :
                 print "Error in " + funcname + ", " + self.id + ": " + str(e)
         
         return converter.get_result(), self.id, self.last_updated
+
+class ConvertProvenance :
+    '''Class for adding provenance to the general provenance RDFLib Graph.'''
+    
+    def __init__(self, type, json_parsed, provenance, id, last_updated, version):
+        '''Initializes the activity class.
+        
+        Parameters
+        @type: The type of entity, such as activity or organisation.
+        @json: A parsed JSON object of the metadata.
+        @provenance: A RDFLib Graph of the provenance thus far.
+        @id: The id of the entity.
+        @last_updated: The last updated time of the entity.
+        @version: The version of the entity.
+        @document_name: The name of the original document.'''
+        
+        self.defaults = dict([('type', type),
+                              ('json', json_parsed),
+                              ('provenance', provenance),
+                              ('id', id),
+                              ('last_updated', last_updated),
+                              ('version', version),
+                              ('document_name', json_parsed['name'])])
+        
+        self.json = json_parsed
+    
+    def convert(self, namespace):
+        '''Converts the JSON and XML attributes into a RDFLib graph.
+        
+        Parameters
+        @namespace: A RDFLib Namespace.
+        
+        Returns
+        @graph: The RDFLib Graph of the provenance.'''
+        
+        if (self.defaults['id'] == None) or (self.defaults['id'] == ""):
+            return None
+        
+        converter = IatiElements.ProvenanceElements(self.defaults, namespace)
+        
+        for entry in self.json:
+            
+            try:
+                funcname = entry.replace("-","_").replace("id","func_id").replace("version", "func_version")
+            
+                update = getattr(converter, funcname)
+                update(self.json[entry])
+                
+            except AttributeError as e:
+                print "Error in " + funcname + ", " + self.defaults['id'] + ": " + str(e)
+        
+        provenance = converter.get_result()
+        
+        return provenance      
+    
     

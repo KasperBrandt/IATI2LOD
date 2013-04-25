@@ -182,7 +182,7 @@ def main():
     
     # Initial settings
     max_limit = 1000
-    folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/"
+    folder = "/media/Acer/School/IATI-data/IATI-source/"
     iati_url = "http://www.iatiregistry.org/api/"
     retrieve = ['activities', 'organisations', 'codelists']
     

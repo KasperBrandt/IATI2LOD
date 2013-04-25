@@ -12,7 +12,11 @@ def attribute_key(xml, key):
     @value: The value of the key or None if not present.'''
     
     try:
-        return xml.attrib[key]
+        if not xml.attrib[key] == "":
+            return xml.attrib[key]
+        
+        else:
+            return None
     
     except KeyError:
         return None
@@ -62,9 +66,9 @@ def attribute_language(xml, language):
     formatted_text = " ".join(text.split())
     
     if not node_language == None:
-        return Literal(formatted_text, lang=node_language)
+        return Literal(formatted_text, lang=node_language.lower())
     
     if not language == None:
-        return Literal(formatted_text, lang=language)
+        return Literal(formatted_text, lang=language.lower())
     
     return Literal(formatted_text)
