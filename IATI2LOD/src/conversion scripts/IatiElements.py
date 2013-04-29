@@ -1834,6 +1834,7 @@ class CodelistElements :
         
         self.graph.bind('iati', self.iati)
         self.graph.bind('codelist', self.codelist)
+        self.graph.bind(self.id, self.codelist_uri)
 
     def get_result(self):
         '''Returns the resulting self.graph of the activity.
@@ -1859,8 +1860,12 @@ class CodelistElements :
             code = " ".join(code.split())
             
             self.graph.add((self.codelist[str(self.id)],
-                            self.iati['codelist-code'],
+                            self.iati['codelist-member'],
                             self.codelist_uri[code]))
+            
+            self.graph.add((self.codelist_uri[code],
+                            self.iati['member-codelist'],
+                            self.codelist[str(self.id)]))
             
             self.graph.add((self.codelist_uri[code],
                             self.iati['code'],
@@ -1958,15 +1963,15 @@ class CodelistElements :
         if not category == None:
             category = " ".join(category.split())
 
-            self.graph.add((self.codelist_uri['category/' + category],
+            self.graph.add((self.codelist['category/' + category],
                             RDF.type,
                             self.iati['codelist-category']))
             
             self.graph.add((self.codelist_uri[code[0]],
-                            self.iati['category'],
-                            self.codelist_uri['category/' + category]))
+                            self.iati['codelist-member-category'],
+                            self.codelist['category/' + category]))
             
-            self.graph.add((self.codelist_uri['category/' + category],
+            self.graph.add((self.codelist['category/' + category],
                             self.iati['code'],
                             Literal(category)))
 
@@ -1986,7 +1991,7 @@ class CodelistElements :
             name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if (not category_code == None) and (not name == None):            
-            self.graph.add((self.codelist_uri['category/' + category_code[0]],
+            self.graph.add((self.codelist['category/' + category_code[0]],
                             RDFS.label,
                             name))
 
@@ -2006,7 +2011,7 @@ class CodelistElements :
             description = AttributeHelper.attribute_language(xml, self.default_language)
         
         if (not category_code == None) and (not description == None):            
-            self.graph.add((self.codelist_uri['category/' + category_code[0]],
+            self.graph.add((self.codelist['category/' + category_code[0]],
                             RDFS.comment,
                             description))
 
