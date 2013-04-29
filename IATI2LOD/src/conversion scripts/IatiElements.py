@@ -216,7 +216,7 @@ class ActivityElements :
                             self.iati['description']))
             
             self.graph.add((self.iati['activity/' + self.id + '/description' + str(self.progress['description'])],
-                            self.iati['description'],
+                            self.iati['description-text'],
                             description))
             
             if not type == None:
@@ -298,6 +298,10 @@ class ActivityElements :
                         self.iati['activity-contact-info'],
                         self.iati['activity/' + self.id + '/contact-info' + str(self.progress['contact_info'])]))
         
+        self.graph.add((self.iati['activity/' + self.id + '/contact-info' + str(self.progress['contact_info'])],
+                        RDF.type,
+                        self.iati['contact-info']))        
+        
         for element in xml:
             
             info = element.text
@@ -305,8 +309,10 @@ class ActivityElements :
             if not info == None:
                 info = " ".join(info.split())
                 
+                property = "contact-info-" + str(element.tag)
+                
                 self.graph.add((self.iati['activity/' + self.id + '/contact-info' + str(self.progress['contact_info'])],
-                                self.iati[element.tag],
+                                self.iati[property],
                                 Literal(info)))
     
     def participating_org(self, xml):
@@ -516,7 +522,7 @@ class ActivityElements :
                     
                     self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
                                               '/description' + str(description_counter)],
-                                    self.iati['description'],
+                                    self.iati['description-text'],
                                     description_text))
                     
                     if not type == None:
@@ -1152,7 +1158,7 @@ class ActivityElements :
                                     self.iati['description']))
                     
                     self.graph.add((URIRef(transaction_id + '/description' + str(description_counter)),
-                                    self.iati['description'],
+                                    self.iati['description-text'],
                                     description_text))
                     
                     if not type == None:
@@ -1417,6 +1423,11 @@ class ActivityElements :
                                     self.iati['language'],
                                     self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
                                               '/language/' + str(code)]))
+                    
+                    self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
+                                              '/language/' + str(code)],
+                                    RDF.type,
+                                    self.iati['language']))
 
                     self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link']) + 
                                               '/language/' + str(code)],
@@ -1559,7 +1570,7 @@ class ActivityElements :
                     
                     self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                               '/description' + str(description_counter)],
-                                    self.iati['description'],
+                                    self.iati['description-text'],
                                     description_text))
                     
                     if not type == None:
@@ -1650,7 +1661,7 @@ class ActivityElements :
                             self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
                                                       '/indicator' + str(indicator_counter) + '/description' + 
                                                       str(description_counter)],
-                                            self.iati['description'],
+                                            self.iati['description-text'],
                                             description_text))
                             
                             if not type == None:
@@ -2746,7 +2757,15 @@ class ProvenanceElements :
             
             self.provenance.add((self.source,
                                  self.iati['source-document-maintainer'],
+                                 self.source['/maintainer']))
+            
+            self.provenance.add((self.source['/maintainer'],
+                                 self.iati['maintainer-name'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/maintainer'],
+                                 RDF.type,
+                                 self.iati['maintainer']))  
 
     def maintainer_email(self, value):
         '''Converts the JSON of the maintainer_email element to a RDFLib self.graph.
@@ -2757,8 +2776,16 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['source-document-maintainer-email'],
+                                 self.iati['source-document-maintainer'],
+                                 self.source['/maintainer']))
+            
+            self.provenance.add((self.source['/maintainer'],
+                                 self.iati['maintainer-email'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/maintainer'],
+                                 RDF.type,
+                                 self.iati['maintainer']))   
 
     def func_id(self, value):
         '''Converts the JSON of the id element to a RDFLib self.graph.
@@ -2779,10 +2806,17 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
-            
             self.provenance.add((self.source,
-                                 self.iati['source-document-metadata-created'],
+                                 self.iati['source-document-metadata'],
+                                 self.source['/metadata']))
+            
+            self.provenance.add((self.source['/metadata'],
+                                 self.iati['metadata-created'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/metadata'],
+                                 RDF.type,
+                                 self.iati['metadata']))
 
     def metadata_modified(self, value):
         '''Converts the JSON of the metadata_modified element to a RDFLib self.graph.
@@ -2793,8 +2827,16 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['source-document-metadata-modified'],
+                                 self.iati['source-document-metadata'],
+                                 self.source['/metadata']))
+            
+            self.provenance.add((self.source['/metadata'],
+                                 self.iati['metadata-modified'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/metadata'],
+                                 RDF.type,
+                                 self.iati['metadata']))
 
     def relationships(self, value):
         '''Converts the JSON of the relationships element to a RDFLib self.graph.
@@ -2828,7 +2870,15 @@ class ProvenanceElements :
             
             self.provenance.add((self.source,
                                  self.iati['source-document-author'],
+                                 self.source['/author']))
+            
+            self.provenance.add((self.source['/author'],
+                                 self.iati['author-name'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/author'],
+                                 RDF.type,
+                                 self.iati['author']))           
 
     def author_email(self, value):
         '''Converts the JSON of the author_email element to a RDFLib self.graph.
@@ -2839,8 +2889,16 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['source-document-author-email'],
+                                 self.iati['source-document-author'],
+                                 self.source['/author']))
+            
+            self.provenance.add((self.source['/author'],
+                                 self.iati['author-email'],
                                  Literal(value)))
+            
+            self.provenance.add((self.source['/author'],
+                                 RDF.type,
+                                 self.iati['author']))    
             
     def download_url(self, value):
         '''Converts the JSON of the download_url element to a RDFLib self.graph.
