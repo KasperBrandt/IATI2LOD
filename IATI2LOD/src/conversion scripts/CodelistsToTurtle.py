@@ -47,7 +47,7 @@ def main():
             # Write codelist to Turtle and store in local folder
             graph_turtle = graph.serialize(format='turtle')
             
-            with open(turtle_folder + 'codelist-' + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
+            with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                 turtle_file.write(graph_turtle)
             
             # Add provenance of last-updated, version and source document

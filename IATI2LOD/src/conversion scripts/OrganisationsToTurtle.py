@@ -126,7 +126,7 @@ def main():
                         # Write activity to Turtle and store in local folder
                         graph_turtle = graph.serialize(format='turtle')
                         
-                        with open(turtle_folder + 'organisation-' + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
+                        with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                             turtle_file.write(graph_turtle)
                         
                         # Add provenance from corresponding JSON file
