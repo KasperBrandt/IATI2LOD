@@ -1,3 +1,6 @@
+## By Kasper Brandt
+## Last updated on 29-04-2013
+
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
 import os
