@@ -635,7 +635,24 @@ class ActivityElements :
                 self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location']) + 
                                           '/gazetteer-entry/' + str(gazetteer_ref)],
                                 self.iati['gazetteer-entry'],
-                                Literal(gazetteer_entry_text)))                    
+                                Literal(gazetteer_entry_text)))
+                
+                if gazetteer_ref == "GEO":
+                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                                    OWL.sameAs,
+                                    URIRef("http://sws.geonames.org/" + gazetteer_entry_text)))
+
+#                --- need correct links ---
+#                if gazetteer_ref == "NGA":
+#                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+#                                    OWL.sameAs,
+#                                    URIRef("????" + gazetteer_entry_text)))
+#                    
+#                if gazetteer_ref == "OSM":
+#                    self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+#                                    OWL.sameAs,
+#                                    URIRef("????" + gazetteer_entry_text)))
+                                    
      
     def sector(self, xml):
         '''Converts the XML of the sector element to a RDFLib self.graph.
