@@ -9,7 +9,6 @@ import os, sys, httplib2
 # Settings
 turtle_folder = "/media/Acer/School/IATI-data/geonames/"
 country_codelist = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/Country.xml"
-locations_file = "" #todo
 webservice = "http://api.geonames.org/search?"
 username = "KasperBrandt"
 
@@ -19,8 +18,6 @@ GN = Namespace("http://sws.geonames.org/")
 
 if not os.path.isdir(turtle_folder):
     os.makedirs(turtle_folder)
-
-#########     Countries    #########
 
 
 countries = Graph()
@@ -177,20 +174,13 @@ countries_turtle = countries.serialize(format='turtle')
 with open(turtle_folder + 'countries-mapping.ttl', 'w') as turtle_file:
     turtle_file.write(countries_turtle)
 
+print
 print "Summary:"
 for key in feature_codes.keys():
     print key, feature_codes[key]
 
-# Link countries to geonames
-
-
-# Export graph
-
-
-#########     Locations    #########
-
-# Look up locations (including gazzetteer entries)
-# Link locations to geonames
+print
+print "Done!"
     
 
 
