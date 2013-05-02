@@ -2478,7 +2478,7 @@ class OrganisationElements :
         self.__update_progress('recipient_country_budget')
         
         self.graph.add((self.org_uri,
-                        self.iati['organisation-country-org-budget'],
+                        self.iati['organisation-recipient-country-budget'],
                         self.iati['organisation/' + self.id + '/recipient-country-budget' 
                                   + str(self.progress['recipient_country_budget'])]))
         
