@@ -1479,7 +1479,8 @@ class ActivityElements :
         @xml: The XML of this element.'''
         
         # Elements
-        conditions = xml.findall('condition')
+        conditions_container = xml.find('conditions')
+        conditions = conditions_container.findall('condition')
         
         if not conditions == []:
             condition_counter = 1
