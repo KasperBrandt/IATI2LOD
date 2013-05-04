@@ -104,7 +104,15 @@ graph.add((Iati['value-date'],
            RDFS.subPropertyOf,
            DC['date']))
 
+graph.add((Iati['year'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
 graph.add((Iati['last-updated'],
+           RDFS.subPropertyOf,
+           DC['modified']))
+
+graph.add((Iati['updated'],
            RDFS.subPropertyOf,
            DC['modified']))
 
@@ -120,6 +128,21 @@ graph.add((Iati['source-document-download-url'],
            RDFS.subPropertyOf,
            DC['source']))
 
+graph.add((Iati['source-document-author'],
+           RDFS.subPropertyOf,
+           DC['creator']))
+
+graph.add((Iati['source-document-maintainer'],
+           RDFS.subPropertyOf,
+           DC['contributor']))
+
+graph.add((Iati['extras-iati-publisher-id'],
+           RDFS.subPropertyOf,
+           DC['publisher']))
+
+graph.add((Iati['extras-language'],
+           RDFS.subPropertyOf,
+           DC['language']))
 
 #########     FOAF    #########
 
@@ -166,10 +189,6 @@ graph.add((Iati['author-email'],
 graph.add((Iati['maintainer-email'],
            RDFS.subPropertyOf,
            FOAF['mbox']))
-
-graph.add((Iati['source-document-author'],
-           RDFS.subPropertyOf,
-           FOAF['creator']))
 
 
 #########     ORG    #########
@@ -234,7 +253,7 @@ graph_turtle = graph.serialize(format='turtle')
 
 print "Writing to file..."
 
-with open(turtle_folder + 'mappings.ttl', 'w') as turtle_file:
+with open(turtle_folder + 'basics.ttl', 'w') as turtle_file:
     turtle_file.write(graph_turtle)
     
 print "Done!"

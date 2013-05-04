@@ -243,7 +243,7 @@ def main():
     '''Looks up the geonames IDs of locations with coordinates and a precision.'''
     
     # Settings
-    turtle_folder = "/media/Acer/School/IATI-data/geonames/"
+    turtle_folder = "/media/Acer/School/IATI-data/mappings/"
     
     # Cache login information
     url = 'http://eculture.cs.vu.nl:1987/iati/servlets/login'   
@@ -348,7 +348,7 @@ def main():
     
     locations_turtle = locations.serialize(format='turtle')
     
-    with open(turtle_folder + 'locations-mapping.ttl', 'w') as turtle_file:
+    with open(turtle_folder + 'geonames-locations.ttl', 'w') as turtle_file:
         turtle_file.write(locations_turtle)
                 
     print "Done:"

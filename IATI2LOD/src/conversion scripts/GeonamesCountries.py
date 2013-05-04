@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import os, sys, httplib2
 
 # Settings
-turtle_folder = "/media/Acer/School/IATI-data/geonames/"
+turtle_folder = "/media/Acer/School/IATI-data/mappings/"
 country_codelist = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/Country.xml"
 webservice = "http://api.geonames.org/search?"
 username = "KasperBrandt"
@@ -171,7 +171,7 @@ countries.add((Iati['codelist/Country/AN'],
 print "Adding to file..."
 countries_turtle = countries.serialize(format='turtle')
 
-with open(turtle_folder + 'countries-mapping.ttl', 'w') as turtle_file:
+with open(turtle_folder + 'geonames-countries.ttl', 'w') as turtle_file:
     turtle_file.write(countries_turtle)
 
 print
