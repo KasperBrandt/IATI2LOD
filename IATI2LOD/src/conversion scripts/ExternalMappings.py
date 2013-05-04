@@ -108,14 +108,6 @@ graph.add((Iati['last-updated'],
            RDFS.subPropertyOf,
            DC['modified']))
 
-graph.add((Iati['metadata-modified'],
-           RDFS.subPropertyOf,
-           DC['modified']))
-
-graph.add((Iati['metadata-created'],
-           RDFS.subPropertyOf,
-           DC['created']))
-
 graph.add((Iati['version'],
            RDFS.subPropertyOf,
            DC['hasVersion']))

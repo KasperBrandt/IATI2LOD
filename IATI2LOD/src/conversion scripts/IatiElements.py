@@ -2736,24 +2736,17 @@ class ProvenanceElements :
         
         self.iati = namespace
         
-        self.source = Namespace(self.iati[str(self.type) + '/' + str(self.id) + '/source/' + str(self.source_name)])
+        self.source = Namespace(self.iati['graph/' + str(self.type) + '/' + str(self.id)])
         
         if not id == None:
-            self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
-                                 self.iati['source-document'],
-                                 self.source))
-            
-            self.provenance.add((self.source,
-                                 RDF.type,
-                                 self.iati['source-document']))
             
             if not self.version == None:
-                self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
+                self.provenance.add((self.source,
                                      self.iati['version'],
                                      Literal(self.version)))
             
             if not self.last_updated == None:
-                self.provenance.add((self.iati['graph/' + str(self.type) + '/' + str(self.id)],
+                self.provenance.add((self.source,
                                      self.iati['last-updated'],
                                      Literal(self.last_updated)))                            
         
@@ -2824,17 +2817,11 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
             self.provenance.add((self.source,
-                                 self.iati['source-document-metadata'],
-                                 self.source['/metadata']))
-            
-            self.provenance.add((self.source['/metadata'],
-                                 self.iati['metadata-created'],
+                                 self.iati['source-document-metadata-created'],
                                  Literal(value)))
-            
-            self.provenance.add((self.source['/metadata'],
-                                 RDF.type,
-                                 self.iati['metadata']))
+
 
     def metadata_modified(self, value):
         '''Converts the JSON of the metadata_modified element to a RDFLib self.graph.
@@ -2845,16 +2832,9 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['source-document-metadata'],
-                                 self.source['/metadata']))
-            
-            self.provenance.add((self.source['/metadata'],
-                                 self.iati['metadata-modified'],
+                                 self.iati['source-document-metadata-modified'],
                                  Literal(value)))
-            
-            self.provenance.add((self.source['/metadata'],
-                                 RDF.type,
-                                 self.iati['metadata']))
+
 
     def relationships(self, value):
         '''Converts the JSON of the relationships element to a RDFLib self.graph.
@@ -2974,14 +2954,6 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source,
-                                 self.iati['source-document-resources'],
-                                 self.source['/resources']))
-            
-            self.provenance.add((self.source['/resources'],
-                                 RDF.type,
-                                 self.iati['source-document-resources']))
-            
             for entry in value[0]:
                 
                 function = getattr(self, 'resources_' + str(entry))
@@ -2995,7 +2967,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-cache-last-updated'],
                                  Literal(value)))
             
@@ -3007,7 +2979,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-mimetype'],
                                  Literal(value)))
             
@@ -3019,7 +2991,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-resource-group-id'],
                                  Literal(value)))
             
@@ -3031,7 +3003,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-hash'],
                                  Literal(value)))
             
@@ -3043,7 +3015,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-description'],
                                  Literal(value)))
             
@@ -3055,7 +3027,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-format'],
                                  Literal(value)))
             
@@ -3067,7 +3039,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-url'],
                                  URIRef(value)))
             
@@ -3079,7 +3051,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-cache-url'],
                                  URIRef(value)))
             
@@ -3091,7 +3063,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-webstore-url'],
                                  URIRef(value)))
             
@@ -3103,7 +3075,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-package-id'],
                                  Literal(value)))
             
@@ -3115,7 +3087,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-mimetype-inner'],
                                  Literal(value)))
             
@@ -3127,7 +3099,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-webstore-last-updated'],
                                  Literal(value)))
             
@@ -3139,7 +3111,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-last-modified'],
                                  Literal(value)))
             
@@ -3151,7 +3123,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-position'],
                                  Literal(value)))
             
@@ -3163,7 +3135,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-size'],
                                  Literal(value)))
             
@@ -3175,7 +3147,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-id'],
                                  Literal(value)))
             
@@ -3187,7 +3159,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-type'],
                                  Literal(value)))
             
@@ -3199,7 +3171,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/resources'],
+            self.provenance.add((self.source,
                                  self.iati['resources-name'],
                                  Literal(value)))
             
@@ -3238,7 +3210,7 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['source-document-name'],
+                                 RDFS.label,
                                  Literal(value)))
             
     def isopen(self, value):
@@ -3310,7 +3282,7 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 RDFS.label,
+                                 self.iati['source-document-title'],
                                  Literal(value)))
             
     def ratings_average(self, value):
@@ -3334,14 +3306,6 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             for entry in value:
-            
-                self.provenance.add((self.source,
-                                     self.iati['source-document-extras'],
-                                     self.source['/extras']))
-                
-                self.provenance.add((self.source['/extras'],
-                                     RDF.type,
-                                     self.iati['source-document-extras']))
                 
                 function = getattr(self, 'extras_' + str(entry.replace('-','_')))
                 function(value[entry])
@@ -3354,7 +3318,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-publisher-iati-id'],
                                  self.iati['codelist/OrganisationIdentifier/' + str(value)]))
             
@@ -3366,15 +3330,15 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-activity-period'],
-                                 self.source['/extras/period']))
+                                 self.source['/period']))
             
-            self.provenance.add((self.source['/extras/period'],
+            self.provenance.add((self.source['/period'],
                                  RDF.type,
                                  self.iati['period']))
 
-            self.provenance.add((self.source['/extras/period'],
+            self.provenance.add((self.source['/period'],
                                  self.iati['period-from'],
                                  Literal(value)))
             
@@ -3386,15 +3350,15 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-activity-period'],
-                                 self.source['/extras/period']))
+                                 self.source['/period']))
             
-            self.provenance.add((self.source['/extras/period'],
+            self.provenance.add((self.source['/period'],
                                  RDF.type,
                                  self.iati['period']))
 
-            self.provenance.add((self.source['/extras/period'],
+            self.provenance.add((self.source['/period'],
                                  self.iati['period-to'],
                                  Literal(value)))
             
@@ -3406,7 +3370,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-archive-file'],
                                  Literal(value)))
             
@@ -3418,7 +3382,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-verified'],
                                  Literal(value)))
             
@@ -3430,7 +3394,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-publisher-organization-type'],
                                  self.iati['codelist/OrganisationType/' + str(value)]))
             
@@ -3442,7 +3406,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-language'],
                                  Literal(value)))
             
@@ -3454,7 +3418,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-country'],
                                  self.iati['codelist/Country/' + str(value)]))
             
@@ -3466,7 +3430,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-filetype'],
                                  Literal(value)))
             
@@ -3478,7 +3442,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-record-updated'],
                                  Literal(value)))
             
@@ -3490,7 +3454,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-activity-count'],
                                  Literal(value)))
             
@@ -3502,7 +3466,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-publisher-country'],
                                  self.iati['codelist/Country/' + str(value)]))
             
@@ -3514,7 +3478,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-data-updated'],
                                  Literal(value)))
             
@@ -3526,7 +3490,7 @@ class ProvenanceElements :
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
-            self.provenance.add((self.source['/extras'],
+            self.provenance.add((self.source,
                                  self.iati['extras-publishertype'],
                                  Literal(value)))
             
