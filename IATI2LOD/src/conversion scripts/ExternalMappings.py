@@ -45,13 +45,17 @@ graph.add((Iati['codelist-category'],
            SKOS['Concept']))
 
 # Properties
-graph.add((Iati['member-codelist'],
+graph.add((Iati['member-of-codelist'],
            RDFS.subPropertyOf,
            SKOS['inScheme']))
 
 graph.add((Iati['codelist-member-category'],
            RDFS.subPropertyOf,
            SKOS['broader']))
+
+graph.add((Iati['has-member'],
+           RDFS.subPropertyOf,
+           SKOS['narrower']))
 
 
 #########     DC    #########
@@ -104,7 +108,35 @@ graph.add((Iati['value-date'],
            RDFS.subPropertyOf,
            DC['date']))
 
-graph.add((Iati['year'],
+graph.add((Iati['baseline-year'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['value-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['start-actual-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['end-actual-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['start-planned-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['end-planned-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['start-date'],
+           RDFS.subPropertyOf,
+           DC['date']))
+
+graph.add((Iati['end-date'],
            RDFS.subPropertyOf,
            DC['date']))
 
