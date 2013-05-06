@@ -13,7 +13,8 @@ def attribute_key(xml, key):
     
     try:
         if not xml.attrib[key] == "":
-            return xml.attrib[key]
+            key = " ".join(xml.attrib[key].split())
+            return key
         
         else:
             return None
@@ -37,7 +38,7 @@ def attribute_text(xml, attribute):
     
     try:
         for element in xml.findall(attribute):
-            value_list.append(element.text)
+            value_list.append(" ".join(element.text.split()))
         
         if value_list == []:
             return None

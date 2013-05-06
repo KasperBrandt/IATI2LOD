@@ -251,21 +251,16 @@ class ActivityElements :
         # Text
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
-        if not type == None:           
-
-                if not iso_date == None:
-                    iso_date = " ".join(iso_date.split())
-                    
-                    self.graph.add((self.iati['activity/' + self.id],
-                                    self.iati[type + '-date'],
-                                    Literal(iso_date)))
-                            
-                if not name == None:
-                    name = " ".join(name.split())
-                    
-                    self.graph.add((self.iati['activity/' + self.id],
-                                    self.iati[type + '-text'],
-                                    Literal(name)))
+        if not type == None:
+            if not iso_date == None:
+                self.graph.add((self.iati['activity/' + self.id],
+                                self.iati[type + '-date'],
+                                Literal(iso_date)))
+                        
+            if not name == None:
+                self.graph.add((self.iati['activity/' + self.id],
+                                self.iati[type + '-text'],
+                                Literal(name)))
     
     def contact_info(self, xml):
         '''Converts the XML of the contact-info element to a RDFLib self.graph.
@@ -636,7 +631,7 @@ class ActivityElements :
             
             self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
                                       '/' + str(code)],
-                            RDFS.subClassOf,
+                            self.iati['sector-code'],
                             self.iati['codelist/Sector/' + str(code)]))
             
             self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
@@ -670,7 +665,7 @@ class ActivityElements :
         # Text
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
-        if (not code == None) and (not vocabulary == None):                
+        if (not code == None) and (not vocabulary == None):
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-policy-marker'],
                             self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
@@ -683,7 +678,7 @@ class ActivityElements :
             
             self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                       '/' + str(code)],
-                            RDFS.subClassOf,
+                            self.iati['policy-marker-code'],
                             self.iati['codelist/PolicyMarker/' + str(code)]))
             
             self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
@@ -730,8 +725,6 @@ class ActivityElements :
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-default-finance-type'],
                             self.iati['codelist/FinanceType/' + str(code)]))
-        
-        return self.graph
     
     def flow_type(self, xml):
         '''Converts the XML of the default-flow-type element to a RDFLib self.graph.
@@ -800,7 +793,7 @@ class ActivityElements :
                         RDF.type,
                         self.iati['budget']))
         
-        if not type == None:        
+        if not type == None: 
             self.graph.add((self.iati['activity/' + self.id + '/budget' + str(self.progress['budget'])],
                             self.iati['budget-type'],
                             self.iati['codelist/BudgetType/' + str(type)]))
@@ -896,7 +889,7 @@ class ActivityElements :
                         RDF.type,
                         self.iati['planned-disbursement']))
         
-        if not updated == None:        
+        if not updated == None:
             self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement' + 
                                       str(self.progress['planned_disbursement'])],
                             self.iati['updated'],
@@ -1071,9 +1064,10 @@ class ActivityElements :
             # Keys
             code = AttributeHelper.attribute_key(disbursement_channel, 'code')
             
-            self.graph.add((transaction_id,
-                            self.iati['disbursement-channel'],
-                            self.iati['codelist/disbursementChannel/' + str(code)]))
+            if not code == None:
+                self.graph.add((transaction_id,
+                                self.iati['disbursement-channel'],
+                                self.iati['codelist/disbursementChannel/' + str(code)]))
         
         if not finance_type == None:
             # Keys
@@ -1216,7 +1210,7 @@ class ActivityElements :
                                 Literal(value_text)))
                 
                 if not currency == None:
-                    self.graph.add((URIRef(transaction_id + '/value'),
+                    self.graph.add((transaction_id,
                                     self.iati['value-currency'],
                                     self.iati['codelist/Currency/' + str(currency)]))
                 
@@ -1271,17 +1265,19 @@ class ActivityElements :
                 # Text
                 name = AttributeHelper.attribute_language(title, self.default_language)
                 
-                self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link'])],
-                                RDFS.label,
-                                name))
+                if not name == None:
+                    self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link'])],
+                                    RDFS.label,
+                                    name))
                 
         if not category == None:
             # Keys
             code = AttributeHelper.attribute_key(category, 'code')
             
-            self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link'])],
-                            self.iati['document-category'],
-                            self.iati['codelist/DocumentCategory/' + str(code)]))
+            if not code == None:
+                self.graph.add((self.iati['activity/' + self.id + 'document-link' + str(self.progress['document_link'])],
+                                self.iati['document-category'],
+                                self.iati['codelist/DocumentCategory/' + str(code)]))
         
         if not languages == []:
             for language in languages:
@@ -1358,22 +1354,22 @@ class ActivityElements :
                 condition_text = AttributeHelper.attribute_language(condition, self.default_language)
                 
                 if not condition_text == None:
-                       self.graph.add((self.iati['activity/' + self.id],
-                                       self.iati['activity-condition'],
-                                       self.iati['activity/' + self.id + '/condition' + str(condition_counter)]))
-                       
-                       self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
-                                       RDF.type,
-                                       self.iati['condition']))
-                       
-                       self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
-                                       RDFS.label,
-                                       condition_text))
-                       
-                       if not type == None:
-                           self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
-                                           self.iati['condition-type'],
-                                           self.iati['codelist/ConditionType/' + str(type)]))                                          
+                    self.graph.add((self.iati['activity/' + self.id],
+                                    self.iati['activity-condition'],
+                                    self.iati['activity/' + self.id + '/condition' + str(condition_counter)]))
+                   
+                    self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                                    RDF.type,
+                                    self.iati['condition']))
+                   
+                    self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                                    RDFS.label,
+                                    condition_text))
+                   
+                    if not type == None:
+                        self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                                        self.iati['condition-type'],
+                                        self.iati['codelist/ConditionType/' + str(type)]))                                          
             
                 condition_counter += 1
     
@@ -1652,10 +1648,11 @@ class ActivityElements :
                         # Text
                         comment_text = AttributeHelper.attribute_language(comment, self.default_language)
                         
-                        self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
-                                                  '/indicator' + str(indicator_counter)],
-                                        self.iati['baseline-comment'],
-                                        comment_text))                        
+                        if not comment_text == None:
+                            self.graph.add((self.iati['activity/' + self.id + '/result' + str(self.progress['result']) + 
+                                                      '/indicator' + str(indicator_counter)],
+                                            self.iati['baseline-comment'],
+                                            comment_text))                        
                 
                 indicator_counter += 1
 
@@ -2155,7 +2152,7 @@ class OrganisationElements :
                 
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget' 
                                           + str(self.progress['recipient_org_budget'])],
-                                self.iati['budget-recipient-org-name'],
+                                self.iati['recipient-org-name'],
                                 recipient_org_text))                     
               
         if not period_start == None:
@@ -2271,7 +2268,7 @@ class OrganisationElements :
                 
                 self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget' 
                                           + str(self.progress['recipient_country_budget'])],
-                                self.iati['budget-recipient-country-ref'],
+                                self.iati['recipient-country-ref'],
                                 Literal(code)))
                 
             if not recipient_country_text == None:
