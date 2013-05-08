@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 24-04-2013
+## Last updated on 08-05-2013
 
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
@@ -65,7 +65,103 @@ class ActivityElements :
         Returns
         @graph: The RDFLib self.graph with added statements.'''
         
-        return self.graph           
+        return self.graph
+    
+    def convert_unknown(self, xml):
+        '''Converts non-IATI standard elements up to 2 levels to a RDFLib self.graph.
+        
+        Parameters:
+        @xml: The XML of this element.'''
+        
+        if ":" in xml.tag:
+            name = xml.tag.split(":")[1].replace('activity-', '')
+        else:
+            name = xml.tag.replace('activity-', '')
+        
+        children_elements = xml.findall("./")
+            
+        if children_elements == []:
+            # No children
+            if len(xml.text) > 1:
+                self.graph.add((self.iati['activity/' + self.id],
+                                self.iati['activity-' + str(name)],
+                                Literal(xml.text)))
+                
+                for key in xml.attrib:
+                    self.graph.add((self.iati['activity/' + self.id],
+                                    self.iati['activity-' + str(name) + '-' + str(key)],
+                                    Literal(xml.attrib[key])))
+                    
+        else:
+            # Does have children
+            
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-' + str(name)],
+                            self.iati['activity/' + self.id + '/' + str(name)]))
+            
+            for key in xml.attrib:
+                self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                self.iati[str(key)],
+                                Literal(xml.attrib[key])))
+            
+            for child in xml:
+                children_elements = child.findall("./")
+                
+                if ":" in child.tag:
+                    child_name = child.tag.split(":")[1]
+                else:
+                    child_name = child.tag
+                
+                if children_elements == []:
+                    # No grand-children
+                    
+                    if len(child.text) > 1:
+                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                        self.iati[str(child_name)],
+                                        Literal(child.text)))
+                        
+                        for key in child.attrib:
+                            self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                            self.iati[str(child_name) + '-' + str(key)],
+                                            Literal(child.attrib[key])))
+                            
+                else:
+                    # Has grand-children
+                    
+                    self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                    self.iati[str(name) + '-' + str(child_name)],
+                                    self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)]))
+                    
+                    for key in child.attrib:
+                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                        self.iati[str(key)],
+                                        Literal(child.attrib[key])))
+                        
+                    for grandchild in child:
+                        grandchildren_elements = grandchild.findall("./")
+                        
+                        if ":" in grandchild.tag:
+                            grandchild_name = grandchild.tag.split(":")[1]
+                        else:
+                            grandchild_name = grandchild.tag
+                            
+                        if grandchildren_elements == []:
+                            # No grand-grand-children
+                            
+                            if len(child.text) > 1:
+                                self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                self.iati[str(grandchild_name)],
+                                                Literal(grandchild.text)))
+                                
+                                for key in child.attrib:
+                                    self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                    self.iati[str(grandchild_name) + '-' + str(key)],
+                                                    Literal(grandchild.attrib[key])))
+                                    
+                        else:
+                            # Three levels
+                            print "Three levels for a non-IATI element (" + str(name) + ") is not supported..."
+                            
     
     def reporting_org(self, xml):
         '''Converts the XML of the reporting-org element to a RDFLib self.graph.
@@ -102,6 +198,28 @@ class ActivityElements :
                 self.graph.add((self.iati['activity/' + self.id + '/reporting-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
+        
+        else:
+            # Progress
+            self.__update_progress('reporting_org')            
+            
+            self.graph.add((self.iati['activity/' + self.id],
+                            self.iati['activity-reporting-org'],
+                            self.iati['activity/' + str(self.id) + '/reporting-org' + str(self.progress['reporting_org'])]))
+            
+            self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org' + str(self.progress['reporting_org'])],
+                            RDF.type,
+                            self.iati['organisation']))
+        
+            if not name == None:
+                self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org' + str(self.progress['reporting_org'])],
+                                RDFS.label,
+                                name))
+                
+            if not type == None:
+                self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org' + str(self.progress['reporting_org'])],
+                                self.iati['organisation-type'],
+                                self.iati['codelist/OrganisationType/' + str(type)]))            
 
     
     def iati_identifier(self, xml):
@@ -522,17 +640,41 @@ class ActivityElements :
         if not administrative == None:
             # Keys
             administrative_country = AttributeHelper.attribute_key(administrative, 'country')
+            administrative_adm1 = AttributeHelper.attribute_key(administrative, 'adm1')
+            administrative_adm2 = AttributeHelper.attribute_key(administrative, 'adm2')
             
             # Text
             administrative_text = AttributeHelper.attribute_language(administrative, self.default_language)
             
+            # Progress
+            self.__update_progress('administrative')
+            
+            self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                            self.iati['location-administrative'],
+                            self.iati['activity/' + self.id + '/location' + str(self.progress['location'])
+                                      + '/administrative' + str(self.progress['administrative'])]))            
+            
             if not administrative_country == None:
-                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])
+                                          + '/administrative' + str(self.progress['administrative'])],
                                 self.iati['administrative-country'],
                                 self.iati['codelist/Country/' + str(administrative_country)]))
                 
+            if not administrative_adm1 == None:
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])
+                                          + '/administrative' + str(self.progress['administrative'])],
+                                self.iati['administrative-adm1'],
+                                Literal(administrative_adm1)))
+                
+            if not administrative_adm2 == None:
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])
+                                          + '/administrative' + str(self.progress['administrative'])],
+                                self.iati['administrative-adm2'],
+                                Literal(administrative_adm2)))
+                
             if not administrative_text == None:
-                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])],
+                self.graph.add((self.iati['activity/' + self.id + '/location' + str(self.progress['location'])
+                                          + '/administrative' + str(self.progress['administrative'])],
                                 self.iati['administrative-country-text'],
                                 administrative_text))
         
@@ -1900,6 +2042,11 @@ class OrganisationElements :
         self.graph.add((self.org_uri,
                         OWL.sameAs,
                         self.iati['codelist/OrganisationIdentifier/' + self.id]))
+        
+        self.graph.add((self.iati['codelist/OrganisationIdentifier/' + self.id],
+                        OWL.sameAs,
+                        self.org_uri))
+       
 
     def __update_progress(self, element):
         '''Updates the progress of the number of elements.
@@ -1920,6 +2067,101 @@ class OrganisationElements :
         @graph: The RDFLib self.graph with added statements.'''
         
         return self.graph
+    
+    def convert_unknown(self, xml):
+        '''Converts non-IATI standard elements up to 2 levels to a RDFLib self.graph.
+        
+        Parameters:
+        @xml: The XML of this element.'''
+        
+        if ":" in xml.tag:
+            name = xml.tag.split(":")[1].replace('organisation-', '')
+        else:
+            name = xml.tag.replace('organisation-', '')
+        
+        children_elements = xml.findall("./")
+            
+        if children_elements == []:
+            # No children
+            if len(xml.text) > 1:
+                self.graph.add((self.iati['organisation/' + self.id],
+                                self.iati['organisation-' + str(name)],
+                                Literal(xml.text)))
+                
+                for key in xml.attrib:
+                    self.graph.add((self.iati['organisation/' + self.id],
+                                    self.iati['organisation-' + str(name) + '-' + str(key)],
+                                    Literal(xml.attrib[key])))
+                    
+        else:
+            # Does have children
+            
+            self.graph.add((self.iati['organisation/' + self.id],
+                            self.iati['organisation-' + str(name)],
+                            self.iati['organisation/' + self.id + '/' + str(name)]))
+            
+            for key in xml.attrib:
+                self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
+                                self.iati[str(key)],
+                                Literal(xml.attrib[key])))
+            
+            for child in xml:
+                children_elements = child.findall("./")
+                
+                if ":" in child.tag:
+                    child_name = child.tag.split(":")[1]
+                else:
+                    child_name = child.tag
+                
+                if children_elements == []:
+                    # No grand-children
+                    
+                    if len(child.text) > 1:
+                        self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
+                                        self.iati[str(child_name)],
+                                        Literal(child.text)))
+                        
+                        for key in child.attrib:
+                            self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
+                                            self.iati[str(child_name) + '-' + str(key)],
+                                            Literal(child.attrib[key])))
+                            
+                else:
+                    # Has grand-children
+                    
+                    self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
+                                    self.iati[str(name) + '-' + str(child_name)],
+                                    self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)]))
+                    
+                    for key in child.attrib:
+                        self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                        self.iati[str(key)],
+                                        Literal(child.attrib[key])))
+                        
+                    for grandchild in child:
+                        grandchildren_elements = grandchild.findall("./")
+                        
+                        if ":" in grandchild.tag:
+                            grandchild_name = grandchild.tag.split(":")[1]
+                        else:
+                            grandchild_name = grandchild.tag
+                            
+                        if grandchildren_elements == []:
+                            # No grand-grand-children
+                            
+                            if len(child.text) > 1:
+                                self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                self.iati[str(grandchild_name)],
+                                                Literal(grandchild.text)))
+                                
+                                for key in child.attrib:
+                                    self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                    self.iati[str(grandchild_name) + '-' + str(key)],
+                                                    Literal(grandchild.attrib[key])))
+                                    
+                        else:
+                            # Three levels
+                            print "Three levels for a non-IATI element (" + str(name) + ") is not supported..."
     
     def reporting_org(self, xml):
         '''Converts the XML of the reporting-org element to a RDFLib self.graph.
@@ -1960,6 +2202,10 @@ class OrganisationElements :
         else:
             # Progress
             self.__update_progress('reporting_org')
+            
+            self.graph.add((self.org_uri['/reporting-org' + str(self.progress['reporting_org'])],
+                            RDF.type,
+                            self.iati['organisation']))
             
             if not name == None:
                 self.graph.add((self.org_uri['/reporting-org' + str(self.progress['reporting_org'])],
@@ -2542,9 +2788,15 @@ class ProvenanceElements :
         Parameters
         @value: The value of the json.'''
         
-        # Seems like this field is not used, unclear as to what its' specifications are.
-
-        skip = True
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                if (not entry == 'null') or (not entry == "") or (not entry == None):
+            
+                    self.provenance.add((self.source,
+                                         self.iati['source-document-relationship'],
+                                         Literal(entry)))
 
     def license(self, value):
         '''Converts the JSON of the license element to a RDFLib self.graph.
@@ -2880,10 +3132,16 @@ class ProvenanceElements :
         
         Parameters
         @value: The value of the json.'''
-        
-        # Seems like this field is not used, unclear as to what its' specifications are.
 
-        skip = True
+        if (not value == 'null') and (not str(value) == "") and (not value == None):
+            
+            for entry in value:
+            
+                if (not entry == 'null') or (not entry == "") or (not entry == None):
+            
+                    self.provenance.add((self.source,
+                                         self.iati['source-document-tag'],
+                                         Literal(entry)))
         
     def groups(self, value):
         '''Converts the JSON of the license element to a RDFLib self.graph.
@@ -3020,7 +3278,7 @@ class ProvenanceElements :
             
             self.provenance.add((self.source,
                                  self.iati['extras-publisher-iati-id'],
-                                 self.iati['codelist/OrganisationIdentifier/' + str(value)]))
+                                 self.iati['codelist/OrganisationIdentifier/' + str("-".join(value.split()))]))
             
     def extras_activity_period_from(self, value):
         '''Converts the JSON of the activity_period-from element to a RDFLib self.graph.
@@ -3031,15 +3289,7 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['extras-activity-period'],
-                                 self.source['/period']))
-            
-            self.provenance.add((self.source['/period'],
-                                 RDF.type,
-                                 self.iati['period']))
-
-            self.provenance.add((self.source['/period'],
-                                 self.iati['period-from'],
+                                 self.iati['extras-activity-period-from'],
                                  Literal(value)))
             
     def extras_activity_period_to(self, value):
@@ -3051,15 +3301,7 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             self.provenance.add((self.source,
-                                 self.iati['extras-activity-period'],
-                                 self.source['/period']))
-            
-            self.provenance.add((self.source['/period'],
-                                 RDF.type,
-                                 self.iati['period']))
-
-            self.provenance.add((self.source['/period'],
-                                 self.iati['period-to'],
+                                 self.iati['extras-activity-period-to'],
                                  Literal(value)))
             
     def extras_archive_file(self, value):

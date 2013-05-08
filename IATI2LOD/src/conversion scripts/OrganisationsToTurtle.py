@@ -60,20 +60,6 @@ def main():
                         
                         with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                             turtle_file.write(graph_turtle)
-                        
-                        # Add provenance from corresponding JSON file
-                        json_document = document[:-4] + '.json'
-                        
-                        try:
-                            with open(json_document, 'r') as open_json_doc:
-                                json_parsed = json.load(open_json_doc)
-                        except:
-                            print "Could not parse file " + json_document
-                            json_parsed = None
-                
-                        provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
-                                                                               id, last_updated, version)
-                        provenance = provenance_converter.convert(Iati)
                     
                     print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
                     
@@ -95,20 +81,6 @@ def main():
                         with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                             turtle_file.write(graph_turtle)
                     
-                        # Add provenance from corresponding JSON file
-                        json_document = document[:-4] + '.json'
-                        
-                        try:
-                            with open(json_document, 'r') as open_json_doc:
-                                json_parsed = json.load(open_json_doc)
-                        except:
-                            print "Could not parse file " + json_document
-                            json_parsed = None
-                
-                        provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
-                                                                               id, last_updated, version)
-                        provenance = provenance_converter.convert(Iati)
-                    
                     print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
                     
                     organisation_count += 1
@@ -128,31 +100,33 @@ def main():
                         
                         with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                             turtle_file.write(graph_turtle)
-                        
-                        # Add provenance from corresponding JSON file
-                        json_document = document[:-4] + '.json'
-                        
-                        try:
-                            with open(json_document, 'r') as open_json_doc:
-                                json_parsed = json.load(open_json_doc)
-                        except:
-                            print "Could not parse file " + json_document
-                            json_parsed = None
-                
-                        provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
-                                                                               id, last_updated, version)
-                        provenance = provenance_converter.convert(Iati)
                     
                     print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
                     
                     organisation_count += 1
                        
             document_count += 1
-        
+
+            # Add provenance from corresponding JSON file
+            json_document = document[:-4] + '.json'
+            
+            try:
+                with open(json_document, 'r') as open_json_doc:
+                    json_parsed = json.load(open_json_doc)
+            except:
+                print "Could not parse file " + json_document
+                json_parsed = None
+                
+            doc_id = str(document.rsplit('/',1)[1])[:-4]
+    
+            provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
+                                                                   doc_id, last_updated, version)
+            provenance = provenance_converter.convert(Iati)
+
             # Write provenance graph to Turtle and store in local folder
             provenance_turtle = provenance.serialize(format='turtle')
             
-            with open(provenance_folder + 'provenance-organisation-' + str(document.rsplit('/',1)[1])[:-4] + '.ttl', 'w') as turtle_file:
+            with open(provenance_folder + 'provenance-organisation-' + doc_id + '.ttl', 'w') as turtle_file:
                 turtle_file.write(provenance_turtle)
         
     print "Done!"

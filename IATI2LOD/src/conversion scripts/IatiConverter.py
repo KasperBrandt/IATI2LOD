@@ -134,13 +134,19 @@ class ConvertActivity :
         for attribute in self.xml:
             
             try:
-                funcname = attribute.tag.replace("-","_").replace("default_", "")
+                if ":" in attribute.tag:
+                    funcname = attribute.tag.split(":")[1].replace("-","_").replace("default_", "")
+                else:
+                    funcname = attribute.tag.replace("-","_").replace("default_", "")
             
                 update = getattr(converter, funcname)
                 update(attribute)
                 
             except AttributeError as e:
-                print "Error in " + funcname + ", " + self.id + ": " + str(e)
+                try:
+                    converter.convert_unknown(attribute)
+                except:
+                    print "Could not convert "+ funcname + " in file " + self.id + ": " + str(e)
         
         return converter.get_result(), self.id, self.last_updated, self.version
         
@@ -247,19 +253,19 @@ class ConvertOrganisation :
         id = AttributeHelper.attribute_text(self.xml, 'iati-identifier')
         
         if not id == None:
-            return str(id[0].split()[0])
+            return str("-".join(id[0].split()))
         
         elif id == None:
             id = AttributeHelper.attribute_text(self.xml, 'identifier')
             
             if not id == None:
-                return str(id[0].split()[0])
+                return str("-".join(id[0].split()))
         
-            if id == None:
-                try:
-                    id = self.xml.find('reporting-org').attrib['ref']
-                except:
-                    id = None
+#            if id == None:
+#                try:
+#                    id = self.xml.find('reporting-org').attrib['ref']
+#                except:
+#                    id = None
         
         return id
 
@@ -297,13 +303,21 @@ class ConvertOrganisation :
         for attribute in self.xml:
             
             try:
+                if ":" in attribute.tag:
+                    funcname = attribute.tag.split(":")[1].replace("-","_").replace("default_", "")
+                else:
+                    funcname = attribute.tag.replace("-","_").replace("default_", "")
+                
                 funcname = attribute.tag.replace("-","_")
             
                 update = getattr(converter, funcname)
                 update(attribute)
                 
             except AttributeError as e:
-                print "Error in " + funcname + ", " + self.id + ": " + str(e)
+                try:
+                    converter.convert_unknown(attribute)
+                except:
+                    print "Could not convert "+ funcname + " in file " + self.id + ": " + str(e)
         
         return converter.get_result(), self.id, self.last_updated
 

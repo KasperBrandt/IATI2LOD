@@ -60,18 +60,10 @@ def main():
                             Literal(version)))
             
             provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
-                            URIRef(Iati + 'source-document'),
-                            URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id))))
-            
-            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
-                            RDF.type,
-                            URIRef(Iati + 'source-document')))
-            
-            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
                             URIRef(Iati + 'source-document-id'),
                             Literal(str(id))))
             
-            provenance.add((URIRef(Iati + 'codelist/' + str(id) + '/source/' + str(id)),
+            provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
                             URIRef(Iati + 'source-document-download-url'),
                             URIRef('http://datadev.aidinfolabs.org/data/codelist/' + str(id) + '.xml')))                        
         
