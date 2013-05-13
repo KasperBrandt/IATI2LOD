@@ -73,94 +73,98 @@ class ActivityElements :
         Parameters:
         @xml: The XML of this element.'''
         
-        if ":" in xml.tag:
-            name = xml.tag.split(":")[1].replace('activity-', '')
-        else:
-            name = xml.tag.replace('activity-', '')
+        if not "ignore" in xml.tag:
         
-        children_elements = xml.findall("./")
+            if ":" in xml.tag:
+                name = xml.tag.split(":")[1].replace('activity-', '')
+            else:
+                name = xml.tag.replace('activity-', '')
             
-        if children_elements == []:
-            # No children
-            if len(xml.text) > 1:
+            children_elements = xml.findall("./")
+                
+            if children_elements == []:
+                # No children
+                if not xml.text == None:
+                    if len(xml.text) > 1:
+                        self.graph.add((self.iati['activity/' + self.id],
+                                        self.iati['activity-' + str(name)],
+                                        Literal(xml.text)))
+                        
+                        for key in xml.attrib:
+                            self.graph.add((self.iati['activity/' + self.id],
+                                            self.iati['activity-' + str(name) + '-' + str(key)],
+                                            Literal(xml.attrib[key])))
+                        
+            else:
+                # Does have children
+                
                 self.graph.add((self.iati['activity/' + self.id],
                                 self.iati['activity-' + str(name)],
-                                Literal(xml.text)))
+                                self.iati['activity/' + self.id + '/' + str(name)]))
                 
                 for key in xml.attrib:
-                    self.graph.add((self.iati['activity/' + self.id],
-                                    self.iati['activity-' + str(name) + '-' + str(key)],
-                                    Literal(xml.attrib[key])))
-                    
-        else:
-            # Does have children
-            
-            self.graph.add((self.iati['activity/' + self.id],
-                            self.iati['activity-' + str(name)],
-                            self.iati['activity/' + self.id + '/' + str(name)]))
-            
-            for key in xml.attrib:
-                self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                self.iati[str(key)],
-                                Literal(xml.attrib[key])))
-            
-            for child in xml:
-                children_elements = child.findall("./")
-                
-                if ":" in child.tag:
-                    child_name = child.tag.split(":")[1]
-                else:
-                    child_name = child.tag
-                
-                if children_elements == []:
-                    # No grand-children
-                    
-                    if len(child.text) > 1:
-                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                        self.iati[str(child_name)],
-                                        Literal(child.text)))
-                        
-                        for key in child.attrib:
-                            self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                            self.iati[str(child_name) + '-' + str(key)],
-                                            Literal(child.attrib[key])))
-                            
-                else:
-                    # Has grand-children
-                    
                     self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                    self.iati[str(name) + '-' + str(child_name)],
-                                    self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)]))
+                                    self.iati[str(key)],
+                                    Literal(xml.attrib[key])))
+                
+                for child in xml:
+                    children_elements = child.findall("./")
                     
-                    for key in child.attrib:
-                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                        self.iati[str(key)],
-                                        Literal(child.attrib[key])))
-                        
-                    for grandchild in child:
-                        grandchildren_elements = grandchild.findall("./")
-                        
-                        if ":" in grandchild.tag:
-                            grandchild_name = grandchild.tag.split(":")[1]
-                        else:
-                            grandchild_name = grandchild.tag
-                            
-                        if grandchildren_elements == []:
-                            # No grand-grand-children
-                            
+                    if ":" in child.tag:
+                        child_name = child.tag.split(":")[1]
+                    else:
+                        child_name = child.tag
+                    
+                    if children_elements == []:
+                        # No grand-children
+                        if not child.text == None:
                             if len(child.text) > 1:
-                                self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                self.iati[str(grandchild_name)],
-                                                Literal(grandchild.text)))
+                                self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                                self.iati[str(child_name)],
+                                                Literal(child.text)))
                                 
                                 for key in child.attrib:
-                                    self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                    self.iati[str(grandchild_name) + '-' + str(key)],
-                                                    Literal(grandchild.attrib[key])))
-                                    
-                        else:
-                            # Three levels
-                            print "Three levels for a non-IATI element (" + str(name) + ") is not supported..."
+                                    self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                                    self.iati[str(child_name) + '-' + str(key)],
+                                                    Literal(child.attrib[key])))
+                                
+                    else:
+                        # Has grand-children
+                        
+                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
+                                        self.iati[str(name) + '-' + str(child_name)],
+                                        self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)]))
+                        
+                        for key in child.attrib:
+                            self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                            self.iati[str(key)],
+                                            Literal(child.attrib[key])))
+                            
+                        for grandchild in child:
+                            grandchildren_elements = grandchild.findall("./")
+                            
+                            if ":" in grandchild.tag:
+                                grandchild_name = grandchild.tag.split(":")[1]
+                            else:
+                                grandchild_name = grandchild.tag
+                                
+                            if grandchildren_elements == []:
+                                # No grand-grand-children
+                                
+                                if not grandchild == None:
+                                    if len(grandchild.text) > 1:
+                                        self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                        self.iati[str(grandchild_name)],
+                                                        Literal(grandchild.text)))
+                                        
+                                        for key in grandchild.attrib:
+                                            self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                            self.iati[str(grandchild_name) + '-' + str(key)],
+                                                            Literal(grandchild.attrib[key])))
+                                        
+                            else:
+                                # Three levels
+                                print "Three levels for a non-IATI element (" + str(name) + ") is not supported..."
                             
     
     def reporting_org(self, xml):
@@ -2083,15 +2087,16 @@ class OrganisationElements :
             
         if children_elements == []:
             # No children
-            if len(xml.text) > 1:
-                self.graph.add((self.iati['organisation/' + self.id],
-                                self.iati['organisation-' + str(name)],
-                                Literal(xml.text)))
-                
-                for key in xml.attrib:
+            if not xml.text == None:
+                if len(xml.text) > 1:
                     self.graph.add((self.iati['organisation/' + self.id],
-                                    self.iati['organisation-' + str(name) + '-' + str(key)],
-                                    Literal(xml.attrib[key])))
+                                    self.iati['organisation-' + str(name)],
+                                    Literal(xml.text)))
+                    
+                    for key in xml.attrib:
+                        self.graph.add((self.iati['organisation/' + self.id],
+                                        self.iati['organisation-' + str(name) + '-' + str(key)],
+                                        Literal(xml.attrib[key])))
                     
         else:
             # Does have children
@@ -2115,16 +2120,16 @@ class OrganisationElements :
                 
                 if children_elements == []:
                     # No grand-children
-                    
-                    if len(child.text) > 1:
-                        self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
-                                        self.iati[str(child_name)],
-                                        Literal(child.text)))
-                        
-                        for key in child.attrib:
+                    if not xml.text == None:
+                        if len(child.text) > 1:
                             self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
-                                            self.iati[str(child_name) + '-' + str(key)],
-                                            Literal(child.attrib[key])))
+                                            self.iati[str(child_name)],
+                                            Literal(child.text)))
+                            
+                            for key in child.attrib:
+                                self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
+                                                self.iati[str(child_name) + '-' + str(key)],
+                                                Literal(child.attrib[key])))
                             
                 else:
                     # Has grand-children
@@ -2148,16 +2153,16 @@ class OrganisationElements :
                             
                         if grandchildren_elements == []:
                             # No grand-grand-children
-                            
-                            if len(child.text) > 1:
-                                self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                self.iati[str(grandchild_name)],
-                                                Literal(grandchild.text)))
-                                
-                                for key in child.attrib:
+                            if not xml.text == None:
+                                if len(grandchild.text) > 1:
                                     self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                    self.iati[str(grandchild_name) + '-' + str(key)],
-                                                    Literal(grandchild.attrib[key])))
+                                                    self.iati[str(grandchild_name)],
+                                                    Literal(grandchild.text)))
+                                    
+                                    for key in grandchild.attrib:
+                                        self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
+                                                        self.iati[str(grandchild_name) + '-' + str(key)],
+                                                        Literal(grandchild.attrib[key])))
                                     
                         else:
                             # Three levels

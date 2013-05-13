@@ -25,6 +25,8 @@ class ConvertActivity :
         self.linked_data_uri = self.determine_linked_data_uri(linked_data_default, self.id)
         
         self.hierarchy = AttributeHelper.attribute_key(self.xml, 'hierarchy')
+        
+        self.failed = []
 
     def determine_version(self, version):
         '''Determines the version of this activity.
@@ -121,10 +123,11 @@ class ConvertActivity :
         @graph: The RDFLib Graph of the activity.
         @id: The ID of the activity.
         @last_updated: The DateTime of the last update.
-        @version: The version of the activity.'''
+        @version: The version of the activity.
+        @failed: A list of failed elements.'''
         
         if (self.id == None) or (self.id == ""):
-            return None, None, None, None
+            return None, None, None, None, None
         
         defaults = self.get_activity_defaults()
         defaults['namespace'] = namespace
@@ -136,7 +139,9 @@ class ConvertActivity :
             try:
                 if ":" in attribute.tag:
                     funcname = attribute.tag.split(":")[1].replace("-","_").replace("default_", "")
-                else:
+                if "}" in attribute.tag:
+                    funcname = attribute.tag.split("}")[1].replace("-","_").replace("default_", "")
+                if (not ":" in attribute.tag) and (not "}" in attribute.tag):
                     funcname = attribute.tag.replace("-","_").replace("default_", "")
             
                 update = getattr(converter, funcname)
@@ -146,9 +151,13 @@ class ConvertActivity :
                 try:
                     converter.convert_unknown(attribute)
                 except:
-                    print "Could not convert "+ funcname + " in file " + self.id + ": " + str(e)
+                    print "Could not convert "+ funcname + " in file " + self.id
+                    
+                    if not funcname in self.failed:
+                        self.failed.append(funcname)
+                    
         
-        return converter.get_result(), self.id, self.last_updated, self.version
+        return converter.get_result(), self.id, self.last_updated, self.version, self.failed
         
 class ConvertCodelist :
     '''Class for converting a codelist dictionary to a RDFLib.'''

@@ -23,6 +23,8 @@ def main():
     document_count = 1
     activity_count = 1
     
+    failed_elements = []
+    
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
         
@@ -49,9 +51,14 @@ def main():
                 
                 try:
                     converter = IatiConverter.ConvertActivity(activity, version, linked_data_default)
-                    graph, id, last_updated, version = converter.convert(Iati)
+                    graph, id, last_updated, version, fails = converter.convert(Iati)
                 except TypeError as e:
                     print "Error in " + document + ":" + str(e)
+                
+                if not fails == None:
+                    for fail in fails:
+                        if not fail in failed_elements:
+                            failed_elements.append(fail)
                 
                 if not id == None:
                     print "Processing: Activity %s (# %s) in document %s (# %s)" % (str(id.replace('/','%2F')), 
@@ -96,6 +103,11 @@ def main():
             with open(provenance_folder + 'provenance-activity-' + doc_id + '.ttl', 'w') as turtle_file:
                 turtle_file.write(provenance_turtle)
         
+    print "Failed:"
+    
+    for fail in failed_elements:
+        print fail
+    
     print "Done!"
     
 if __name__ == "__main__":
