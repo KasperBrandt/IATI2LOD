@@ -5,7 +5,7 @@
 import xml.etree.ElementTree as ET
 from SPARQLWrapper import SPARQLWrapper, JSON
 from datetime import date
-import sys, httplib2, json
+import sys, httplib2, json, os
 
 def get_request(url, json_format):
     '''Connect to url and return content.
@@ -23,6 +23,10 @@ def get_request(url, json_format):
     except httplib2.ServerNotFoundError as e:
         print e
         sys.exit(0)
+        
+    except KeyError as e:
+        print "Something went wrong while connecting to " + url
+        return None
     
     if response['status'] == '200':
         
@@ -139,9 +143,12 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
     folder = str(folder) + str(type) + '/'
     counter = 1
     
+    if not os.path.isdir(folder):
+        os.makedirs(folder)
+    
     # DEBUG: last 100 documents only
-    #if type == 'activities':
-    #    all_documents = all_documents[-100:]
+    if type == 'activities':
+        all_documents = all_documents[-200:]
     
     # Check the last update for each document.
     for document in all_documents:
@@ -182,7 +189,7 @@ def main():
     
     # Initial settings
     max_limit = 1000
-    folder = "/media/Acer/School/IATI-data/IATI-source/"
+    folder = "/media/Acer/School/IATI-data/xml/"
     iati_url = "http://www.iatiregistry.org/api/"
     retrieve = ['activities', 'organisations', 'codelists']
     

@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 24-04-2013
+## Last updated on 16-05-2013
 
 import glob, json, sys, os, IatiConverter, AttributeHelper
 import xml.etree.ElementTree as ET
@@ -9,14 +9,11 @@ def main():
     '''Converts Activity XMLs to Turtle files and stores these to local folder.'''
     
     # Settings
-    xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/activities/"
-    turtle_folder = "/media/Acer/School/IATI-data/activities/"
+    xml_folder = "/media/Acer/School/IATI-data/xml/activities/"
+    turtle_folder = "/media/Acer/School/IATI-data/activity/"
     provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
-    if not os.path.isdir(turtle_folder):
-        os.makedirs(turtle_folder)
-        
     if not os.path.isdir(provenance_folder):
         os.makedirs(provenance_folder)
     
@@ -28,8 +25,15 @@ def main():
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
         
+        doc_id = str(document.rsplit('/',1)[1])[:-4]
+        doc_folder = turtle_folder + doc_id + '/'
+        
+        if not os.path.isdir(doc_folder):
+            os.makedirs(doc_folder)
+        
         failed = False
         
+        graph = Graph()
         provenance = Graph()
         provenance.bind('iati', Iati)
         
@@ -59,23 +63,23 @@ def main():
                     for fail in fails:
                         if not fail in failed_elements:
                             failed_elements.append(fail)
-                
-                if not id == None:
+                            
+                if (not graph == None) and (not id == None):
                     print "Processing: Activity %s (# %s) in document %s (# %s)" % (str(id.replace('/','%2F')), 
                                                                                     str(activity_count),
                                                                                     str(document.rsplit('/',1)[1]), 
                                                                                     str(document_count))
+                    
+                    # Write activity to Turtle and store in local folder
+                    graph_turtle = graph.serialize(format='turtle') 
+                    
+                    with open(doc_folder + str(id.replace('/','%2F')) + '.ttl', 'w') as turtle_file:
+                        turtle_file.write(graph_turtle)
+                    
                 else:
                     print "WARNING: Activity (# %s) in %s (# %s) has no identifier specified" % (str(activity_count),
                                                                                                  str(document.rsplit('/',1)[1]),
                                                                                                  str(document_count)) 
-                
-                if not graph == None:
-                    # Write activity to Turtle and store in local folder
-                    graph_turtle = graph.serialize(format='turtle')
-                    
-                    with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
-                        turtle_file.write(graph_turtle)
                             
                 activity_count += 1
                        
@@ -90,8 +94,6 @@ def main():
             except:
                 print "Could not parse file " + json_document
                 json_parsed = None
-                
-            doc_id = str(document.rsplit('/',1)[1])[:-4]
             
             provenance_converter = IatiConverter.ConvertProvenance('activity', json_parsed, provenance, 
                                                                    doc_id, last_updated, version)

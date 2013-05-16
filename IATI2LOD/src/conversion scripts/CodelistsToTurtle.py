@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 25-04-2013
+## Last updated on 16-05-2013
 
 import glob, sys, os, IatiConverter, AttributeHelper
 import xml.etree.ElementTree as ET
@@ -9,13 +9,10 @@ def main():
     '''Converts Codelist XMLs to Turtle files and stores these to local folder.'''
     
     # Settings
-    xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/codelists/"
-    turtle_folder = "/media/Acer/School/IATI-data/codelists/"
+    xml_folder = "/media/Acer/School/IATI-data/xml/codelists/"
+    turtle_folder = "/media/Acer/School/IATI-data/codelist/"
     provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
-
-    if not os.path.isdir(turtle_folder):
-        os.makedirs(turtle_folder)
         
     if not os.path.isdir(provenance_folder):
         os.makedirs(provenance_folder)
@@ -26,6 +23,12 @@ def main():
     
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
+        
+        doc_id = str(document.rsplit('/',1)[1])[:-4]
+        doc_folder = turtle_folder + doc_id + '/'
+        
+        if not os.path.isdir(doc_folder):
+            os.makedirs(doc_folder)
         
         provenance = Graph()
         provenance.bind('iati', Iati)
@@ -47,7 +50,7 @@ def main():
             # Write codelist to Turtle and store in local folder
             graph_turtle = graph.serialize(format='turtle')
             
-            with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
+            with open(doc_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
                 turtle_file.write(graph_turtle)
             
             # Add provenance of last-updated, version and source document

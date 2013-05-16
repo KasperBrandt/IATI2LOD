@@ -9,13 +9,10 @@ def main():
     '''Converts Activity XMLs to Turtle files and stores these to local folder.'''
     
     # Settings
-    xml_folder = "/media/Acer/School/IATI2LOD/IATI2LOD/xml/organisations/"
-    turtle_folder = "/media/Acer/School/IATI-data/organisations/"
+    xml_folder = "/media/Acer/School/IATI-data/xml/organisations/"
+    turtle_folder = "/media/Acer/School/IATI-data/organisation/"
     provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
-
-    if not os.path.isdir(turtle_folder):
-        os.makedirs(turtle_folder)
         
     if not os.path.isdir(provenance_folder):
         os.makedirs(provenance_folder)
@@ -26,8 +23,14 @@ def main():
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
         
-        failed = False
-
+        doc_fail = False
+        
+        doc_id = str(document.rsplit('/',1)[1])[:-4]
+        doc_folder = turtle_folder + doc_id + '/'
+        
+        if not os.path.isdir(doc_folder):
+            os.makedirs(doc_folder)
+        
         provenance = Graph()
         provenance.bind('iati', Iati)        
         
@@ -36,9 +39,9 @@ def main():
             xml = ET.parse(document)
         except ET.ParseError:
             print "Could not parse file " + document
-            failed = True
+            doc_fail = True
         
-        if not failed == True:
+        if not doc_fail == True:
             root = xml.getroot()
             version = AttributeHelper.attribute_key(root, 'version')
             
@@ -52,16 +55,15 @@ def main():
                         graph, id, last_updated = converter.convert(Iati)
                     except TypeError as e:
                         print "Error in " + document + ":" + str(e)
-                        graph = None
-                    
-                    if not graph == None:
-                        # Write activity to Turtle and store in local folder
-                        graph_turtle = graph.serialize(format='turtle')
-                        
-                        with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
-                            turtle_file.write(graph_turtle)
                     
                     print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
+                    
+                    if (not graph == None) and (not id == None):
+                        # Write organisation to Turtle and store in local folder
+                        graph_turtle = graph.serialize(format='turtle')
+                        
+                        with open(doc_folder + str(id.replace('/','%2F')) + '.ttl', 'w') as turtle_file:
+                            turtle_file.write(graph_turtle)
                     
                     organisation_count += 1
     
@@ -72,41 +74,39 @@ def main():
                         graph, id, last_updated = converter.convert(Iati)
                     except TypeError as e:
                         print "Error in " + document + ":" + str(e)
-                        graph = None
-                    
-                    if not graph == None:
-                        # Write activity to Turtle and store in local folder
-                        graph_turtle = graph.serialize(format='turtle')
-                        
-                        with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
-                            turtle_file.write(graph_turtle)
                     
                     print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
+                    
+                    if (not graph == None) and (not id == None):
+                        # Write organisation to Turtle and store in local folder
+                        graph_turtle = graph.serialize(format='turtle')
+                        
+                        with open(doc_folder + str(id.replace('/','%2F')) + '.ttl', 'w') as turtle_file:
+                            turtle_file.write(graph_turtle)
                     
                     organisation_count += 1
                 
             elif (root.tag == 'iati-organisation') or (root.tag == 'organisation'):
                 
-                    try:
-                        converter = IatiConverter.ConvertOrganisation(xml.getroot())
-                        graph, id, last_updated = converter.convert(Iati)
-                    except TypeError as e:
-                        print "Error in " + document + ":" + str(e)
-                        graph = None
+                try:
+                    converter = IatiConverter.ConvertOrganisation(xml.getroot())
+                    graph, id, last_updated = converter.convert(Iati)
+                except TypeError as e:
+                    print "Error in " + document + ":" + str(e)
+                
+                print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
+                
+                if (not graph == None) and (not id == None):
+                    # Write organisation to Turtle and store in local folder
+                    graph_turtle = graph.serialize(format='turtle')
                     
-                    if not graph == None:
-                        # Write activity to Turtle and store in local folder
-                        graph_turtle = graph.serialize(format='turtle')
-                        
-                        with open(turtle_folder + id.replace('/','%2F') + '.ttl', 'w') as turtle_file:
-                            turtle_file.write(graph_turtle)
-                    
-                    print "Progress: Organisation #" + str(organisation_count) + " in document #" + str(document_count)
-                    
-                    organisation_count += 1
+                    with open(doc_folder + str(id.replace('/','%2F')) + '.ttl', 'w') as turtle_file:
+                        turtle_file.write(graph_turtle)
+                
+                organisation_count += 1
                        
             document_count += 1
-
+    
             # Add provenance from corresponding JSON file
             json_document = document[:-4] + '.json'
             
@@ -116,8 +116,6 @@ def main():
             except:
                 print "Could not parse file " + json_document
                 json_parsed = None
-                
-            doc_id = str(document.rsplit('/',1)[1])[:-4]
     
             provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
                                                                    doc_id, last_updated, version)

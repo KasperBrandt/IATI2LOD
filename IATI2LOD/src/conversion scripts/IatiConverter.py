@@ -14,7 +14,8 @@ class ConvertActivity :
         
         Parameters
         @xml: An ElementTree of an activity.
-        @version: The version of the activities.'''
+        @version: The version of the activities.
+        @linked_data_default: The Linked Data default URI of the activity.'''
         
         self.xml = xml
         
@@ -166,9 +167,8 @@ class ConvertCodelist :
         '''Initializes the codelist class.
         
         Parameters
-        @xml: The XML file of the codelist.'''
+        @xml: The XML file of the codelist..'''
         
-        self.graph = Graph()
         self.xml = xml
         
         self.id = AttributeHelper.attribute_key(self.xml, 'name')
@@ -314,7 +314,9 @@ class ConvertOrganisation :
             try:
                 if ":" in attribute.tag:
                     funcname = attribute.tag.split(":")[1].replace("-","_").replace("default_", "")
-                else:
+                if "}" in attribute.tag:
+                    funcname = attribute.tag.split("}")[1].replace("-","_").replace("default_", "")
+                if (not ":" in attribute.tag) and (not "}" in attribute.tag):
                     funcname = attribute.tag.replace("-","_").replace("default_", "")
                 
                 funcname = attribute.tag.replace("-","_")
