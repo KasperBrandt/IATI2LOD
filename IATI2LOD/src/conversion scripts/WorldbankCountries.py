@@ -19,9 +19,9 @@ Iati = Namespace("http://purl.org/collections/iati/")
 
 countries = Graph()
 countries.bind('iati-country', "http://purl.org/collections/iati/codelist/Country/")
-countries.bind('cia', "http://wifo5-04.informatik.uni-mannheim.de/factbook/resource/")
+countries.bind('wbld-country', "http://worldbank.270a.info/classification/country/")
 countries.bind('owl', "http://www.w3.org/2002/07/owl#")
-    
+
 # Look up list of countries from codelists.
 xml = ET.parse(country_codelist)
 root = xml.getroot()
@@ -34,65 +34,56 @@ for country in root.findall('Country'):
     found = False
     
     total_countries += 1
-    code = country.find('code').text.lower()
+    code = country.find('code').text
     name = country.find('name').text
     
-    cia_code = "." + code
-    
-    print "Looking for code " + code + "..."
-    
-    # Municipalities of The Netherlands:
-    if cia_code == ".bq" or cia_code == ".cw" or cia_code == ".sx":
-        cia_code = ".nl"
-        
-    # Municipalities of France:
-    elif cia_code == ".bl" or cia_code == ".mf":
-        cia_code = ".fr"
-        
-    # United Kingdom exception:
-    elif cia_code == ".gb":
-        cia_code = ".uk"
-    
-    sparql = SPARQLWrapper("http://wifo5-03.informatik.uni-mannheim.de/factbook/sparql")
+    sparql = SPARQLWrapper("http://worldbank.270a.info/sparql")
     
     sparql.setQuery("""
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?country ?code
-        WHERE { ?country rdf:type <http://wifo5-04.informatik.uni-mannheim.de/factbook/ns#Country> .
-        ?country <http://wifo5-04.informatik.uni-mannheim.de/factbook/ns#internetcountrycode> ?code . }
-        """)
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        
+        SELECT ?country ?same
+        WHERE { ?country rdf:type <http://dbpedia.org/ontology/Country> .
+        ?country skos:notation "%s" .
+        ?country owl:sameAs ?same . }
+        """ % (code))
     
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     
-    link = ""
-
     for result in results["results"]["bindings"]:
-        if cia_code in result["code"]["value"]:
-            link = result["country"]["value"]
-            
-            print "Found code " + code + ", link: " + str(link)
+        
+        countries.add((Iati['codelist/Country/' + code],
+                       OWL.sameAs,
+                       URIRef(result["country"]["value"])))
+        
+        if not "geonames" in result["same"]["value"]:
             
             countries.add((Iati['codelist/Country/' + code],
                            OWL.sameAs,
-                           URIRef(link)))
+                           URIRef(result["same"]["value"])))
             
-            found_countries += 1
-            found = True
-            break
+        found = True
     
-    if not found:
+    if found:
+        found_countries += 1
+        print "Found code " + code
+    
+    else:
         not_found.append((name, code))
-
+        print "Did not find code " + code
+        
 # Adding mappings to file
 print
 print "Adding to file..."
 countries_turtle = countries.serialize(format='turtle')
 
-with open(turtle_folder + 'factbook-countries.ttl', 'w') as turtle_file:
+with open(turtle_folder + 'worldbank-countries.ttl', 'w') as turtle_file:
     turtle_file.write(countries_turtle)
-
+    
 print
 print "Total: " + str(total_countries)
 print "Automatically found: " + str(found_countries)
