@@ -147,8 +147,8 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
         os.makedirs(folder)
     
     # DEBUG: last 100 documents only
-    if type == 'activities':
-        all_documents = all_documents[-200:]
+    #if type == 'activities':
+    #    all_documents = all_documents[-200:]
     
     # Check the last update for each document.
     for document in all_documents:
