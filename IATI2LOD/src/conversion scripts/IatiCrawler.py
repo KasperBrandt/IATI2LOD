@@ -3,7 +3,6 @@
 ## Last updated on 11-04-2013
 
 import xml.etree.ElementTree as ET
-from SPARQLWrapper import SPARQLWrapper, JSON
 from datetime import date
 import sys, httplib2, json, os
 
@@ -148,7 +147,7 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
     
     # DEBUG: last 100 documents only
     #if type == 'activities':
-    #    all_documents = all_documents[-200:]
+    #    all_documents = all_documents[-100:]
     
     # Check the last update for each document.
     for document in all_documents:
