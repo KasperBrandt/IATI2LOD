@@ -954,7 +954,7 @@ class ActivityElements :
                             self.iati['policy-marker-code'],
                             self.iati['codelist/PolicyMarker/' + str(code)]))
             
-            self.graph.add((self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
+            self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                       '/' + str(code)],
                             self.iati['policy-marker-vocabulary'],
                             self.iati['codelist/Vocabulary/' + str(vocabulary)]))

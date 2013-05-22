@@ -1,7 +1,7 @@
 ## By Kasper Brandt
-## Last updated on 16-05-2013
+## Last updated on 22-05-2013
 
-import glob, json, sys, os, IatiConverter, AttributeHelper
+import glob, json, sys, os, IatiConverter, AttributeHelper, AddProvenance
 import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef
 
@@ -24,6 +24,8 @@ def main():
     
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
+        
+        activity_ids = []
         
         doc_id = str(document.rsplit('/',1)[1])[:-4]
         doc_folder = turtle_folder + doc_id + '/'
@@ -75,6 +77,8 @@ def main():
                     
                     with open(doc_folder + str(id.replace('/','%2F')) + '.ttl', 'w') as turtle_file:
                         turtle_file.write(graph_turtle)
+                        
+                    activity_ids.append(id)
                     
                 else:
                     print "WARNING: Activity (# %s) in %s (# %s) has no identifier specified" % (str(activity_count),
@@ -96,7 +100,7 @@ def main():
                 json_parsed = None
             
             provenance_converter = IatiConverter.ConvertProvenance('activity', json_parsed, provenance, 
-                                                                   doc_id, last_updated, version)
+                                                                   doc_id, last_updated, version, activity_ids)
             provenance = provenance_converter.convert(Iati)
 
             # Write provenance graph to Turtle and store in local folder

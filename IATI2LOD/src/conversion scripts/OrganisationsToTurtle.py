@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef
 
 def main():
-    '''Converts Activity XMLs to Turtle files and stores these to local folder.'''
+    '''Converts Organisation XMLs to Turtle files and stores these to local folder.'''
     
     # Settings
     xml_folder = "/media/Acer/School/IATI-data/xml/organisations/"
@@ -22,6 +22,8 @@ def main():
     
     # Retrieve XML files from the XML folder
     for document in glob.glob(xml_folder + '*.xml'):
+        
+        organisation_ids = []
         
         doc_fail = False
         
@@ -66,6 +68,7 @@ def main():
                             turtle_file.write(graph_turtle)
                     
                     organisation_count += 1
+                    organisation_ids.append(id)
     
                 for organisation in xml.findall('organisation'):
                     
@@ -85,6 +88,7 @@ def main():
                             turtle_file.write(graph_turtle)
                     
                     organisation_count += 1
+                    organisation_ids.append(id)
                 
             elif (root.tag == 'iati-organisation') or (root.tag == 'organisation'):
                 
@@ -104,6 +108,7 @@ def main():
                         turtle_file.write(graph_turtle)
                 
                 organisation_count += 1
+                organisation_ids.append(id)
                        
             document_count += 1
     
@@ -118,7 +123,7 @@ def main():
                 json_parsed = None
     
             provenance_converter = IatiConverter.ConvertProvenance('organisation', json_parsed, provenance, 
-                                                                   doc_id, last_updated, version)
+                                                                   doc_id, last_updated, version, organisation_ids)
             provenance = provenance_converter.convert(Iati)
 
             # Write provenance graph to Turtle and store in local folder

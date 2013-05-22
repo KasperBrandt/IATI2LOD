@@ -3,7 +3,7 @@
 
 from rdflib import Namespace, Literal, XSD, URIRef, Graph, RDF, RDFS
 import xml.etree.ElementTree as ET
-import IatiElements, AttributeHelper
+import datetime, IatiElements, AttributeHelper, AddProvenance
 
 
 class ConvertActivity :
@@ -335,7 +335,7 @@ class ConvertOrganisation :
 class ConvertProvenance :
     '''Class for adding provenance to the general provenance RDFLib Graph.'''
     
-    def __init__(self, type, json_parsed, provenance, id, last_updated, version):
+    def __init__(self, type, json_parsed, provenance, id, last_updated, version, ids):
         '''Initializes the activity class.
         
         Parameters
@@ -345,7 +345,7 @@ class ConvertProvenance :
         @id: The id of the entity.
         @last_updated: The last updated time of the entity.
         @version: The version of the entity.
-        @document_name: The name of the original document.'''
+        @ids: A list of ids.'''
         
         self.defaults = dict([('type', type),
                               ('json', json_parsed),
@@ -356,6 +356,7 @@ class ConvertProvenance :
                               ('document_name', json_parsed['name'])])
         
         self.json = json_parsed
+        self.ids = ids
     
     def convert(self, namespace):
         '''Converts the JSON and XML attributes into a RDFLib graph.
@@ -382,7 +383,26 @@ class ConvertProvenance :
             except AttributeError as e:
                 print "Error in " + funcname + ", " + self.defaults['id'] + ": " + str(e)
         
+        # Add prov model
+        start_time = datetime.datetime.now()
+        
+        if self.defaults['type'] == 'activity':
+            script = "conversion%20scripts/ActivitiesToTurtle.py"
+        elif self.defaults['type'] == 'organisation':
+            script = "conversion%20scripts/OrganisationsToTurtle.py"
+        else:
+            script = None
+                
         provenance = converter.get_result()
+        
+        provenance = AddProvenance.addProv(namespace,
+                                           provenance,
+                                           self.defaults['type'],
+                                           self.defaults['document_name'],
+                                           start_time,
+                                           self.json['download_url'],
+                                           self.ids,
+                                           script)
         
         return provenance      
     

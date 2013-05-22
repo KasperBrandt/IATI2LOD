@@ -1,7 +1,7 @@
 ## By Kasper Brandt
-## Last updated on 16-05-2013
+## Last updated on 22-05-2013
 
-import glob, sys, os, IatiConverter, AttributeHelper
+import glob, sys, os, IatiConverter, AttributeHelper, AddProvenance, datetime
 import xml.etree.ElementTree as ET
 from rdflib import Namespace, Graph, Literal, URIRef, RDF
 
@@ -68,11 +68,20 @@ def main():
             
             provenance.add((URIRef(Iati + 'graph/codelist/' + str(id)),
                             URIRef(Iati + 'source-document-download-url'),
-                            URIRef('http://datadev.aidinfolabs.org/data/codelist/' + str(id) + '.xml')))                        
+                            URIRef('http://datadev.aidinfolabs.org/data/codelist/' + str(id) + '.xml')))               
         
         print "Progress: Document #" + str(document_count)
                    
         document_count += 1
+        
+        # Add prov model
+        start_time = datetime.datetime.now()
+        source_xml = str('http://datadev.aidinfolabs.org/data/codelist/' + str(id) + '.xml')
+        entities = []
+        entities.append(str(id))
+        script = "conversion%20scripts/CodelistsToTurtle.py"
+        
+        provenance = AddProvenance.addProv(Iati, provenance, 'codelist', doc_id, start_time, source_xml, entities, script)
     
         # Write provenance graph to Turtle and store in local folder
         provenance_turtle = provenance.serialize(format='turtle')
