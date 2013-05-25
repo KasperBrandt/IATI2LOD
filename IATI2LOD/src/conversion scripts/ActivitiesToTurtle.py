@@ -11,11 +11,10 @@ def main():
     # Settings
     xml_folder = "/media/Acer/School/IATI-data/xml/activities/"
     turtle_folder = "/media/Acer/School/IATI-data/activity/"
-    provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
     
-    if not os.path.isdir(provenance_folder):
-        os.makedirs(provenance_folder)
+    if not os.path.isdir(turtle_folder):
+        os.makedirs(turtle_folder)
     
     document_count = 1
     activity_count = 1
@@ -106,7 +105,7 @@ def main():
             # Write provenance graph to Turtle and store in local folder
             provenance_turtle = provenance.serialize(format='turtle')
             
-            with open(provenance_folder + 'provenance-activity-' + doc_id + '.ttl', 'w') as turtle_file:
+            with open(doc_folder + 'provenance-' + doc_id + '.ttl', 'w') as turtle_file:
                 turtle_file.write(provenance_turtle)
         
     print "Failed:"

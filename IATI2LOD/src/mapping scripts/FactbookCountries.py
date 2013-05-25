@@ -168,9 +168,9 @@ for not_found_in_db in not_found_db:
             
             print "Found code " + str(not_found_in_db[1]) + ", link: " + str(link)
             
-            countries.add((Iati['codelist/Country/' + not_found_in_db[1]],
-                           OWL.sameAs,
-                           URIRef(link)))
+            countries_db.add((Iati['codelist/Country/' + not_found_in_db[1]],
+                              OWL.sameAs,
+                              URIRef(link)))
             
             found_countries_db += 1
             found_db2 = True

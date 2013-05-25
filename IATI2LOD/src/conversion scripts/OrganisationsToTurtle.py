@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 25-04-2013
+## Last updated on 22-05-2013
 
 import glob, sys, json, os, IatiConverter, AttributeHelper
 import xml.etree.ElementTree as ET
@@ -11,11 +11,10 @@ def main():
     # Settings
     xml_folder = "/media/Acer/School/IATI-data/xml/organisations/"
     turtle_folder = "/media/Acer/School/IATI-data/organisation/"
-    provenance_folder = "/media/Acer/School/IATI-data/provenance/"
     Iati = Namespace("http://purl.org/collections/iati/")
         
-    if not os.path.isdir(provenance_folder):
-        os.makedirs(provenance_folder)
+    if not os.path.isdir(turtle_folder):
+        os.makedirs(turtle_folder)
     
     document_count = 1
     organisation_count = 1
@@ -129,7 +128,7 @@ def main():
             # Write provenance graph to Turtle and store in local folder
             provenance_turtle = provenance.serialize(format='turtle')
             
-            with open(provenance_folder + 'provenance-organisation-' + doc_id + '.ttl', 'w') as turtle_file:
+            with open(doc_folder + 'provenance-' + doc_id + '.ttl', 'w') as turtle_file:
                 turtle_file.write(provenance_turtle)
         
     print "Done!"

@@ -43,7 +43,13 @@ with open(dbpedia_file, 'r') as f:
     for line in f:
         if "owl:sameAs" in line:
             line_list = line.split()
-            dbpedia_countries.append((line_list[2].replace("dbpedia:", "http://dbpedia.org/resource/"),
+            
+            if "<" in line_list[2]:
+                dbpedia_link = line_list[2].replace("<","").replace(">","")
+            else:
+                dbpedia_link = line_list[2].replace("dbpedia:", "http://dbpedia.org/resource/")
+            
+            dbpedia_countries.append((dbpedia_link,
                                       line_list[0].replace("iati-country:", "http://purl.org/collections/iati/codelist/Country/")))
 
 total_countries = 0

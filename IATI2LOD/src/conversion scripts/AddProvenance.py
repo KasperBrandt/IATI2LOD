@@ -50,6 +50,10 @@ def addProv(namespace, graph, type, doc_name, start_time, source_xml, entities, 
                    prov['wasGeneratedBy'],
                    activity))
         
+        graph.add((activity,
+                   RDF.type,
+                   prov['Activity']))
+        
         if not start_time == None:
             graph.add((activity,
                        RDFS.label,
