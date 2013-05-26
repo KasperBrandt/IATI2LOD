@@ -33,6 +33,11 @@ def addProv(namespace, graph, doc_name, start_time, source_xmls, entities, scrip
             graph.add((named_graph,
                        prov['generatedAtTime'],
                        Literal(str(start_time))))
+            
+        for source_xml in source_xmls:
+            graph.add((named_graph,
+                       prov['wasDerivedFrom'],
+                       URIRef(source_xml)))
         
         hash = hashlib.md5()
         hash.update(str(start_time))
