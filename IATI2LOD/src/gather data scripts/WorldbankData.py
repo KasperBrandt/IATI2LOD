@@ -80,7 +80,7 @@ indicators = ['AG.LND.TOTL.K2',
               'SP.DYN.CBRT.IN',
               'SP.DYN.CONU.ZS',
               'SP.DYN.CDRT.IN',
-              'SP.DYN.LE00.IN'
+              'SP.DYN.LE00.IN',
               'SP.MTR.1519.ZS',
               'SP.POP.GROW',
               'SP.POP.TOTL',
@@ -90,7 +90,8 @@ indicators = ['AG.LND.TOTL.K2',
               'SP.URB.TOTL.IN.ZS']
 
 
-indicator_webservice = "http://api.worldbank.org/indicators/" 
+indicator_webservice = "http://api.worldbank.org/indicators/"
+errors = 0
 
 for indicator in indicators:
     print "Processing " + indicator + "..."
@@ -136,7 +137,6 @@ for indicator in indicators:
         for line in f:
             
             if "owl:sameAs" in line:
-                sources = []
                 found_data = False
                 
                 line_list = line.split()
@@ -166,6 +166,11 @@ for indicator in indicators:
                         response = urllib2.urlopen(url).read()
                     except urllib2.HTTPError as e:
                         print "Connection failed..."
+                        errors += 1
+                        break
+                    except:
+                        print "Something failed..."
+                        errors += 1
                         break
                         
                     xml = ET.fromstring(response)
@@ -246,6 +251,6 @@ provenance_turtle = provenance.serialize(format='turtle')
 with open(worldbank_folder + 'provenance-worldbank.ttl', 'w') as turtle_file_prov:
     turtle_file_prov.write(provenance_turtle)
     
-print "Done!"
+print "Done! " + str(errors) + " errors."
                 
     
