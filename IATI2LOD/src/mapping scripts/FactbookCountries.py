@@ -5,14 +5,19 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
 import xml.etree.ElementTree as ET
-import os, sys
+import os, sys, re, glob, urllib, httplib2, datetime, AddProvenance
 
 # Settings
-turtle_folder = "/media/Acer/School/IATI-data/mappings/"
+turtle_folder = "/media/Acer/School/IATI-data/mappings/Factbook/"
+turtle_folder_db = "/media/Acer/School/IATI-data/mappings/DBPedia/"
 country_codelist = "/media/Acer/School/IATI-data/xml/codelists/Country.xml"
+start_time = datetime.datetime.now()
 
 if not os.path.isdir(turtle_folder):
     os.makedirs(turtle_folder)
+    
+if not os.path.isdir(turtle_folder_db):
+    os.makedirs(turtle_folder_db)
 
 # Namespaces
 Iati = Namespace("http://purl.org/collections/iati/")
@@ -68,7 +73,9 @@ root = xml.getroot()
 
 total_countries = 0
 found_countries = 0
+not_found_countries = 0
 found_countries_db = 0
+not_found_countries_db = 0
 not_found = []
 not_found_db = []
 
@@ -84,16 +91,16 @@ for country in root.findall('Country'):
     
     print "Looking for code " + code + "..."
     
-    # Municipalities of The Netherlands:
-    if cia_code == ".bq" or cia_code == ".cw" or cia_code == ".sx":
-        cia_code = ".nl"
-        
-    # Municipalities of France:
-    elif cia_code == ".bl" or cia_code == ".mf":
-        cia_code = ".fr"
+#    # Municipalities of The Netherlands:
+#    if cia_code == ".bq" or cia_code == ".cw" or cia_code == ".sx":
+#        cia_code = ".nl"
+#        
+#    # Municipalities of France:
+#    elif cia_code == ".bl" or cia_code == ".mf":
+#        cia_code = ".fr"
         
     # United Kingdom exception:
-    elif cia_code == ".gb":
+    if cia_code == ".gb":
         cia_code = ".uk"
 
     for result in results["results"]["bindings"]:
@@ -131,9 +138,11 @@ for country in root.findall('Country'):
     
     if not found:
         not_found.append((name, code))
+        not_found_countries += 1
         
     if not found_db:
         not_found_db.append((name, code))
+        not_found_countries_db += 1
 
 # Retrieve DBPedia information
 print
@@ -173,6 +182,7 @@ for not_found_in_db in not_found_db:
                               URIRef(link)))
             
             found_countries_db += 1
+            not_found_countries_db -= 1
             found_db2 = True
 
             break
@@ -192,23 +202,59 @@ with open(turtle_folder + 'factbook-countries.ttl', 'w') as turtle_file:
     
 countries_turtle_db = countries_db.serialize(format='turtle')
 
-with open(turtle_folder + 'dbpedia-countries.ttl', 'w') as turtle_file_db:
+with open(turtle_folder_db + 'dbpedia-countries-via-factbook.ttl', 'w') as turtle_file_db:
     turtle_file_db.write(countries_turtle_db)
+    
+
+# Add provenance
+provenance = Graph()
+
+provenance = AddProvenance.addProv(Iati,
+                                   provenance,
+                                   'Factbook',
+                                   start_time,
+                                   "http://dbpedia.org/",
+                                   ['Factbook'],
+                                   "mapping%20scripts/FactbookCountries.py")
+
+provenance_turtle = provenance.serialize(format='turtle')
+
+with open(turtle_folder + 'provenance-factbook-countries.ttl', 'w') as turtle_file:
+    turtle_file.write(provenance_turtle)
+    
+# Add provenance
+provenance_db = Graph()
+
+provenance_db = AddProvenance.addProv(Iati,
+                                      provenance_db,
+                                      'DBPedia',
+                                      start_time,
+                                      "http://dbpedia.org/",
+                                      ['DBPedia'],
+                                      "mapping%20scripts/FactbookCountries.py")
+
+provenance_turtle_db = provenance_db.serialize(format='turtle')
+
+with open(turtle_folder_db + 'provenance-dbpedia-countries-via-factbook.ttl', 'w') as turtle_file:
+    turtle_file.write(provenance_turtle_db)
+
+print    
+print "Added provenance..."
 
 print
 print "Total: " + str(total_countries)
-print "Automatically found: " + str(found_countries)
+print "Done CIA, found: " + str(found_countries) + ", not found: " + str(not_found_countries) + "."
 
 print
-print "Could not automatically find:"
+print "CIA, could not automatically find:"
 for country in not_found:
     print country[1] + ": " + country[0]
     
 print
 print "Total: " + str(total_countries)
-print "Automatically found: " + str(found_countries_db)
+print "Done DBPedia, found: " + str(found_countries_db) + ", not found: " + str(not_found_countries_db) + "."
 
 print
-print "Could not automatically find:"
+print "DBPedia, could not automatically find:"
 for country in not_found_db2:
     print country[1] + ": " + country[0]
