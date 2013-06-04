@@ -1,5 +1,5 @@
 ## By Kasper Brandt
-## Last updated on 15-05-2013
+## Last updated on 02-06-2013
 
 from rdflib import RDF, RDFS, Literal, URIRef, Namespace, OWL
 from rdflib.graph import Graph
@@ -14,7 +14,7 @@ class ActivityElements :
         Parameters
         @defaults: A dictionary of defaults.'''
         
-        self.id = defaults['id']
+        self.id = defaults['id'].replace(" ", "%20")
         self.default_language = defaults['language']
         self.default_currency = defaults['currency']
         self.default_finance_type = defaults['finance_type']
@@ -42,6 +42,8 @@ class ActivityElements :
                             Literal(self.hierarchy)))
             
         if not self.linked_data_uri == None:
+            self.linked_data_uri = self.linked_data_uri.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             OWL.sameAs,
                             URIRef(self.linked_data_uri)))
@@ -69,20 +71,20 @@ class ActivityElements :
         
         if ":" in tag:
             if tag[:4] == "http":
-                return Namespace(tag), tag.rsplit('/',1)[1]
+                return Namespace(tag.replace(" ", "-")), tag.rsplit('/',1)[1].replace(" ", "%20")
             
             else:
                 tag = tag.split(":")[1]
                 if tag[:9] == "activity-":
-                    return Namespace(self.iati[tag]), tag
+                    return Namespace(self.iati[tag.replace(" ", "-")]), tag.replace(" ", "%20")
                 else:
-                    return Namespace(self.iati["activity-" + tag]), str("activity-" + tag)
+                    return Namespace(self.iati["activity-" + tag.replace(" ", "-")]), str("activity-" + tag.replace(" ", "%20"))
         else:
             if tag[:9] == "activity-":
-                return Namespace(self.iati[tag]), tag
+                return Namespace(self.iati[tag.replace(" ", "-")]), tag.replace(" ", "%20")
             
             else:
-                return Namespace(self.iati["activity-" + tag]), str("activity-" + tag)
+                return Namespace(self.iati["activity-" + tag.replace(" ", "-")]), str("activity-" + tag.replace(" ", "%20"))
     
     def convert_unknown(self, xml):
         '''Converts non-IATI standard elements up to 2 levels to a RDFLib self.graph.
@@ -110,7 +112,7 @@ class ActivityElements :
                         key = key.rsplit('}',1)[1]
                     if (not key_text == None) and (not key_text == ""):
                         self.graph.add((self.iati['activity/' + self.id],
-                                        URIRef(namespace + '-' + str(key)),
+                                        URIRef(namespace + '-' + str(key).replace(" ", "-")),
                                         Literal(key_text)))
                         
             else:
@@ -126,7 +128,7 @@ class ActivityElements :
                         key = key.rsplit('}',1)[1]
                     if (not key_text == None) and (not key_text == ""):
                         self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                        self.iati_custom[str(key)],
+                                        self.iati_custom[str(key).replace(" ", "-")],
                                         Literal(key_text)))
                 
                 for child in xml:
@@ -148,7 +150,7 @@ class ActivityElements :
                                 key = key.rsplit('}',1)[1]
                             if (not key_text == None) and (not key_text == ""):
                                 self.graph.add((self.iati['activity/' + self.id + '/' + str(name)],
-                                                URIRef(child_namespace + '-' + str(key)),
+                                                URIRef(child_namespace + '-' + str(key).replace(" ", "-")),
                                                 Literal(key_text)))
                                 
                     else:
@@ -165,7 +167,7 @@ class ActivityElements :
                             
                             if (not key_text == None) and (not key_text == ""):
                                 self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                self.iati_custom[str(key)],
+                                                self.iati_custom[str(key).replace(" ", "-")],
                                                 Literal(key_text)))
                             
                         for grandchild in child:
@@ -189,7 +191,7 @@ class ActivityElements :
                                         
                                     if (not key_text == None) and (not key_text == ""):
                                         self.graph.add((self.iati['activity/' + self.id + '/' + str(name) + '/' + str(child_name)],
-                                                        URIRef(grandchild_namespace + '-' + str(key)),
+                                                        URIRef(grandchild_namespace + '-' + str(key).replace(" ", "-")),
                                                         Literal(key_text)))
                                         
                             else:
@@ -211,6 +213,8 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
+            ref = ref.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-reporting-org'],
                             self.iati['activity/' + str(self.id) + '/reporting-org/' + str(ref)]))
@@ -229,6 +233,8 @@ class ActivityElements :
                                 name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/reporting-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
@@ -255,6 +261,8 @@ class ActivityElements :
                             name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + str(self.id) + '/reporting-org/' + str(hash_name)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))            
@@ -308,6 +316,8 @@ class ActivityElements :
                             Literal(name)))
             
             if not owner_ref == None:
+                owner_ref = owner_ref.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/other-identifier/' + str(hash_name)],
                                 self.iati['other-identifier-owner-ref'],
                                 self.iati['codelist/OrganisationIdentifier/' + str(owner_ref)]))
@@ -324,14 +334,14 @@ class ActivityElements :
         @xml: The XML of this element.'''
         
         # Text
-        website = xml.text
+        website = xml.text.replace(" ", "%20")
         
         if not website == None:
-            website = " ".join(website.split())
+            website = "%20".join(website.split())
             
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-website'],
-                            Literal(website)))
+                            URIRef(website)))
     
     def title(self, xml):
         '''Converts the XML of the title element to a RDFLib self.graph.
@@ -380,6 +390,8 @@ class ActivityElements :
                             description))
             
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/description/' + str(hash_description)],
                                 self.iati['description-type'],
                                 self.iati['codelist/DescriptionType/' + str(type)]))
@@ -394,6 +406,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-status'],
                             self.iati['codelist/ActivityStatus/' + str(code)]))
@@ -472,7 +486,7 @@ class ActivityElements :
                 if not info == None:
                     info = " ".join(info.split())
                     
-                    property = "contact-info-" + str(element.tag)
+                    property = "contact-info-" + str(element.tag).replace(" ", "-")
                     
                     self.graph.add((self.iati['activity/' + self.id + '/contact-info/' + str(hash_contact_info)],
                                     self.iati[property],
@@ -493,6 +507,8 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
+            ref = ref.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-participating-org'],
                             self.iati['activity/' + self.id + '/participating-org/' + str(ref)]))
@@ -511,11 +527,15 @@ class ActivityElements :
                                 name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/participating-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
                 
             if not role == None:
+                role = role.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/participating-org/' + str(ref)],
                                 self.iati['organisation-role'],
                                 self.iati['codelist/OrganisationRole/' + str(role)]))
@@ -542,11 +562,15 @@ class ActivityElements :
                             name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/participating-org/' + str(hash_name)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
                 
             if not role == None:
+                role = role.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/participating-org/' + str(hash_name)],
                                 self.iati['organisation-role'],
                                 self.iati['codelist/OrganisationRole/' + str(role)]))            
@@ -566,6 +590,8 @@ class ActivityElements :
         country_name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-recipient-country'],
                             self.iati['activity/' + self.id + '/recipient-country/' + str(code)]))
@@ -602,6 +628,8 @@ class ActivityElements :
         region_name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-recipient-region'],
                             self.iati['activity/' + self.id + '/recipient-region/' + str(code)]))
@@ -745,6 +773,8 @@ class ActivityElements :
                                         description_text))
                         
                         if not type == None:
+                            type = type.replace(" ", "%20")
+                            
                             self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location) + 
                                                       '/description/' + str(hash_location_description)],
                                             self.iati['description-type'],
@@ -756,6 +786,8 @@ class ActivityElements :
                 location_type_code = AttributeHelper.attribute_key(location_type, 'code')
                 
                 if not location_type_code == None:
+                    location_type_code = location_type_code.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location)],
                                     self.iati['location-type'],
                                     self.iati['codelist/LocationType/' + str(location_type_code)]))
@@ -797,6 +829,8 @@ class ActivityElements :
                                               + '/administrative/' + str(hash_location_administrative)]))            
                     
                     if not administrative_country == None:
+                        administrative_country = administrative_country.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location)
                                                   + '/administrative/' + str(hash_location_administrative)],
                                         self.iati['administrative-country'],
@@ -837,6 +871,8 @@ class ActivityElements :
                                     Literal(longitude)))
                 
                 if not precision == None:
+                    precision = precision.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location)],
                                     self.iati['coordinates-precision'],
                                     self.iati['codelist/GeographicalPrecision/' + str(precision)]))
@@ -849,6 +885,8 @@ class ActivityElements :
                 gazetteer_entry_text = gazetteer_entry.text
                 
                 if (not gazetteer_ref == None) and (not gazetteer_entry_text == None):
+                    gazetteer_ref = gazetteer_ref.replace(" ", "%20")
+                    
                     gazetteer_entry_text = " ".join(gazetteer_entry_text.split())
                 
                     self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location)],
@@ -872,6 +910,8 @@ class ActivityElements :
                                     Literal(gazetteer_entry_text)))
                     
                     if gazetteer_ref == "GEO":
+                        gazetteer_entry_text = gazetteer_entry_text.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['activity/' + self.id + '/location/' + str(hash_location)],
                                         OWL.sameAs,
                                         URIRef("http://sws.geonames.org/" + gazetteer_entry_text)))
@@ -892,6 +932,9 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if (not code == None) and (not vocabulary == None):
+            code = code.replace(" ", "%20")
+            vocabulary = vocabulary.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-sector'],
                             self.iati['activity/' + self.id + '/sector/' + str(vocabulary) +
@@ -939,6 +982,9 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if (not code == None) and (not vocabulary == None):
+            code = code.replace(" ", "%20")
+            vocabulary = vocabulary.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-policy-marker'],
                             self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
@@ -960,6 +1006,8 @@ class ActivityElements :
                             self.iati['codelist/Vocabulary/' + str(vocabulary)]))
             
             if not significance == None:
+                significance = significance.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/policy-marker/' + str(vocabulary) +
                                           '/' + str(code)],
                                 self.iati['significance-code'],
@@ -981,6 +1029,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-collaboration-type'],
                             self.iati['codelist/CollaborationType/' + str(code)]))
@@ -995,6 +1045,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-default-finance-type'],
                             self.iati['codelist/FinanceType/' + str(code)]))
@@ -1009,6 +1061,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-default-flow-type'],
                             self.iati['codelist/FlowType/' + str(code)]))
@@ -1023,6 +1077,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-default-aid-type'],
                             self.iati['codelist/AidType/' + str(code)]))
@@ -1037,6 +1093,8 @@ class ActivityElements :
         code = AttributeHelper.attribute_key(xml, 'code')
         
         if not code == None:
+            code = code.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-default-tied-status'],
                             self.iati['codelist/TiedStatus/' + str(code)]))
@@ -1097,7 +1155,9 @@ class ActivityElements :
                             RDF.type,
                             self.iati['budget']))
             
-            if not type == None: 
+            if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/budget/' + str(hash_budget)],
                                 self.iati['budget-type'],
                                 self.iati['codelist/BudgetType/' + str(type)]))
@@ -1152,11 +1212,15 @@ class ActivityElements :
                                     Literal(value_text)))
         
                     if not currency == None:
+                        currency = currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['activity/' + self.id + '/budget/' + str(hash_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(currency)]))
                     
                     elif not self.default_currency == None:
+                        self.default_currency = self.default_currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['activity/' + self.id + '/budget/' + str(hash_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(self.default_currency)]))
@@ -1278,11 +1342,15 @@ class ActivityElements :
                                 Literal(value_text)))
                 
                 if not currency == None:
+                    currency = currency.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement/' + str(hash_planned_disbursement)],
                                     self.iati['value-currency'],
                                     self.iati['codelist/Currency/' + str(currency)]))
                 
                 elif not self.default_currency == None:
+                    self.default_currency = self.default_currency.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['activity/' + self.id + '/planned-disbursement/' + str(hash_planned_disbursement)],
                                     self.iati['value-currency'],
                                     self.iati['codelist/Currency/' + str(self.default_currency)]))
@@ -1339,7 +1407,9 @@ class ActivityElements :
             hash_transaction = hash.hexdigest()
         
             if not ref == None:
-                transaction_id = self.iati['activity/' + self.id + '/transaction/' + str(ref)]
+                ref_url = ref.replace(" ", "%20")
+                
+                transaction_id = self.iati['activity/' + self.id + '/transaction/' + str(ref_url)]
     
                 self.graph.add((transaction_id,
                                 self.iati['transaction-ref'],
@@ -1361,16 +1431,22 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(aid_type, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['aid-type'],
                                     self.iati['codelist/AidType/' + str(code)]))
                     
                 elif not self.default_aid_type == None:
+                    self.default_aid_type = self.default_aid_type.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['aid-type'],
                                     self.iati['codelist/AidType/' + str(self.default_aid_type)]))
                 
             elif not self.default_aid_type == None:
+                self.default_aid_type = self.default_aid_type.replace(" ", "%20")
+                
                 self.graph.add((transaction_id,
                                 self.iati['aid-type'],
                                 self.iati['codelist/AidType/' + str(self.default_aid_type)]))
@@ -1409,6 +1485,8 @@ class ActivityElements :
                                         description_text))
                         
                         if not type == None:
+                            type = type.replace(" ", "%20")
+                            
                             self.graph.add((URIRef(transaction_id + '/description/' + str(hash_transaction_description)),
                                             self.iati['description-type'],
                                             self.iati['codelist/DescriptionType/' + str(type)]))  
@@ -1418,6 +1496,8 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(disbursement_channel, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['disbursement-channel'],
                                     self.iati['codelist/disbursementChannel/' + str(code)]))
@@ -1427,16 +1507,22 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(finance_type, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['finance-type'],
                                     self.iati['codelist/FinanceType/' + str(code)]))
                     
                 elif not self.default_finance_type == None:
+                    self.default_finance_type = self.default_finance_type.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['finance-type'],
                                     self.iati['codelist/FinanceType/' + str(self.default_finance_type)]))
                 
             elif not self.default_finance_type == None:
+                self.default_finance_type = self.default_finance_type.replace(" ", "%20")
+                
                 self.graph.add((transaction_id,
                                 self.iati['finance-type'],
                                 self.iati['codelist/FinanceType/' + str(self.default_finance_type)]))
@@ -1446,16 +1532,22 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(flow_type, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['flow-type'],
                                     self.iati['codelist/FlowType/' + str(code)]))
                     
                 elif not self.default_flow_type == None:
+                    self.default_flow_type = self.default_flow_type.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['flow-type'],
                                     self.iati['codelist/FlowType/' + str(self.default_flow_type)]))
                 
             elif not self.default_flow_type == None:
+                self.default_flow_type = self.default_flow_type.replace(" ", "%20")
+                
                 self.graph.add((transaction_id,
                                 self.iati['flow-type'],
                                 self.iati['codelist/FlowType/' + str(self.default_flow_type)]))
@@ -1476,11 +1568,15 @@ class ActivityElements :
                                     Literal(provider_org_text)))
                 
                 if not ref == None:
+                    ref = ref.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['provider-org'],
                                     self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
                 
                 if not provider_activity_id == None:
+                    provider_activity_id = provider_activity_id.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['provider-org-activity-id'],
                                     self.iati['activity/' + str(provider_activity_id)]))
@@ -1501,11 +1597,15 @@ class ActivityElements :
                                     Literal(receiver_org_text)))                
                 
                 if not ref == None:
+                    ref = ref.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['receiver-org'],
                                     self.iati['codelist/OrganisationIdentifier/' + str(ref)]))
                 
                 if not receiver_activity_id == None:
+                    receiver_activity_id = receiver_activity_id.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['receiver-org-activity-id'],
                                     self.iati['activity/' + str(receiver_activity_id)]))
@@ -1515,16 +1615,22 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(tied_status, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['tied-status'],
                                     self.iati['codelist/TiedStatus/' + str(code)]))
                     
                 elif not self.default_tied_status == None:
+                    self.default_tied_status = self.default_tied_status.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['tied-status'],
                                     self.iati['codelist/TiedStatus/' + str(self.default_tied_status)]))
                 
             elif not self.default_tied_status == None:
+                self.default_tied_status = self.default_tied_status.replace(" ", "%20")
+                
                 self.graph.add((transaction_id,
                                 self.iati['tied-status'],
                                 self.iati['codelist/TiedStatus/' + str(self.default_tied_status)]))
@@ -1543,6 +1649,8 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(transaction_type, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((transaction_id,
                                     self.iati['transaction-type'],
                                     self.iati['codelist/TransactionType/' + str(code)]))            
@@ -1563,11 +1671,15 @@ class ActivityElements :
                                     Literal(value_text)))
                     
                     if not currency == None:
+                        currency = currency.replace(" ", "%20")
+                        
                         self.graph.add((transaction_id,
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(currency)]))
                     
                     elif not self.default_currency == None:
+                        self.default_currency = self.default_currency.replace(" ", "%20")
+                        
                         self.graph.add((transaction_id,
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(self.default_currency)]))
@@ -1601,6 +1713,8 @@ class ActivityElements :
             
             hash_document_link = hash.hexdigest()
             
+            url = url.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['activity-document-link'],
                             self.iati['activity/' + self.id + 'document-link/' + str(hash_document_link)]))
@@ -1614,6 +1728,8 @@ class ActivityElements :
                             URIRef(url)))
         
             if not format == None:
+                format = format.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + 'document-link/' + str(hash_document_link)],
                                 self.iati['format'],
                                 self.iati['codelist/FileFormat/' + str(format)]))
@@ -1633,6 +1749,8 @@ class ActivityElements :
                 code = AttributeHelper.attribute_key(category, 'code')
                 
                 if not code == None:
+                    code = code.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['activity/' + self.id + 'document-link/' + str(hash_document_link)],
                                     self.iati['document-category'],
                                     self.iati['codelist/DocumentCategory/' + str(code)]))
@@ -1669,6 +1787,8 @@ class ActivityElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
+            ref = ref.replace(" ", "%20")
+            
             self.graph.add((self.iati['activity/' + self.id],
                             self.iati['related-activity'],
                             self.iati['activity/' + self.id + '/related-activity/' + str(ref)]))
@@ -1682,6 +1802,8 @@ class ActivityElements :
                             Literal(ref)))
             
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.iati['activity/' + self.id + '/related-activity/' + str(ref)],
                                 self.iati['related-activity-type'],
                                 self.iati['codelist/RelatedActivityType/' + str(type)]))
@@ -1702,7 +1824,6 @@ class ActivityElements :
         conditions = conditions_container.findall('condition')
         
         if not conditions == []:
-            condition_counter = 1
             
             for condition in conditions:
                 # Keys
@@ -1712,24 +1833,33 @@ class ActivityElements :
                 condition_text = AttributeHelper.attribute_language(condition, self.default_language)
                 
                 if not condition_text == None:
+                    condition_text_text = condition.text
+                    
+                    #Create hash
+                    hash = hashlib.md5()
+                    hash.update(condition_text_text)
+                    
+                    hash_condition = hash.hexdigest()
+                    
                     self.graph.add((self.iati['activity/' + self.id],
                                     self.iati['activity-condition'],
-                                    self.iati['activity/' + self.id + '/condition' + str(condition_counter)]))
+                                    self.iati['activity/' + self.id + '/condition/' + str(hash_condition)]))
                    
-                    self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                    self.graph.add((self.iati['activity/' + self.id + '/condition/' + str(hash_condition)],
                                     RDF.type,
                                     self.iati['condition']))
                    
-                    self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                    self.graph.add((self.iati['activity/' + self.id + '/condition/' + str(hash_condition)],
                                     RDFS.label,
                                     condition_text))
                    
                     if not type == None:
-                        self.graph.add((self.iati['activity/' + self.id + '/condition' + str(condition_counter)],
+                        type = type.replace(" ", "%20")
+                        
+                        self.graph.add((self.iati['activity/' + self.id + '/condition/' + str(hash_condition)],
                                         self.iati['condition-type'],
                                         self.iati['codelist/ConditionType/' + str(type)]))                                          
-            
-                condition_counter += 1
+
     
     def result(self, xml):
         '''Converts the XML of the conditions element to a RDFLib self.graph.
@@ -1817,6 +1947,8 @@ class ActivityElements :
                                         description_text))
                         
                         if not type == None:
+                            type = type.replace(" ", "%20")
+                            
                             self.graph.add((self.iati['activity/' + self.id + '/result/' + str(hash_result) + 
                                                       '/description/' + str(hash_location_description)],
                                             self.iati['description-type'],
@@ -1864,6 +1996,8 @@ class ActivityElements :
                                         self.iati['indicator']))
                         
                         if not measure == None:
+                            measure = measure.replace(" ", "%20")
+                            
                             self.graph.add((self.iati['activity/' + self.id + '/result/' + str(hash_result) + 
                                                       '/indicator/' + str(hash_result_indicator)],
                                             self.iati['indicator-measure'],
@@ -1932,6 +2066,8 @@ class ActivityElements :
                                                     description_text))
                                     
                                     if not type == None:
+                                        type = type.replace(" ", "%20")
+                                        
                                         self.graph.add((self.iati['activity/' + self.id + '/result' + str(hash_result) + 
                                                               '/indicator/' + str(hash_result_indicator) + '/description/' + 
                                                               str(hash_result_indicator_description)],
@@ -1940,7 +2076,6 @@ class ActivityElements :
                                 
                         
                         if not periods == []:
-                            period_counter = 1
                             
                             for period in periods:
                                 # Elements
@@ -2301,7 +2436,7 @@ class OrganisationElements :
         Parameters
         @defaults: A dictionary of defaults.'''
         
-        self.id = defaults['id']
+        self.id = defaults['id'].replace(" ", "%20")
         self.default_language = defaults['language']
         self.default_currency = defaults['currency']
         
@@ -2361,20 +2496,20 @@ class OrganisationElements :
         
         if ":" in tag:
             if tag[:4] == "http":
-                return Namespace(tag), tag.rsplit('/',1)[1]
+                return Namespace(tag.replace(" ", "-")), tag.rsplit('/',1)[1].replace(" ", "%20")
             
             else:
                 tag = tag.split(":")[1]
                 if tag[:9] == "organisation-":
-                    return Namespace(self.iati[tag]), tag
+                    return Namespace(self.iati[tag.replace(" ", "-")]), tag.replace(" ", "%20")
                 else:
-                    return Namespace(self.iati["organisation-" + tag]), str("organisation-" + tag)
+                    return Namespace(self.iati["organisation-" + tag.replace(" ", "-")]), str("organisation-" + tag.replace(" ", "%20"))
         else:
             if tag[:9] == "activity-":
-                return Namespace(self.iati[tag]), tag
+                return Namespace(self.iati[tag.replace(" ", "-")]), tag.replace(" ", "%20")
             
             else:
-                return Namespace(self.iati["organisation-" + tag]), str("organisation-" + tag)
+                return Namespace(self.iati["organisation-" + tag.replace(" ", "-")]), str("organisation-" + tag.replace(" ", "%20"))
     
     def convert_unknown(self, xml):
         '''Converts non-IATI standard elements up to 2 levels to a RDFLib self.graph.
@@ -2417,6 +2552,8 @@ class OrganisationElements :
                     if "}" in key:
                         key = key.rsplit('}',1)[1]
                     if (not key_text == None) and (not key_text == ""):
+                        key = key.replace(" ", "-")
+                        
                         self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
                                         self.iati_custom[str(key)],
                                         Literal(key_text)))
@@ -2439,6 +2576,8 @@ class OrganisationElements :
                             if "}" in key:
                                 key = key.rsplit('}',1)[1]
                             if (not key_text == None) and (not key_text == ""):
+                                key = key.replace(" ", "-")
+                                
                                 self.graph.add((self.iati['organisation/' + self.id + '/' + str(name)],
                                                 URIRef(child_namespace + '-' + str(key)),
                                                 Literal(key_text)))
@@ -2455,6 +2594,8 @@ class OrganisationElements :
                             if "}" in key:
                                 key = key.rsplit('}',1)[1]
                             if (not key_text == None) and (not key_text == ""):
+                                key = key.replace(" ", "-")
+                                
                                 self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
                                                 self.iati_custom[str(key)],
                                                 Literal(key_text)))
@@ -2478,6 +2619,8 @@ class OrganisationElements :
                                     if "}" in key:
                                         key = key.rsplit('}',1)[1]
                                     if (not key_text == None) and (not key_text == ""):
+                                        key = key.replace(" ", "-")
+                                        
                                         self.graph.add((self.iati['organisation/' + self.id + '/' + str(name) + '/' + str(child_name)],
                                                         URIRef(grandchild_namespace + '-' + str(key)),
                                                         Literal(key_text)))
@@ -2500,6 +2643,8 @@ class OrganisationElements :
         name = AttributeHelper.attribute_language(xml, self.default_language)
         
         if not ref == None:
+            ref = ref.replace(" ", "%20")
+            
             self.graph.add((self.org_uri,
                             self.iati['organisation-reporting-org'],
                             self.org_uri['/reporting-org/' + str(ref)]))
@@ -2518,6 +2663,8 @@ class OrganisationElements :
                                 name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.org_uri['/reporting-org/' + str(ref)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))
@@ -2540,6 +2687,8 @@ class OrganisationElements :
                             name))
                 
             if not type == None:
+                type = type.replace(" ", "%20")
+                
                 self.graph.add((self.org_uri['/reporting-org/' + str(hash_name)],
                                 self.iati['organisation-type'],
                                 self.iati['codelist/OrganisationType/' + str(type)]))            
@@ -2696,11 +2845,15 @@ class OrganisationElements :
                                     Literal(value_text)))
                     
                     if not currency == None:
+                        currency = currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['organisation/' + self.id + '/total-budget/' + str(hash_total_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(currency)]))
                     
                     elif not self.default_currency == None:
+                        self.default_currency = self.default_currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['organisation/' + self.id + '/total-budget/' + str(hash_total_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(self.default_currency)]))
@@ -2779,6 +2932,8 @@ class OrganisationElements :
                                     self.iati['recipient-org-ref'],
                                     Literal(ref)))
                     
+                    ref = ref.replace(" ", "%20")
+                    
                     self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget/' + str(hash_recipient_org_budget)],
                                     self.iati['recipient-org'],
                                     self.iati['codelist/OrganisationIdentifier/' + ref]))
@@ -2839,11 +2994,15 @@ class OrganisationElements :
                                     Literal(value_text)))
                     
                     if not currency == None:
+                        currency = currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget/' + str(hash_recipient_org_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(currency)]))
                     
                     elif not self.default_currency == None:
+                        self.default_currency = self.default_currency.replace(" ", "%20")
+                        
                         self.graph.add((self.iati['organisation/' + self.id + '/recipient-org-budget/' + str(hash_recipient_org_budget)],
                                         self.iati['value-currency'],
                                         self.iati['codelist/Currency/' + str(self.default_currency)]))
@@ -2901,100 +3060,105 @@ class OrganisationElements :
             
             hash_recipient_country_budget = hash.hexdigest()
         
-        self.graph.add((self.org_uri,
-                        self.iati['organisation-recipient-country-budget'],
-                        self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)]))
-        
-        self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                        RDF.type,
-                        self.iati['budget']))
-        
-        if not recipient_country == None:
-            # Keys
-            code = AttributeHelper.attribute_key(recipient_country, 'code')
+            self.graph.add((self.org_uri,
+                            self.iati['organisation-recipient-country-budget'],
+                            self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)]))
             
-            # Text
-            recipient_country_text = AttributeHelper.attribute_language(recipient_country, self.default_language)
-
-            if not code == None:
-
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['recipient-country'],
-                                self.iati['codelist/Country/' + code]))
+            self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                            RDF.type,
+                            self.iati['budget']))
+            
+            if not recipient_country == None:
+                # Keys
+                code = AttributeHelper.attribute_key(recipient_country, 'code')
                 
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['recipient-country-ref'],
-                                Literal(code)))
-                
-            if not recipient_country_text == None:
-                
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['recipient-country-name'],
-                                recipient_country_text))            
-               
-        if not period_start == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_start, 'iso-date')
-            
-            # Text
-            period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
-            
-            if not date == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['start-date'],
-                                Literal(date)))
-            
-            if not period_start_text == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['start-date-text'],
-                                period_start_text))
-        
-        if not period_end == None:
-            # Keys
-            date = AttributeHelper.attribute_key(period_end, 'iso-date')
-            
-            # Text
-            period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
-            
-            if not date == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['end-date'],
-                                Literal(date)))
-            
-            if not period_end_text == None:
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['end-date-text'],
-                                period_end_text))
-        
-        if not value == None:
-            # Keys
-            currency = AttributeHelper.attribute_key(value, 'currency')
-            value_date = AttributeHelper.attribute_key(value, 'value-date')
-            
-            # Text
-            value_text = value.text
-            
-            if not value_text == None:
-                value_text = " ".join(value_text.split())
-                
-                self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                self.iati['value'],
-                                Literal(value_text)))
-                
-                if not currency == None:
+                # Text
+                recipient_country_text = AttributeHelper.attribute_language(recipient_country, self.default_language)
+    
+                if not code == None:
                     self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                    self.iati['value-currency'],
-                                    self.iati['codelist/Currency/' + str(currency)]))
-                
-                elif not self.default_currency == None:
+                                    self.iati['recipient-country-ref'],
+                                    Literal(code)))
+    
+                    code = code.replace(" ", "%20")
+    
                     self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                    self.iati['value-currency'],
-                                    self.iati['codelist/Currency/' + str(self.default_currency)]))
-                
-                if not value_date == None:
+                                    self.iati['recipient-country'],
+                                    self.iati['codelist/Country/' + code]))
+                    
+                if not recipient_country_text == None:
+                    
                     self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
-                                    self.iati['value-date'],
-                                    Literal(value_date)))
+                                    self.iati['recipient-country-name'],
+                                    recipient_country_text))            
+                   
+            if not period_start == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_start, 'iso-date')
+                
+                # Text
+                period_start_text = AttributeHelper.attribute_language(period_start, self.default_language)
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                    self.iati['start-date'],
+                                    Literal(date)))
+                
+                if not period_start_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                    self.iati['start-date-text'],
+                                    period_start_text))
+            
+            if not period_end == None:
+                # Keys
+                date = AttributeHelper.attribute_key(period_end, 'iso-date')
+                
+                # Text
+                period_end_text = AttributeHelper.attribute_language(period_end, self.default_language)
+                
+                if not date == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                    self.iati['end-date'],
+                                    Literal(date)))
+                
+                if not period_end_text == None:
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                    self.iati['end-date-text'],
+                                    period_end_text))
+            
+            if not value == None:
+                # Keys
+                currency = AttributeHelper.attribute_key(value, 'currency')
+                value_date = AttributeHelper.attribute_key(value, 'value-date')
+                
+                # Text
+                value_text = value.text
+                
+                if not value_text == None:
+                    value_text = " ".join(value_text.split())
+                    
+                    self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                    self.iati['value'],
+                                    Literal(value_text)))
+                    
+                    if not currency == None:
+                        currency = currency.replace(" ", "%20")
+                        
+                        self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                        self.iati['value-currency'],
+                                        self.iati['codelist/Currency/' + str(currency)]))
+                    
+                    elif not self.default_currency == None:
+                        self.default_currency = self.default_currency.replace(" ", "%20")
+                        
+                        self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                        self.iati['value-currency'],
+                                        self.iati['codelist/Currency/' + str(self.default_currency)]))
+                    
+                    if not value_date == None:
+                        self.graph.add((self.iati['organisation/' + self.id + '/recipient-country-budget/' + str(hash_recipient_country_budget)],
+                                        self.iati['value-date'],
+                                        Literal(value_date)))
                     
     def document_link(self, xml):
         '''Converts the XML of the document-link element to a RDFLib self.graph.
@@ -3029,11 +3193,15 @@ class OrganisationElements :
                             self.iati['document-link']))    
             
             if not url == None:
+                url = url.replace(" ", "%20")
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/document-link/' + str(hash_document_link)],
                                 self.iati['url'],
                                 URIRef(url)))
             
             if not format == None:
+                format = format.replace(" ", "%20")
+                
                 self.graph.add((self.iati['organisation/' + self.id + '/document-link/' + str(hash_document_link)],
                                 self.iati['format'],
                                 self.iati['codelist/FileFormat/' + str(format)]))
@@ -3051,9 +3219,12 @@ class OrganisationElements :
                 # Keys
                 code = AttributeHelper.attribute_key(category, 'code')
                 
-                self.graph.add((self.iati['organisation/' + self.id + '/document-link/' + str(hash_document_link)],
-                                self.iati['document-category'],
-                                self.iati['codelist/DocumentCategory/' + str(code)]))
+                if not code == None:
+                    code = code.replace(" ", "%20")
+                
+                    self.graph.add((self.iati['organisation/' + self.id + '/document-link/' + str(hash_document_link)],
+                                    self.iati['document-category'],
+                                    self.iati['codelist/DocumentCategory/' + str(code)]))
             
             if not languages == []:
                 for language in languages:
@@ -3075,7 +3246,7 @@ class ProvenanceElements :
         @defaults: A dictionary of default provenance items.
         @namespace: The default RDFLib Namespace.'''
         
-        self.id = defaults['id']
+        self.id = defaults['id'].replace(" ", "%20")
         self.type = defaults['type']
         self.provenance = defaults['provenance']
         self.source_name = defaults['document_name']
@@ -3263,6 +3434,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['source-document-download-url'],
@@ -3396,6 +3568,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['resources-url'],
@@ -3408,6 +3581,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['resources-cache-url'],
@@ -3420,6 +3594,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['resources-webstore-url'],
@@ -3608,6 +3783,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['source-document-url'],
@@ -3620,6 +3796,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['source-document-ckan-url'],
@@ -3684,7 +3861,7 @@ class ProvenanceElements :
             
             self.provenance.add((self.source,
                                  self.iati['extras-publisher-iati-id'],
-                                 self.iati['codelist/OrganisationIdentifier/' + str("-".join(value.split()))]))
+                                 self.iati['codelist/OrganisationIdentifier/' + str("%20".join(value.split()))]))
             
     def extras_activity_period_from(self, value):
         '''Converts the JSON of the activity_period-from element to a RDFLib self.graph.
@@ -3741,6 +3918,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['extras-publisher-organization-type'],
@@ -3765,6 +3943,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['extras-country'],
@@ -3813,6 +3992,7 @@ class ProvenanceElements :
         @value: The value of the json.'''
         
         if (not value == 'null') and (not str(value) == "") and (not value == None):
+            value = value.replace(" ", "%20")
             
             self.provenance.add((self.source,
                                  self.iati['extras-publisher-country'],
@@ -3865,6 +4045,7 @@ class ProvenanceElements :
         if (not value == 'null') and (not str(value) == "") and (not value == None):
             
             for entry in value:
+                entry = entry.replace(" ", "%20")
             
                 self.provenance.add((self.source,
                                      self.iati['extras-donor-country'],

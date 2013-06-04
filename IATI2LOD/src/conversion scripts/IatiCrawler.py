@@ -1,6 +1,6 @@
 ## IatiCrawler.py
 ## By Kasper Brandt
-## Last updated on 11-04-2013
+## Last updated on 01-06-2013
 
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -145,9 +145,9 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
     if not os.path.isdir(folder):
         os.makedirs(folder)
     
-    # DEBUG: last 100 documents only
-    #if type == 'activities':
-    #    all_documents = all_documents[-100:]
+    #DEBUG: last 100 documents only
+#    if type == 'activities':
+#        all_documents = all_documents[-100:]
     
     # Check the last update for each document.
     for document in all_documents:
@@ -164,7 +164,7 @@ def update_documents(folder, iati_url, all_documents, server_update, type):
                 
                 # Save XML to folder
                 save_to_folder(folder, data['download_url'].replace(' ','%20'), document + '.xml')
-                print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + "..."
+                print "Progress: " + str(counter) + " out of " + str(len(all_documents)) + " (" + str(data['download_url'].replace(' ','%20')) + ")..."
                     
             else:
                 print "Skipping " + str(document) + "..."
@@ -192,7 +192,7 @@ def main():
     iati_url = "http://www.iatiregistry.org/api/"
     retrieve = ['activities', 'organisations', 'codelists']
     
-    # Last time the script was run: "2013-22-04"
+    # Last time the script was run: "2013-01-06"
     last_time_updated = "1990"
     
     for type in retrieve:
