@@ -2,10 +2,8 @@ import xml.etree.ElementTree as ET
 import glob, os, sys, re
 
 # Settings
-turtle_folder = "/media/Acer/School/IATI-data/mappings/"
 activities_folder = "/media/Acer/School/IATI-data/xml/activities/"
 
-locations = {}
 total_count = 0
 
 
@@ -16,9 +14,8 @@ for file in glob.glob(activities_folder + '*.xml'):
         
         
         for line in activities_file:
-
-            if "GB-CHC-202918-AGNA95" in line:
-                file_count += 1
+            count = line.count('</transaction>')
+            file_count += count
             
         print "Found " + str(file_count) + " in " + str(file)
         
